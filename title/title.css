@@ -1,0 +1,26 @@
+.title {
+  display: grid;
+  font-size: 200%;
+  text-align: center;
+  font-weight: bold;
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: 200px;
+  justify-items: left;
+}
+
+.icon {
+  grid-column: 1;
+  grid-row: 1;
+  height: 200px;
+  width: auto;
+  border-radius: 20px;
+}
+
+.name {
+  font-size: 200%;
+  font-weight: bold;
+  grid-column: 2;
+  grid-row: 1;
+  vertical-align: middle;
+  align-self: center;
+}
