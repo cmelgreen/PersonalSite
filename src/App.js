@@ -1,9 +1,9 @@
 import React from "react";
 import "./App.css";
 
-import Linkbar from "./linkbar/linkbar";
-import Title from "./title/title";
-import Content from "./content/content";
+import Linkbar from "./components/linkbar/linkbar";
+import Title from "./components/title/title";
+import Content from "./components/content/content";
 
 export default function App() {
   return (
