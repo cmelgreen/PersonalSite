@@ -2,7 +2,7 @@ properties([pipelineTriggers([githubPush()])])
 
 pipeline {
     agent {
-        docker { image 'node:14-alpine' }
+        docker { image 'node:15.0.1-alpine3.10' }
     }
     
     stages {
@@ -14,15 +14,13 @@ pipeline {
 
         stage('Install w/ cleared proxy') { 
             steps {
-                sh 'yarn config delete https-proxy'
-                sh 'yarn config delete proxy'
-                sh 'yarn'
+                sh 'npm install'
             }
         }
 
         stage('Build') { 
             steps {
-                sh 'yarn build'
+                sh 'npm build'
             }
         }
     }
