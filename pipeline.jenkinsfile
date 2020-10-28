@@ -30,7 +30,7 @@ pipeline {
                     $class: 'AWSCodeDeployPublisher', 
                     applicationName: 'server_cd_app', 
                     awsAccessKey: '', 
-                    awsSecretKey: <object of type hudson.util.Secret>, 
+                    awsSecretKey: '', 
                     deploymentGroupAppspec: false, 
                     deploymentGroupName: 'server_cd_group', 
                     deploymentMethod: 'deploy', 
