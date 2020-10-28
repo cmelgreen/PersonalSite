@@ -25,27 +25,25 @@ pipeline {
     
     post {
         success {
-            stage('Deploy') {
-                step([
-                    $class: 'AWSCodeDeployPublisher', 
-                    applicationName: 'server_cd_app', 
-                    awsAccessKey: '', 
-                    awsSecretKey: '', 
-                    deploymentGroupAppspec: false, 
-                    deploymentGroupName: 'server_cd_group', 
-                    deploymentMethod: 'deploy', 
-                    excludes: '', 
-                    iamRoleArn: '', 
-                    includes: '**', 
-                    proxyHost: '', 
-                    proxyPort: 0,
-                    region: 'us-west-2', 
-                    s3bucket: 'server-s3-bucket', 
-                    s3prefix: '', 
-                    subdirectory: '', 
-                    versionFileName: '', 
-                    waitForCompletion: false])
-            }
+            step([
+                $class: 'AWSCodeDeployPublisher', 
+                applicationName: 'server_cd_app', 
+                awsAccessKey: '', 
+                awsSecretKey: '', 
+                deploymentGroupAppspec: false, 
+                deploymentGroupName: 'server_cd_group', 
+                deploymentMethod: 'deploy', 
+                excludes: '', 
+                iamRoleArn: '', 
+                includes: '**', 
+                proxyHost: '', 
+                proxyPort: 0,
+                region: 'us-west-2', 
+                s3bucket: 'server-s3-bucket', 
+                s3prefix: '', 
+                subdirectory: '', 
+                versionFileName: '', 
+                waitForCompletion: false])
         }
     }
 }
