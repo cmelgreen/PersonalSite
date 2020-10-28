@@ -1,5 +1,3 @@
-properties([pipelineTriggers([githubPush()])])
-
 pipeline {
     agent {
         docker { image 'node:15.0.1-alpine3.10' }
@@ -12,15 +10,41 @@ pipeline {
             }
         }
 
-        stage('Install w/ cleared proxy') { 
+        stage('Install') { 
             steps {
-                sh 'yarn install --verbose'
+                sh 'yarn install'
             }
         }
 
         stage('Build') { 
             steps {
-                sh 'yarn build --verbose'
+                sh 'yarn build'
+            }
+        }
+    }
+    
+    post {
+        success {
+            stage('Deploy') {
+                step([
+                    $class: 'AWSCodeDeployPublisher', 
+                    applicationName: 'server_cd_app', 
+                    awsAccessKey: '', 
+                    awsSecretKey: <object of type hudson.util.Secret>, 
+                    deploymentGroupAppspec: false, 
+                    deploymentGroupName: 'server_cd_group', 
+                    deploymentMethod: 'deploy', 
+                    excludes: '', 
+                    iamRoleArn: '', 
+                    includes: '**', 
+                    proxyHost: '', 
+                    proxyPort: 0,
+                    region: 'us-west-2', 
+                    s3bucket: 'server-s3-bucket', 
+                    s3prefix: '', 
+                    subdirectory: '', 
+                    versionFileName: '', 
+                    waitForCompletion: false])
             }
         }
     }
