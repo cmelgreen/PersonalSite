@@ -1,5 +1,5 @@
 version 0.0
 os: linux
 files:
-  - source: /var/lib/jenkins/workspace/frontend/build
+  - source: /build
     destination: /
