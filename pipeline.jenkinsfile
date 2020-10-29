@@ -14,12 +14,10 @@ pipeline {
 
             environment { GOCACHE = "${WORKSPACE}" }
 
-            steps { 
-                
+            steps {
                 sh 'make install' 
                 sh 'make build'
                 sh 'ls'
-                
             }
         }
 
