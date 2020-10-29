@@ -2,12 +2,11 @@ pipeline {
     agent any
     
     stages {
+        stage('Clone git') {
+            steps { git 'https://github.com/cmelgreen/PersonalSite' }
+        }
+        
         stage ('Build') {
-
-            stage('Clone git') {
-                steps { git 'https://github.com/cmelgreen/PersonalSite' }
-            }
-
             parallel {
 
                 stage('Frontend') {
