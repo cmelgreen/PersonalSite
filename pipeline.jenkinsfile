@@ -18,12 +18,12 @@ pipeline {
                     sh 'echo $PWD'
                     sh 'ls'
                     sh 'ls backend'
-                    sh 'ls backend@temp'
+                    sh 'ls -F backend@temp'
                     sh 'make /backend/install' 
                     sh 'make /backend/build'
                     sh 'ls'
                     sh 'ls backend'
-                    sh 'ls backend@temp'
+                    sh 'ls -F backend@temp'
                 
             }
         }
