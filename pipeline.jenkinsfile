@@ -1,9 +1,7 @@
 pipeline {
-
     agent any
     
     stages {
-
         stage ('Build') {
 
             stage('Clone git') {
@@ -13,34 +11,34 @@ pipeline {
             parallel {
 
                 stage('Frontend') {
-
                     agent { docker { image 'node:latest' } }
 
-                    dir('frontend') {
-
-                        stage('Install') {
+                    stage('Install') {
+                        dir('frontend') {
                             steps { sh 'make install' }
                         }
-                        
-                        stage('Build') { 
+                    }
+                    
+                    stage('Build') { 
+                        dir('frontend') {
                             steps { sh 'make build' }
                         }
                     }
                 }
             
                 stage('Backend') {
-
                     agent { docker { image 'golang:latest' } }
 
                     environment { GOCACHE = "${WORKSPACE}" }
 
-                    dir('backend') {
-
-                        stage('Install') {
+                    stage('Install') {
+                        dir('backend') {
                             steps { sh 'make install' }
                         }
+                    }
 
-                        stage('Build') { 
+                    stage('Build') { 
+                        dir('backend') {
                             steps { sh 'make build' }
                         }
                     }
