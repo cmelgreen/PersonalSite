@@ -17,10 +17,11 @@ pipeline {
                         dir('backend') {
                             sh 'make install' 
                             sh 'make build'
+                            sh 'ls'
                         }
                     }
                 }
-                
+
                 stage('Frontend') {
                     agent { docker { image 'node:latest' } }
 
