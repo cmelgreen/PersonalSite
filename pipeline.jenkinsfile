@@ -16,7 +16,7 @@ pipeline {
 
             steps { 
                 dir('backend')
-                        sh 
+                        sh 'ls'
                         sh 'make install' 
                         sh 'make build'
             }
