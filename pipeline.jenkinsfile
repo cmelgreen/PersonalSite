@@ -12,15 +12,10 @@ pipeline {
                     stage('Frontend') {
                         agent { docker { image 'node:latest' } }
 
-                        stage('Install') {
-                            dir('frontend') {
-                                steps { sh 'make install' }
-                            }
-                        }
-                        
-                        stage('Build') { 
-                            dir('frontend') {
-                                steps { sh 'make build' }
+                        dir('frontend') {
+                            steps { 
+                                sh 'make install'
+                                sh 'make build' 
                             }
                         }
                     }
@@ -30,15 +25,10 @@ pipeline {
 
                         environment { GOCACHE = "${WORKSPACE}" }
 
-                        stage('Install') {
-                            dir('backend') {
-                                steps { sh 'make install' }
-                            }
-                        }
-
-                        stage('Build') { 
-                            dir('backend') {
-                                steps { sh 'make build' }
+                        dir('backend') {
+                            teps { 
+                                sh 'make install' 
+                                sh 'make build'
                             }
                         }
                     }
