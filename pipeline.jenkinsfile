@@ -23,7 +23,7 @@ pipeline {
         stage('test') {
             steps {
                 sh 'ls frontend'
-                sh 'ls backent'
+                sh 'ls backend'
             }
         }
 
