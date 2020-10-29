@@ -11,8 +11,8 @@ pipeline {
                 stage('Frontend') {
                     agent { docker { image 'node:latest' } }
 
-                    dir('frontend') {
-                        steps { 
+                    steps { 
+                        dir('frontend') {
                             sh 'make install'
                             sh 'make build' 
                         }
@@ -24,14 +24,13 @@ pipeline {
 
                     environment { GOCACHE = "${WORKSPACE}" }
 
-                    dir('backend') {
-                        steps { 
+                    steps { 
+                        dir('backend') {
                             sh 'make install' 
                             sh 'make build'
                         }
                     }
                 }
-                
             }
         }
     }
