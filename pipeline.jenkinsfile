@@ -1,12 +1,6 @@
 pipeline {
-   node {
-        docker.image('golang:1.15-alpine').inside(' -u 0') {
-            sh 'apk add curl'
-        }
-    }
-
     agent {
-        any
+        docker { image 'node:15.0.1-alpine3.10' }
     }
     
     stages {
