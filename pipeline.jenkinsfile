@@ -7,18 +7,7 @@ pipeline {
         }
 
         stage ('Build') {
-            parallel {
-                stage('Frontend') {
-                    agent { docker { image 'node:latest' } }
-
-                    steps { 
-                        dir('frontend') {
-                            sh 'make install'
-                            sh 'make build' 
-                        }
-                    }
-                }
-        
+            parallel {       
                 stage('Backend') {
                     agent { docker { image 'golang:latest' } }
 
@@ -28,6 +17,17 @@ pipeline {
                         dir('backend') {
                             sh 'make install' 
                             sh 'make build'
+                        }
+                    }
+                }
+                
+                stage('Frontend') {
+                    agent { docker { image 'node:latest' } }
+
+                    steps { 
+                        dir('frontend') {
+                            sh 'make install'
+                            sh 'make build' 
                         }
                     }
                 }
