@@ -18,7 +18,9 @@ pipeline {
                 dir('backend') {
                     sh 'make install' 
                     sh 'make build'
+                    sh 'ls'
                 }
+            sh 'ls'
             }
         }
 
@@ -33,7 +35,7 @@ pipeline {
             agent { docker { image 'node:latest' } }
 
             steps { 
-                dir('frontend') {
+                dir('frontend-test') {
                     sh 'make install'
                     sh 'make build' 
                 }
