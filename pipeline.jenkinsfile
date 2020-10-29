@@ -6,39 +6,40 @@ pipeline {
             steps { git 'https://github.com/cmelgreen/PersonalSite' }
         }
 
-        stages {
+        stage ('Build') {
             parallel {
+                stages {
+                    stage('Frontend') {
+                        agent { docker { image 'node:latest' } }
 
-                stage('Frontend') {
-                    agent { docker { image 'node:latest' } }
-
-                    stage('Install') {
-                        dir('frontend') {
-                            steps { sh 'make install' }
+                        stage('Install') {
+                            dir('frontend') {
+                                steps { sh 'make install' }
+                            }
+                        }
+                        
+                        stage('Build') { 
+                            dir('frontend') {
+                                steps { sh 'make build' }
+                            }
                         }
                     }
-                    
-                    stage('Build') { 
-                        dir('frontend') {
-                            steps { sh 'make build' }
-                        }
-                    }
-                }
             
-                stage('Backend') {
-                    agent { docker { image 'golang:latest' } }
+                    stage('Backend') {
+                        agent { docker { image 'golang:latest' } }
 
-                    environment { GOCACHE = "${WORKSPACE}" }
+                        environment { GOCACHE = "${WORKSPACE}" }
 
-                    stage('Install') {
-                        dir('backend') {
-                            steps { sh 'make install' }
+                        stage('Install') {
+                            dir('backend') {
+                                steps { sh 'make install' }
+                            }
                         }
-                    }
 
-                    stage('Build') { 
-                        dir('backend') {
-                            steps { sh 'make build' }
+                        stage('Build') { 
+                            dir('backend') {
+                                steps { sh 'make build' }
+                            }
                         }
                     }
                 }
