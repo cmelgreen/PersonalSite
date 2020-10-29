@@ -17,11 +17,13 @@ pipeline {
             steps { 
 
                     sh 'ls'
-                    sh 'ls/backend'
+                    sh 'ls backend'
+                    sh 'ls backend@temp'
                     sh 'make /backend/install' 
                     sh 'make /backend/build'
                     sh 'ls'
-                    sh 'ls/backend'
+                    sh 'ls backend'
+                    sh 'ls backend@temp'
                 
             }
         }
