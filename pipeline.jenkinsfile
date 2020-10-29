@@ -26,7 +26,7 @@ pipeline {
 
         stage('test') {
             steps {
-                sh 'ls frontend'
+                sh 'ls frontend-test'
                 sh 'ls backend'
             }
         }
