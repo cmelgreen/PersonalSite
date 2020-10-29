@@ -1,29 +1,55 @@
 pipeline {
-    agent {
-        docker { image 'node:15.0.1-alpine3.10' }
-    }
+
+    agent any
     
     stages {
-        stage('Clone git') {
-            steps {
-                git 'https://github.com/cmelgreen/PersonalSite'
-            }
-        }
 
-        stage('Install') { 
-            steps {
-                sh 'yarn install'
-            }
-        }
+        stage ('Build') {
 
-        stage('Build') { 
-            steps {
-                sh 'yarn build'
+            stage('Clone git') {
+                steps { git 'https://github.com/cmelgreen/PersonalSite' }
+            }
+
+            parallel {
+
+                stage('Frontend') {
+
+                    agent { docker { image 'node:latest' } }
+
+                    dir('frontend') {
+
+                        stage('Install') {
+                            steps { sh 'make install' }
+                        }
+                        
+                        stage('Build') { 
+                            steps { sh 'make build' }
+                        }
+                    }
+                }
+            
+                stage('Backend') {
+
+                    agent { docker { image 'golang:latest' } }
+
+                    environment { GOCACHE = "${WORKSPACE}" }
+
+                    dir('backend') {
+
+                        stage('Install') {
+                            steps { sh 'make install' }
+                        }
+
+                        stage('Build') { 
+                            steps { sh 'make build' }
+                        }
+                    }
+                }
             }
         }
     }
     
-    post {
+    post ('Deploy') {
         success {
             step([
                 $class: 'AWSCodeDeployPublisher', 
@@ -43,7 +69,8 @@ pipeline {
                 s3prefix: '', 
                 subdirectory: '', 
                 versionFileName: '', 
-                waitForCompletion: false])
+                waitForCompletion: false
+            ])
         }
     }
 }
