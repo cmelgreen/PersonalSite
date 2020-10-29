@@ -1,5 +1,7 @@
 version: 0.0
 os: linux
 files:
+  - source: /server
+    destination: /backend
   - source: /build
     destination: /frontend
