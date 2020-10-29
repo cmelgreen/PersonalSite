@@ -7,7 +7,10 @@ pipeline {
         }
 
         stage('Backend') {
-            agent { docker { image 'golang:latest' } }
+            agent { docker { 
+                image 'golang:latest' 
+                args '-v "$PWD":$PWD -w $PWD'
+            } }
 
             environment { GOCACHE = "${WORKSPACE}" }
 
@@ -28,10 +31,7 @@ pipeline {
         }
 
         stage('Frontend') {
-            agent { docker { 
-                image 'node:latest' 
-                args '-v "$PWD":/'
-            }}
+            agent { docker { image 'node:latest' } }
 
             steps { 
                 dir('frontend') {
