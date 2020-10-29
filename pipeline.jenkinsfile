@@ -5,8 +5,8 @@ pipeline {
         stage('Clone git') {
             steps { git 'https://github.com/cmelgreen/PersonalSite' }
         }
-        
-        stage ('Build') {
+
+        stages {
             parallel {
 
                 stage('Frontend') {
