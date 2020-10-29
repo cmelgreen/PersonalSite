@@ -16,9 +16,8 @@ pipeline {
 
             steps { 
                 dir('backend') {
-                        sh 'ls'
-                        sh 'make install' 
-                        sh 'make build'
+                    sh 'make install' 
+                    sh 'make build'
                 }
             }
         }
@@ -53,7 +52,7 @@ pipeline {
                 deploymentGroupAppspec: false, 
                 deploymentGroupName: 'server_cd_group', 
                 deploymentMethod: 'deploy', 
-                excludes: '', 
+                excludes: 'infrastructure-as-code, frontend/src', 
                 iamRoleArn: '', 
                 includes: '**', 
                 proxyHost: '', 
