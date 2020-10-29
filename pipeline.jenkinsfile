@@ -20,6 +20,13 @@ pipeline {
             }
         }
 
+        stage('test') {
+            steps {
+                sh 'ls frontend'
+                sh 'ls backent'
+            }
+        }
+
         stage('Frontend') {
             agent { docker { image 'node:latest' } }
 
