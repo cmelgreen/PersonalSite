@@ -15,7 +15,7 @@ pipeline {
             environment { GOCACHE = "${WORKSPACE}" }
 
             steps { 
-
+                    sh 'echo $PWD'
                     sh 'ls'
                     sh 'ls backend'
                     sh 'ls backend@temp'
