@@ -9,7 +9,7 @@ pipeline {
         stage('Backend') {
             agent { docker { 
                 image 'golang:latest' 
-                args '-v /backend:/backend'
+                args '-v /backend:/backend -w /backend'
             } }
 
             environment { GOCACHE = "${WORKSPACE}" }
