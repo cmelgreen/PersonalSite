@@ -16,8 +16,10 @@ pipeline {
 
             steps { 
 
-                    sh 'make backend/install' 
-                    sh 'make backend/build'
+                    sh 'ls'
+                    sh 'ls/backend'
+                    sh 'make /backend/install' 
+                    sh 'make /backend/build'
                     sh 'ls'
                     sh 'ls/backend'
                 
