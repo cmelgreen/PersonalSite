@@ -8,31 +8,30 @@ pipeline {
 
         stage ('Build') {
             parallel {
-                stages {
-                    stage('Frontend') {
-                        agent { docker { image 'node:latest' } }
+                stage('Frontend') {
+                    agent { docker { image 'node:latest' } }
 
-                        dir('frontend') {
-                            steps { 
-                                sh 'make install'
-                                sh 'make build' 
-                            }
-                        }
-                    }
-            
-                    stage('Backend') {
-                        agent { docker { image 'golang:latest' } }
-
-                        environment { GOCACHE = "${WORKSPACE}" }
-
-                        dir('backend') {
-                            teps { 
-                                sh 'make install' 
-                                sh 'make build'
-                            }
+                    dir('frontend') {
+                        steps { 
+                            sh 'make install'
+                            sh 'make build' 
                         }
                     }
                 }
+        
+                stage('Backend') {
+                    agent { docker { image 'golang:latest' } }
+
+                    environment { GOCACHE = "${WORKSPACE}" }
+
+                    dir('backend') {
+                        teps { 
+                            sh 'make install' 
+                            sh 'make build'
+                        }
+                    }
+                }
+                
             }
         }
     }
