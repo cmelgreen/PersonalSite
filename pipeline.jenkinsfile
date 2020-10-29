@@ -15,11 +15,11 @@ pipeline {
             environment { GOCACHE = "${WORKSPACE}" }
 
             steps { 
-                dir('backend') {
-                    sh 'make install' 
-                    sh 'make build'
-                    sh 'ls'
-                }
+                
+                sh 'make install' 
+                sh 'make build'
+                sh 'ls'
+                
             }
         }
 
