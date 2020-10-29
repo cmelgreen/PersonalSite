@@ -6,34 +6,31 @@ pipeline {
             steps { git 'https://github.com/cmelgreen/PersonalSite' }
         }
 
-        stage ('Build') {
-            parallel {       
-                stage('Backend') {
-                    agent { docker { image 'golang:latest' } }
+        stage('Backend') {
+            agent { docker { image 'golang:latest' } }
 
-                    environment { GOCACHE = "${WORKSPACE}" }
+            environment { GOCACHE = "${WORKSPACE}" }
 
-                    steps { 
-                        dir('backend') {
-                            sh 'make install' 
-                            sh 'make build'
-                            sh 'ls'
-                        }
-                    }
-                }
-
-                stage('Frontend') {
-                    agent { docker { image 'node:latest' } }
-
-                    steps { 
-                        dir('frontend') {
-                            sh 'make install'
-                            sh 'make build' 
-                        }
-                    }
+            steps { 
+                dir('backend') {
+                    sh 'make install' 
+                    sh 'make build'
+                    sh 'ls'
                 }
             }
         }
+
+        stage('Frontend') {
+            agent { docker { image 'node:latest' } }
+
+            steps { 
+                dir('frontend') {
+                    sh 'make install'
+                    sh 'make build' 
+                }
+            }
+        }
+        
     }
     
     post ('Deploy') {
