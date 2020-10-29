@@ -18,8 +18,12 @@ pipeline {
                     sh 'echo $PWD'
                     sh 'ls'
                     sh 'ls backend'
-                    sh 'make /backend/install' 
-                    sh 'make /backend/build'
+                    dir('backend') {
+                        sh 'ls'
+                        sh 'make install' 
+                        sh 'make build'
+                        sh 'ls'
+                    }
                     sh 'ls'
                     sh 'ls backend'
                 
