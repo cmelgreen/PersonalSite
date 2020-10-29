@@ -20,10 +20,10 @@ pipeline {
                     sh 'ls backend'
                     sh ' echo $WORKDIR'
 
-                        sh 'ls'
+                        
                         sh 'make install' 
                         sh 'make build'
-                        sh 'ls'
+                        
                     
                     sh 'ls'
                     sh 'ls backend'
