@@ -1,8 +1,6 @@
 pipeline {
     agent any
     
-    options { disableConcurrentBuilds() }
-    
     stages {
         stage('Clone git') {
             steps { git 'https://github.com/cmelgreen/PersonalSite' }
@@ -20,16 +18,7 @@ pipeline {
                 dir('backend') {
                     sh 'make install' 
                     sh 'make build'
-                    sh 'ls'
                 }
-            sh 'ls'
-            }
-        }
-
-        stage('test') {
-            steps {
-                sh 'ls frontend-test'
-                sh 'ls backend'
             }
         }
 
