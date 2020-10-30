@@ -7,8 +7,6 @@ files:
     destination: /frontend
 
 hooks:
-  # ApplicationStop:
-  #   - location: backend/stop_server.sh
   ApplicationStart:
     - location: backend/start_server.sh
       timeout: 120
