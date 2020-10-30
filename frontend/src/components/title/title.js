@@ -7,7 +7,7 @@ export default function Title() {
       <picture>
         <img class="icon" src={require("./icon.jpg")} alt="icon" />
       </picture>
-      <div class="name">Cooper Melgreen - Webhook Test 7</div>
+      <div class="name">Cooper Melgreen</div>
     </div>
   );
 }
