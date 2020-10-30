@@ -9,7 +9,32 @@ SERVER_VOL_TYPE             = "gp2"
 SERVER_VOL_SIZE             = 30
 SERVER_PUBLIC_IP            = false
 
-BACKEND_INSTANCE_TYPE         = "t2.medium"
+BACKEND_INSTANCE_TYPE       = "t2.medium"
+BACKEND_IAM_POLICY          = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "",
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "codedeploy.amazonaws.com"
+      },
+      "Action": "sts:AssumeRole"
+    },
+    {
+      "Sid": "",
+      "Effect": "Allow",
+      "Principal": {
+          "Service": [
+          "ec2.amazonaws.com"
+          ]
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
+}
+EOF
 
 SERVER_ASG_MIN              = 1
 SERVER_ASG_MAX              = 1
@@ -38,10 +63,18 @@ SERVER_IAM_POLICY           = <<EOF
 }
 EOF
 
+APP_NAME                = "server-app"
+APP_BUCKET              = "server-cd-bucket"
+APP_GROUP               = "server-app-group"
+APP_ROLLBACK            = true
+APP_ROLLBACK_EVENTS     = ["DEPLOYMENT_FAILURE"]
+
 IAM_FULL_SSM_ARN        = "arn:aws:iam::aws:policy/AmazonSSMFullAccess"
 IAM_READ_ONLY_SSM_ARN   = "arn:aws:iam::aws:policy/AmazonSSMReadOnlyAccess"
-IAM_CODEDEPLOY_ARN      = "arn:aws:iam::aws:policy/service-role/AmazonEC2RoleforAWSCodeDeploy"
+IAM_CD_EC2_ARN          = "arn:aws:iam::aws:policy/service-role/AmazonEC2RoleforAWSCodeDeploy"
 IAM_FULL_S3_ARN         = "arn:aws:iam::aws:policy/AmazonS3FullAccess"
+IAM_CD_DEPLOYER_ARN     = "arn:aws:iam::aws:policy/AWSCodeDeployDeployerAccess"
+IAM_CD_DEPLOY_ARN       = "arn:aws:iam::aws:policy/service-role/AWSCodeDeployRole"
 
 
 VPC_CIDR                = "10.0.0.0/16"

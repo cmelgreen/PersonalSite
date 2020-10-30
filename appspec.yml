@@ -5,3 +5,7 @@ files:
     destination: /backend
   - source: /build
     destination: /frontend
+
+hooks:
+  ApplicationStart:
+    - location: backend/start_server.sh

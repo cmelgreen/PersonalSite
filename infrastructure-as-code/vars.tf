@@ -9,7 +9,9 @@ variable "SERVER_VOL_TYPE" {}
 variable "SERVER_VOL_SIZE" {}
 variable "SERVER_PUBLIC_IP" {}
 
+variable "BACKEND_IAM_NAME" {}
 variable "BACKEND_INSTANCE_TYPE" {}
+variable "BACKEND_IAM_POLICY" {}
 
 variable "SERVER_ASG_MIN" {}
 variable "SERVER_ASG_MAX" {}
@@ -17,6 +19,12 @@ variable "SEVER_ASG_DEFAULT" {}
 variable "SERVER_ASG_HEALTH_PERIOD" {}
 variable "SERVER_ASG_HEALTH_TYPE" {}
 variable "SERVER_ASG_FORCE" {}
+
+variable "APP_NAME" {}
+variable "APP_BUCKET" {}
+variable "APP_GROUP" {}
+variable "APP_ROLLBACK" {}
+variable "APP_ROLLBACK_EVENTS" {}
 
 
 variable "SERVER_IAM_NAME" {}
@@ -27,6 +35,8 @@ variable "IAM_FULL_SSM_ARN" {}
 variable "IAM_READ_ONLY_SSM_ARN" {}
 variable "IAM_CODEDEPLOY_ARN" {}
 variable "IAM_FULL_S3_ARN" {}
+variable "IAM_CD_DEPLOYER_ARN" {}
+variable "IAM_CD_DEPLOY_ARN" {}
 
 
 variable "VPC_CIDR" {}

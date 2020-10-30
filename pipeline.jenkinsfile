@@ -9,7 +9,7 @@ pipeline {
         stage('Backend') {
             agent { docker { 
                 image 'golang:latest' 
-                args '-v "$PWD"/backend:/test -w /test'
+                args '-v "$PWD"/backend:/backend -w /backend'
                 reuseNode true
             } }
 
@@ -43,11 +43,11 @@ pipeline {
         success {
             step([
                 $class: 'AWSCodeDeployPublisher', 
-                applicationName: 'server_cd_app', 
+                applicationName: 'server-app', 
                 awsAccessKey: '', 
                 awsSecretKey: '', 
                 deploymentGroupAppspec: false, 
-                deploymentGroupName: 'server_cd_group', 
+                deploymentGroupName: 'server-app-group', 
                 deploymentMethod: 'deploy', 
                 excludes: 'infrastructure-as-code, frontend/src', 
                 iamRoleArn: '', 
@@ -55,7 +55,7 @@ pipeline {
                 proxyHost: '', 
                 proxyPort: 0,
                 region: 'us-west-2', 
-                s3bucket: 'server-s3-bucket', 
+                s3bucket: 'server-app-bucket', 
                 s3prefix: '', 
                 subdirectory: '', 
                 versionFileName: '', 
