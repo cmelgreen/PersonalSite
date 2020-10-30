@@ -11,7 +11,7 @@ func main() {
 	router := httprouter.New()
 
 	router.GET("/", index)
-	router.ServeFiles("/static/*filepath", http.Dir("/frontend/build/static"))
+	router.ServeFiles("/static/*filepath", http.Dir("../frontend/build/static"))
 	log.Println("Running...")
 
 	log.Fatal(http.ListenAndServe(":80", router))
@@ -19,5 +19,5 @@ func main() {
 
 func index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	w.Write([]byte("Hello"))
-	http.ServeFile(w, r, "/frontend/build/index.html")
+	http.ServeFile(w, r, "../frontend/build/index.html")
 }
