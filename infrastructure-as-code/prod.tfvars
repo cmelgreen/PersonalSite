@@ -65,7 +65,7 @@ SERVER_IAM_POLICY           = <<EOF
 EOF
 
 APP_NAME                = "server-app"
-APP_BUCKET              = "server-cd-bucket"
+APP_BUCKET              = "server-app-bucket"
 APP_GROUP               = "server-app-group"
 APP_ROLLBACK            = true
 APP_ROLLBACK_EVENTS     = ["DEPLOYMENT_FAILURE"]
@@ -120,7 +120,7 @@ RDS_CIDR                = "0.0.0.0/0"
 
 PARAM_ROOT              = "/rds/"
 
-GITHUB_TOKEN            = "554306d4f0d05f9544dc6b1122e4148f02336c8b"
+GITHUB_TOKEN            = "d3cfecc295461b49967f1b5bc5cf87f445065351"
 GITHUB_OWNER            = "cmelgreen"
 GITHUB_REPO             = "PersonalSite"
 GITHUB_CONTENT_TYPE     = "json"

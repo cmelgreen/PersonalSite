@@ -3,7 +3,7 @@ os: linux
 files:
   - source: backend/server
     destination: /backend
-  - source: /build
+  - source: frontend/build
     destination: /frontend
 
 hooks:
