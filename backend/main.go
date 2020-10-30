@@ -18,6 +18,5 @@ func main() {
 }
 
 func index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	w.Write([]byte("Hello"))
 	http.ServeFile(w, r, "/frontend/index.html")
 }
