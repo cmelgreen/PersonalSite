@@ -120,7 +120,7 @@ RDS_CIDR                = "0.0.0.0/0"
 
 PARAM_ROOT              = "/rds/"
 
-GITHUB_TOKEN            = "d3cfecc295461b49967f1b5bc5cf87f445065351"
+GITHUB_TOKEN            = "314b13ae19598d59e81fa1f34d804f46d350631e"
 GITHUB_OWNER            = "cmelgreen"
 GITHUB_REPO             = "PersonalSite"
 GITHUB_CONTENT_TYPE     = "json"

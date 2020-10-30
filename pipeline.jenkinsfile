@@ -30,7 +30,7 @@ pipeline {
             } }
 
             steps { 
-                dir('frontend-test') {
+                dir('frontend') {
                     sh 'make install'
                     sh 'make build' 
                 }
