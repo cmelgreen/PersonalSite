@@ -49,7 +49,7 @@ pipeline {
                 deploymentGroupAppspec: false, 
                 deploymentGroupName: 'server-app-group', 
                 deploymentMethod: 'deploy', 
-                excludes: 'infrastructure-as-code, frontend/src', 
+                excludes: 'infrastructure-as-code/, frontend/src/', 
                 iamRoleArn: '', 
                 includes: '**', 
                 proxyHost: '', 
