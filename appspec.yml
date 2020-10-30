@@ -3,7 +3,7 @@ os: linux
 files:
   - source: backend/server
     destination: /backend
-  - source: backend/server_start.sh
+  - source: backend/start_server.sh
     destination: /backend
   - source: frontend/build
     destination: /frontend
