@@ -9,3 +9,4 @@ files:
 hooks:
   ApplicationStart:
     - location: backend/start_server.sh
+      timeout: 120
