@@ -1,8 +1,5 @@
 pipeline {
-    agent {
-        any 
-        reuseNode true
-    }
+    agent any
     
     stages {
         stage('Clone git') {
@@ -13,6 +10,7 @@ pipeline {
             agent { docker { 
                 image 'golang:latest' 
                 args '-v "$PWD"/backend:/test -w /test'
+                reuseNode true
             } }
 
             environment { GOCACHE = "${WORKSPACE}" }
@@ -26,7 +24,10 @@ pipeline {
         }
 
         stage('Frontend') {
-            agent { docker { image 'node:latest' } }
+            agent { docker { 
+                image 'node:latest' 
+                reuseNode true
+            } }
 
             steps { 
                 dir('frontend-test') {
