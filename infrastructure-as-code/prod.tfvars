@@ -10,6 +10,7 @@ SERVER_VOL_SIZE             = 30
 SERVER_PUBLIC_IP            = false
 
 BACKEND_INSTANCE_TYPE       = "t2.medium"
+BACKEND_IAM_ROLE            = "backend_iam_role"
 BACKEND_IAM_POLICY          = <<EOF
 {
   "Version": "2012-10-17",
@@ -71,8 +72,8 @@ APP_ROLLBACK_EVENTS     = ["DEPLOYMENT_FAILURE"]
 
 IAM_FULL_SSM_ARN        = "arn:aws:iam::aws:policy/AmazonSSMFullAccess"
 IAM_READ_ONLY_SSM_ARN   = "arn:aws:iam::aws:policy/AmazonSSMReadOnlyAccess"
-IAM_CD_EC2_ARN          = "arn:aws:iam::aws:policy/service-role/AmazonEC2RoleforAWSCodeDeploy"
 IAM_FULL_S3_ARN         = "arn:aws:iam::aws:policy/AmazonS3FullAccess"
+IAM_CD_EC2_ARN          = "arn:aws:iam::aws:policy/service-role/AmazonEC2RoleforAWSCodeDeploy"
 IAM_CD_DEPLOYER_ARN     = "arn:aws:iam::aws:policy/AWSCodeDeployDeployerAccess"
 IAM_CD_DEPLOY_ARN       = "arn:aws:iam::aws:policy/service-role/AWSCodeDeployRole"
 
@@ -118,3 +119,10 @@ RDS_PORT                = 5432
 RDS_CIDR                = "0.0.0.0/0"
 
 PARAM_ROOT              = "/rds/"
+
+GITHUB_TOKEN            = "554306d4f0d05f9544dc6b1122e4148f02336c8b"
+GITHUB_OWNER            = "cmelgreen"
+GITHUB_REPO             = "PersonalSite"
+GITHUB_CONTENT_TYPE     = "json"
+GITHUB_INSECURE_SSL     = true
+GITHUB_EVENTS           =  ["push"]

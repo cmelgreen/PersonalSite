@@ -9,8 +9,8 @@ variable "SERVER_VOL_TYPE" {}
 variable "SERVER_VOL_SIZE" {}
 variable "SERVER_PUBLIC_IP" {}
 
-variable "BACKEND_IAM_NAME" {}
 variable "BACKEND_INSTANCE_TYPE" {}
+variable "BACKEND_IAM_ROLE" {}
 variable "BACKEND_IAM_POLICY" {}
 
 variable "SERVER_ASG_MIN" {}
@@ -33,8 +33,8 @@ variable "SERVER_IAM_POLICY" {}
 
 variable "IAM_FULL_SSM_ARN" {}
 variable "IAM_READ_ONLY_SSM_ARN" {}
-variable "IAM_CODEDEPLOY_ARN" {}
 variable "IAM_FULL_S3_ARN" {}
+variable "IAM_CD_EC2_ARN" {}
 variable "IAM_CD_DEPLOYER_ARN" {}
 variable "IAM_CD_DEPLOY_ARN" {}
 
@@ -80,3 +80,10 @@ variable "RDS_SNAPSHOT_NAME" {}
 variable "RDS_SNAPSHOT_SKIP" {}
 
 variable "PARAM_ROOT" {}
+
+variable "GITHUB_TOKEN" {}
+variable "GITHUB_OWNER" {}
+variable "GITHUB_REPO" {}
+variable "GITHUB_CONTENT_TYPE" {}
+variable "GITHUB_INSECURE_SSL" {}
+variable "GITHUB_EVENTS" {}           

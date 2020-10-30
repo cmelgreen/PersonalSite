@@ -5,7 +5,7 @@ resource "aws_instance" "build_server" {
     key_name                    = var.SERVER_KEY
     
     subnet_id                   = aws_subnet.public_subnet.id
-    iam_instance_profile        = aws_iam_instance_profile.server_cd_iam_profile.name
+    iam_instance_profile        = aws_iam_instance_profile.backend_iam_profile.name
 	vpc_security_group_ids      = [aws_security_group.server_sg.id]
 
     user_data                   = file("backend.sh")

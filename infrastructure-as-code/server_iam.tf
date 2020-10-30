@@ -16,5 +16,5 @@ resource "aws_iam_role_policy_attachment" "server_iam_full_ssm" {
 
 resource "aws_iam_role_policy_attachment" "server_iam_codedploy" {
     role        = aws_iam_role.server_iam_role.name
-    policy_arn  = var.IAM_CODEDEPLOY_ARN
+    policy_arn  = var.IAM_CD_EC2_ARN
 }
