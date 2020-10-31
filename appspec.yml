@@ -3,12 +3,16 @@ os: linux
 files:
   - source: backend/server
     destination: /backend
-  - source: backend/start_server.sh
-    destination: /backend
   - source: frontend/build
     destination: /frontend
+  - source: scripts/
+    destination: /scripts
 
 hooks:
+  ApplicationStop:
+    - location: scripts/stop_server.sh
+  BeforeInstall:
+    - location: scripts/before_install.sh
   ApplicationStart:
-    - location: backend/start_server.sh
+    - location: scripts/start_server.sh
       timeout: 120
