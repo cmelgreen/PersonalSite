@@ -1,3 +1,5 @@
 #!/bin/bash
 
-killall server
+if pidof server; then
+    killall server
+fi
