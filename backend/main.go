@@ -15,6 +15,8 @@ func main() {
 	log.Println("Running...")
 
 	log.Fatal(http.ListenAndServe(":80", router))
+
+	log.Println("Stoppped")
 }
 
 func index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
