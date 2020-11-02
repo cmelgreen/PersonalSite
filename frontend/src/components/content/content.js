@@ -13,7 +13,7 @@ export default function Contenct() {
 }
 
 function GetContent() {
-  let l = ""
+  var l = ""
   fetch("./content")
     .then( response => {
       console.log(response)
@@ -35,3 +35,10 @@ function GetContent() {
   console.log(c)
   return c
 }
+
+// function displayContent(content) {
+//   var c = []
+//   for (var i = 1; i <= 6; i++) {
+//     c.push(<p className="item" id={i}> {l} </p>);
+//   }
+// }
