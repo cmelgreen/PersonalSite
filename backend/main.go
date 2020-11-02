@@ -14,6 +14,7 @@ func main() {
 
 	s.mux.GET("/", s.index())
 	s.mux.GET("/health", s.healthCheck())
+	s.mux.GET("/content", s.content())
 	s.mux.ServeFiles("/static/*filepath", http.Dir("/frontend/static"))
 
 	port := ":80"
