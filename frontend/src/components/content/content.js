@@ -12,6 +12,7 @@ export default function Content() {
       const result = fetch(API)
         .then(response => response.json())
         .then(data => {
+          console.log(data)
           setData({content: data});
         });
     }
@@ -27,5 +28,6 @@ export default function Content() {
       </p>
     );
   }
+  console.log("c: ", c)
   return c;
 }
