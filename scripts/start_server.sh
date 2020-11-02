@@ -1,4 +1,4 @@
 #!/bin/bash
 
 cd /
-./backend/server &
+./backend/server > /dev/null 2> /dev/null < /dev/null &
