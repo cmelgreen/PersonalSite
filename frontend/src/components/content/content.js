@@ -13,7 +13,7 @@ export default function Contenct() {
 }
 
 function Content() {
-  data = GetContent()
+  const data = GetContent()
 
   var c = []
   console.log(data)
