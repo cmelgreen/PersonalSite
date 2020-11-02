@@ -12,7 +12,7 @@ export default function Content() {
         {
           console.log(data)
 
-          items = formatData(data)
+          const items = formatData(data)
           console.log(items)
           return (
             <div className="content">
