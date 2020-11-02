@@ -16,9 +16,13 @@ function GetContent() {
   let l = ""
   fetch("./content")
     .then( response => {
+      console.log(response)
       response.json()
         .then(data => 
-          l = data
+          {
+            console.log(data)
+            l = data
+          }
         )
     })
 
