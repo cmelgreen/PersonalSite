@@ -1,4 +1,4 @@
 #!/bin/bash
 
 cd /
-./backend/server
+./backend/server &
