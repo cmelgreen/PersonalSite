@@ -17,7 +17,11 @@ export default function Content() {
         });
     }
     fetchData();
+    console.log(data)
   }, [])
+
+  console.log(data)
+  console.log(data.text)
 
   let c = [];
   for (var i = 1; i <= 6; i++) {
