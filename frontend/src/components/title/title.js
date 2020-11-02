@@ -4,7 +4,7 @@ import "./title.css";
 export default function Title() {
   return (
     <div class="title">
-      <div class="name">Cooper Melgreen - Test</div>
+      <div class="name">Cooper Melgreen</div>
     </div>
   );
 }

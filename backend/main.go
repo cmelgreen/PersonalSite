@@ -1,27 +1,25 @@
-package main
+package main 
 
 import (
-	"log"
+	"context"
 	"net/http"
-
-	"github.com/julienschmidt/httprouter"
+	"os"
 )
 
+// Create router and environment then serve
 func main() {
-	router := httprouter.New()
+	ctx := context.Background()
 
-	router.GET("/", index)
-	router.GET("/test", test)
-	router.ServeFiles("/static/*filepath", http.Dir("/frontend/static"))
+	s := newServer(ctx)
 
-	log.Fatal(http.ListenAndServe(":80", router))
+	s.mux.GET("/", s.index())
+	s.mux.GET("/health", s.healthCheck())
+	s.mux.ServeFiles("/static/*filepath", http.Dir("/frontend/static"))
 
-}
+	port := ":80"
+	if os.Getenv("PORT") != "" {
+		port = os.Getenv("PORT")
+	}
 
-func index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	http.ServeFile(w, r, "/frontend/index.html")
-}
-
-func test(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	w.Write([]byte("Test!"))
+    s.log.Fatal(http.ListenAndServe(port, s.mux))
 }
