@@ -21,7 +21,7 @@ function GetContent() {
         .then(data => 
           {
             console.log(data)
-            l = data
+            l = data.text
           }
         )
     })
