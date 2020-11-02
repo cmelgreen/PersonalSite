@@ -22,6 +22,7 @@ function GetContent() {
           {
             console.log(data)
             l = data.text
+            console.log(l)
           }
         )
     })
