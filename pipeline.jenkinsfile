@@ -18,7 +18,7 @@ pipeline {
             steps { 
                 dir('backend') {
                     sh 'make install' 
-                    sh 'make build'
+                    sh 'make build -B'
                 }
             }
         }
@@ -32,7 +32,7 @@ pipeline {
             steps { 
                 dir('frontend') {
                     sh 'make install'
-                    sh 'make build' 
+                    sh 'make build -B' 
                 }
             }
         }
