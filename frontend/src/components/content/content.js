@@ -13,9 +13,17 @@ export default function Contenct() {
 }
 
 function GetContent() {
-  const l = fetch("/content")
+  let l = ""
+  fetch("./content")
+    .then( response => {
+      response.json()
+        .then(data => 
+          l = data
+        )
+    })
+
   var c = []
-  console.log(l.data)
+  console.log(l)
   for (var i = 1; i <= 6; i++) {
     c.push(<p className="item" id={i}> {l} </p>);
   }
