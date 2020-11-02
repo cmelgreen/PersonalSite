@@ -13,7 +13,7 @@ export default function Content() {
         .then(response => response.json())
         .then(data => {
           console.log(data)
-          setData({content: data});
+          setData({content: data.text});
         });
     }
     fetchData();
