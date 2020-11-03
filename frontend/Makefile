@@ -1,6 +1,5 @@
 install:
-	yarn install
+	npm install
 
 build:
-	yarn cache clean
-	yarn build
+	npm build
