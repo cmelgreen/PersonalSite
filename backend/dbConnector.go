@@ -66,7 +66,7 @@ func (db *Database) createTable(ctx context.Context) error {
 	}
 
 	lorem := "Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident sunt in culpa qui officia deserunt mollit anim id est laborum."
-	insertQuery := "INSERT INTO post (content) VALUES ($1);"
+	insertQuery := "INSERT INTO post(content) VALUES ($1);"
 
 	_, err = db.ExecContext(ctx, insertQuery, lorem)
 
@@ -80,7 +80,7 @@ func (db *Database) createTable(ctx context.Context) error {
 func (db *Database) queryPost(ctx context.Context) (*message, error) {
 	m := &message{}
 
-	query := "SELECT * FROM post"
+	query := "SELECT * FROM post;"
 	err := db.QueryRowxContext(ctx, query).Scan(m)
 	fmt.Println(m)
 	fmt.Println(err)
