@@ -77,11 +77,11 @@ func (db *Database) createTable(ctx context.Context) error {
 }
 
 func (db *Database) queryPost(ctx context.Context) (*message, error) {
-	m := &message{}
+	m := message{}
 
 	query := "SELECT * FROM post;"
 	fmt.Println("Querying: ", query)
-	err := db.QueryRowxContext(ctx, query).Scan(m)
+	err := db.QueryRowxContext(ctx, query).Scan(&m)
 
-	return m, err
+	return &m, err
 }
