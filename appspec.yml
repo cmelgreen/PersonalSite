@@ -1,12 +1,12 @@
-version: 0.0
+version: 0.1
 os: linux
 files:
   - source: backend/server
     destination: /backend
   - source: frontend/build
     destination: /frontend
-  - source: frontend/media
-    destination: frontend/media
+  - source: frontend/media/
+    destination: /frontend/media
   - source: scripts/
     destination: /scripts
 
