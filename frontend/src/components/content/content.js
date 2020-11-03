@@ -10,7 +10,11 @@ export default function Content() {
   useEffect(() => {
     const fetchData = async () => {
       const result = fetch(API)
-        .then(response => response[0].json())
+        .then(response => {
+          console.log("r: ", response)
+          console.log("r0: ", response[0])
+          response.json()
+        })
         .then(data => {
           console.log(data)
           setData({content: data.text});

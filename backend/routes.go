@@ -35,7 +35,8 @@ func (s *Server) content() httprouter.Handle {
 			m = message{"Error fetching data"}
 		}
 
-		s.log.Println(m)
+		mes, _ := json.Marshal(m)
+		s.log.Println(string(mes))
 		json.NewEncoder(w).Encode(m)
 	}
 }
