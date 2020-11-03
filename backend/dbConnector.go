@@ -75,11 +75,11 @@ func (db *Database) createTable(ctx context.Context) error {
 	return nil
 }
 
-func (db *Database) queryPost(ctx context.Context) (*message, error) {
+func (db *Database) queryPost(ctx context.Context) (message, error) {
 	m := message{}
 
 	query := "SELECT * FROM post;"
 	err := db.QueryRowxContext(ctx, query).Scan(&m.Data)
 
-	return &m, err
+	return m, err
 }
