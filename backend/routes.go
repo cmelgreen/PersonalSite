@@ -37,6 +37,8 @@ func (s *Server) content() httprouter.Handle {
 
 		mes, _ := json.Marshal(m)
 		s.log.Println(string(mes))
+
+		w.Header().Set("Content-Type", "application/json")
 		json.NewEncoder(w).Encode(m)
 	}
 }
