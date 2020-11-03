@@ -31,6 +31,7 @@ func (s *Server) healthCheck() httprouter.Handle {
 func (s *Server) content() httprouter.Handle {
 	return func(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 		m, err := s.db.queryPost(r.Context())
+		
 		s.log.Println("Raw scan: ", m)
 		if err != nil {
 			s.log.Println("Error fetching data: ", err)
@@ -42,7 +43,7 @@ func (s *Server) content() httprouter.Handle {
 		if err != nil {
 			s.log.Println("Error marshalling data: ",err)
 		}
-		s.log.Println("MessageBytes: ", messageBytes)
+		s.log.Println("MessageBytes: ", string(messageBytes))
 		w.Write(messageBytes)
 	}
 }
