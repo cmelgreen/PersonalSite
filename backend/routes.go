@@ -30,17 +30,18 @@ func (s *Server) healthCheck() httprouter.Handle {
 
 func (s *Server) content() httprouter.Handle {
 	return func(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-		message, err := s.db.queryPost(r.Context())
+		m, err := s.db.queryPost(r.Context())
 		if err != nil {
-			w.Write([]byte("{data: error"))
+			s.log.Println(err)
+			m = &message{"Error fetching data"}
 		}
 
-		messageBytes, err := json.Marshal(*message)
+		messageBytes, err := json.Marshal(*m)
 		if err != nil {
-			w.Write([]byte("{data: error"))
-		} else {
-			w.Write(messageBytes)
+			s.log.Println(err)
 		}
+			
+		w.Write(messageBytes)
 	}
 }
 
