@@ -3,8 +3,11 @@ import "./title.css";
 
 export default function Title() {
   return (
-    <div class="title">
-      <div class="name">Cooper Melgreen</div>
+    <div className="title">
+      <picture>
+        <img className="icon" src={require("./static/icon.jpg")} alt="icon" />
+      </picture>
+      <div className="name">Cooper Melgreen </div>
     </div>
   );
 }
