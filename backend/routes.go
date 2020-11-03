@@ -46,6 +46,6 @@ func (s *Server) content() httprouter.Handle {
 
 func (s *Server) icon() httprouter.Handle {
 	return func(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-		http.ServeFile(w, r, "/backend/icon.jpg")
+		http.ServeFile(w, r, "/frontend/media/icon.jpg")
 	}
 }

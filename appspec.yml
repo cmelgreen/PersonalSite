@@ -5,6 +5,8 @@ files:
     destination: /backend
   - source: frontend/build
     destination: /frontend
+  - source: frontend/media
+    destination: frontend/media
   - source: scripts/
     destination: /scripts
 
