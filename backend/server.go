@@ -40,7 +40,7 @@ func newServer(ctx context.Context) *Server {
 
 	err = s.db.createTable(ctx)
 	if err != nil {
-		s.log.Println(err)
+		s.log.Println("Error creating table: ", err)
 	}
 
 	s.maintainDBConnection(ctx)
@@ -55,7 +55,7 @@ func (s *Server) maintainDBConnection(ctx context.Context) {
 			if s.db.Connected(ctx) != true {
 				s.db, err = ConnectToDB(ctx)
 				if err != nil {
-					s.log.Println(err)
+					s.log.Println("Error maintaining connection: ", err)
 				}
 			}
 
