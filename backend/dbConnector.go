@@ -53,9 +53,8 @@ func (db *Database) Connected(ctx context.Context) bool {
 	return true
 }
 
-
 func (db *Database) createTable(ctx context.Context) error {
-	schema := `CREATE TABLE post (
+	schema := `CREATE TABLE post(
 		content varchar(1000)
 	),`
 
@@ -71,6 +70,7 @@ func (db *Database) createTable(ctx context.Context) error {
 	_, err = db.ExecContext(ctx, insertQuery, lorem)
 
 	if err != nil {
+		fmt.Println("error creating")
 		return err
 	}
 
@@ -82,6 +82,9 @@ func (db *Database) queryPost(ctx context.Context) (*message, error) {
 
 	query := "SELECT * FROM post;"
 	err := db.QueryRowxContext(ctx, query).Scan(m)
+	if err != nil {
+		fmt.Println("error querying")
+	}
 	fmt.Println(m)
 	fmt.Println(err)
 	return m, err
