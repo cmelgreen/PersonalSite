@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"time"
 
 	_ "github.com/jackc/pgx/v4/stdlib"
@@ -81,6 +82,7 @@ func (db *Database) queryPost(ctx context.Context) (*message, error) {
 
 	query := "SELECT * FROM post"
 	err := db.QueryRowxContext(ctx, query).Scan(m)
-
+	fmt.Println(m)
+	fmt.Println(err)
 	return m, err
 }
