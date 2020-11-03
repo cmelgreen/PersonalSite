@@ -8,5 +8,5 @@ resource "aws_instance" "build_server" {
     iam_instance_profile        = aws_iam_instance_profile.backend_iam_profile.name
 	vpc_security_group_ids      = [aws_security_group.server_sg.id]
 
-    user_data                   = file("backend.sh")
+    user_data                   = file(var.BACKEND_USER_DATA)
 }

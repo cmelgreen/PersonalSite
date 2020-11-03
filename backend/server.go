@@ -38,6 +38,11 @@ func newServer(ctx context.Context) *Server {
 
 	s.db = db
 
+	err = s.db.createTable(ctx)
+	if err != nil {
+		s.log.Println(err)
+	}
+
 	s.maintainDBConnection(ctx)
 
 	return &s

@@ -9,6 +9,7 @@ variable "SERVER_VOL_TYPE" {}
 variable "SERVER_VOL_SIZE" {}
 variable "SERVER_PUBLIC_IP" {}
 
+variable "BACKEND_USER_DATA" {}
 variable "BACKEND_INSTANCE_TYPE" {}
 variable "BACKEND_IAM_ROLE" {}
 variable "BACKEND_IAM_POLICY" {}

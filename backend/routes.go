@@ -8,11 +8,6 @@ import (
 	"github.com/julienschmidt/httprouter"
 )
 
-type message struct {
-	Data string `json:"text"`
-}
-
-var lorem = message{"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."}
 
 // Serve index.html
 func (s *Server) index() httprouter.Handle {
@@ -35,11 +30,16 @@ func (s *Server) healthCheck() httprouter.Handle {
 
 func (s *Server) content() httprouter.Handle {
 	return func(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-		message, err := json.Marshal(lorem)
+		message, err := s.db.queryPost(r.Context())
+		if err != nil {
+			w.Write([]byte("{data: error"))
+		}
+
+		messageBytes, err := json.Marshal(*message)
 		if err != nil {
 			w.Write([]byte("{data: error"))
 		} else {
-			w.Write(message)
+			w.Write(messageBytes)
 		}
 	}
 }
