@@ -11,7 +11,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "webpack --config webpack.config.js"
+    "build": "react build"
   },
   "browserslist": {
     "production": [

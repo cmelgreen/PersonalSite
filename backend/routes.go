@@ -42,5 +42,10 @@ func (s *Server) content() httprouter.Handle {
 			w.Write(message)
 		}
 	}
+}
 
+func (s *Server) icon() httprouter.Handle {
+	return func(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+		http.ServeFile(w, r, "/backend/icon.jpg")
+	}
 }
