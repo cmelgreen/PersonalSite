@@ -21,14 +21,14 @@ export default function Content() {
   }, [])
 
   console.log(data)
-  console.log(data.text)
+  console.log(data.content)
 
   let c = [];
   for (var i = 1; i <= 6; i++) {
     c.push(
       <p className="item" key="{i}" id="{i}">
         {" "}
-        {data.text}{" "}
+        {data.content}{" "}
       </p>
     );
   }
