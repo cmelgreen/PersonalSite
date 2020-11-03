@@ -31,20 +31,12 @@ func (s *Server) healthCheck() httprouter.Handle {
 func (s *Server) content() httprouter.Handle {
 	return func(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 		m, err := s.db.queryPost(r.Context())
-		
-		s.log.Println("Raw scan: ", m)
 		if err != nil {
-			s.log.Println("Error fetching data: ", err)
 			m = message{"Error fetching data"}
 		}
 
-		s.log.Println("Message: ", m)
-		messageBytes, err := json.Marshal(m)
-		if err != nil {
-			s.log.Println("Error marshalling data: ",err)
-		}
-		s.log.Println("MessageBytes: ", string(messageBytes))
-		w.Write(messageBytes)
+		s.log.Println(m)
+		json.NewEncoder(w).Encode(m)
 	}
 }
 
