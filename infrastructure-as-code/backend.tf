@@ -10,3 +10,7 @@ resource "aws_instance" "build_server" {
 
     user_data                   = file(var.BACKEND_USER_DATA)
 }
+
+output "backend_server_endpoint" {
+    value = aws_instance.build_server.public_ip
+}

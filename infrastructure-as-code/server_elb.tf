@@ -17,3 +17,7 @@ resource "aws_elb" "server_elb" {
         target              = "${var.ELB_INSTANCE_PROTOCOL}:${var.ELB_INSTANCE_PORT}/"
     }
 }
+
+output "server_elb_endpoint" {
+    value = aws_elb.server_elb.dns_name
+}

@@ -20,8 +20,7 @@ export default function Content() {
   for (var i = 1; i <= 6; i++) {
     c.push(
       <p className="item" id={i}>
-        {" "}
-        {data.content}{" "}
+        {" "}{data.content}{" "}
       </p>
     );
   }

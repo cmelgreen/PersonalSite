@@ -1,6 +1,6 @@
 AWS_REGION                  = "us-west-2"
 
-#SERVER_IMAGE                = "ami-02cac8e5519ce651f"
+#Update to filter ami instead of hardcode
 SERVER_IMAGE                = "ami-04ddade76a44c06c3"
 SERVER_INSTANCE_TYPE        = "t2.micro"
 SERVER_USER_DATA            = "./scripts/user_data.sh"
@@ -10,7 +10,7 @@ SERVER_VOL_SIZE             = 30
 SERVER_PUBLIC_IP            = false
 
 BACKEND_USER_DATA           = "./scripts/backend.sh"
-BACKEND_INSTANCE_TYPE       = "t2.medium"
+BACKEND_INSTANCE_TYPE       = "t2.small"
 BACKEND_IAM_ROLE            = "backend_iam_role"
 BACKEND_IAM_POLICY          = <<EOF
 {
