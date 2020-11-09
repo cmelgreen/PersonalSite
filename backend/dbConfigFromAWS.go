@@ -35,7 +35,7 @@ type awsSSM struct {
 }
 
 // ConfigString returns database connection string based on AWS_ROOT and remote SSM parameters
-func ConfigString(ctx context.Context) (string, error) {
+func ConfigStringFromAWS(ctx context.Context) (string, error) {
 	err := loadBaseConfig()
 	if err != nil {
 		return "", err

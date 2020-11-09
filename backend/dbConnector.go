@@ -10,7 +10,6 @@ import (
 )
 
 const (
-	timeout = 5
 	sqlDriver = "pgx"
 )
 
@@ -21,10 +20,7 @@ type Database struct {
 
 // ConnectToDB creates a db connection with a predefined timeout
 func ConnectToDB(ctx context.Context) (*Database, error) {
-	ctx, cancelFn := context.WithTimeout(ctx, timeout*time.Second)
-	defer cancelFn()
-
-	config, err := ConfigString(ctx)
+	config, err := ConfigStringFromAWS(ctx)
 	if err != nil {
 		return &Database{}, err
 	}
