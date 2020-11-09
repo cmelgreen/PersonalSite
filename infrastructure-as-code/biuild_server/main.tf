@@ -1,12 +1,16 @@
 resource "aws_instance" "build_server" {
-    ami                         = var.SERVER_IMAGE
+    ami                         = var.BUILD_SERVER_AMI
     instance_type               = var.BUILD_SERVER_INSTANCE_TYPE
     associate_public_ip_address = var.BUILD_SERVER_PUBLIC_IP
     key_name                    = var.BUILD_SERVER_KEY
-    
-    subnet_id                   = aws_subnet.public_subnet.id
+
     iam_instance_profile        = aws_iam_instance_profile.backend_iam_profile.name
-	vpc_security_group_ids      = [aws_security_group.server_sg.id]
+    
+    subnet_id                   = var.BUILD_SERVER_SUBNET
+    vpc_security_group_ids      = var.BUILD_SERVER_VPC_SG_IDS
+
+    # subnet_id                   = aws_subnet.public_subnet.id
+	# vpc_security_group_ids      = [aws_security_group.server_sg.id]
 
     user_data                   = var.BUILD_SERVER_USER_DATA
 }
@@ -14,6 +18,8 @@ resource "aws_instance" "build_server" {
 resource "aws_iam_instance_profile" "build_server_iam_profile" {
     role                = aws_iam_role.build_server_iam_role.name
 }
+
+### Add loop for IAM attachments to iterate over ARNS
 
 resource "aws_iam_role" "build_server_iam_role" {
     name                = var.BUILD_SERVER_IAM_ROLE
@@ -40,12 +46,9 @@ resource "aws_iam_role_policy_attachment" "build_server_iam_s3" {
     role                = aws_iam_role.build_server_iam_role.name
 }
 
-provider "github" {
-	token = file(var.GITHUB_TOKEN)
-	owner = var.GITHUB_OWNER
-}
+### Make adding github webhook conditional
 
-resource "github_repository_webhook" "personal_site_webhook" {
+resource "github_repository_webhook" "github_webhook" {
   repository = var.GITHUB_REPO
 
   configuration {
