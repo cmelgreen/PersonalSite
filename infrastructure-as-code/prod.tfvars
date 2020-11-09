@@ -119,7 +119,7 @@ RDS_PUBLIC_ACCESS       = false
 RDS_PORT                = 5432
 RDS_CIDR                = "0.0.0.0/0"
 
-PARAM_ROOT              = "/rds"
+AWS_SSM_ROOT             = "/rds"
 
 GITHUB_TOKEN            = "./credentials/github"
 GITHUB_OWNER            = "cmelgreen"

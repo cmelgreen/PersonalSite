@@ -8,7 +8,6 @@ import (
 	"github.com/julienschmidt/httprouter"
 )
 
-
 // Serve index.html
 func (s *Server) index() httprouter.Handle {
 	return func(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
