@@ -21,7 +21,7 @@ var (
 
 // Server struct for storing database, mux, and logger
 type Server struct{
-    db map[int]*Database
+    db *Database
     mux *httprouter.Router
     log *log.Logger
 }
@@ -29,34 +29,36 @@ type Server struct{
 func newServer(ctx context.Context) *Server {
 	s := Server{
         log: log.New(logOut, logPrefix, logFlags),
-        mux: httprouter.New(),
+		mux: httprouter.New(),
+		db: &Database{},
     }
 
 	return &s
 }
 
-func (s *Server) addDBConnection(ctx context.Context, id int, dbConfig DBConfig) {
-	db, err := ConnectToDB(ctx, dbConfig)
+
+func (s *Server) newDBConnection(ctx context.Context, dbConfig DBConfig) {
+	var err error
+
+	s.db, err = ConnectToDB(ctx, dbConfig)
     if err != nil {
         s.log.Println(err)
     }
 
-	s.db[id] = db
-
-	err = s.db[id].createTable(ctx)
+	err = s.db.createTable(ctx)
 	if err != nil {
 		s.log.Println("Error creating table: ", err)
 	}
 
-	s.maintainDBConnection(ctx, id, dbConfig)
+	s.maintainDBConnection(ctx, dbConfig)
 }
 
-func (s *Server) maintainDBConnection(ctx context.Context, id int, dbConfig DBConfig) {
+func (s *Server) maintainDBConnection(ctx context.Context, dbConfig DBConfig) {
 	go func() {
 		var err error
 		for {
-			if s.db[id].Connected(ctx) != true {
-				s.db[id], err = ConnectToDB(ctx, dbConfig)
+			if s.db.Connected(ctx) != true {
+				s.db, err = ConnectToDB(ctx, dbConfig)
 				if err != nil {
 					s.log.Println("Error maintaining connection: ", err)
 				}
