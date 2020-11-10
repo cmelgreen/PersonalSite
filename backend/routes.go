@@ -1,8 +1,8 @@
 package main
 
 import (
-	"fmt"
 	"encoding/json"
+	"fmt"
 	"net/http"
 
 	"github.com/julienschmidt/httprouter"
@@ -16,9 +16,9 @@ func (s *Server) index() httprouter.Handle {
 }
 
 // Healthcheck is a closure that returns a function ro check the database connection and write status to user
-func (s *Server) healthCheck() httprouter.Handle {
+func (s *Server) healthCheck(databaseID int) httprouter.Handle {
 	return func(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-		if s.db.Connected(r.Context()) {
+		if s.db[databaseID].Connected(r.Context()) {
 			fmt.Fprint(w, "Connected!")
 		} else {
 			http.Error(w, "Error connecting to database", http.StatusNotFound)
@@ -27,9 +27,9 @@ func (s *Server) healthCheck() httprouter.Handle {
 	}
 }
 
-func (s *Server) content() httprouter.Handle {
+func (s *Server) content(databaseID int) httprouter.Handle {
 	return func(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-		m, err := s.db.queryPost(r.Context())
+		m, err := s.db[databaseID].queryPost(r.Context())
 		if err != nil {
 			m = message{"Error fetching data"}
 		}

@@ -4,7 +4,7 @@ resource "aws_instance" "build_server" {
     associate_public_ip_address = var.BUILD_SERVER_PUBLIC_IP
     key_name                    = var.BUILD_SERVER_KEY
 
-    iam_instance_profile        = aws_iam_instance_profile.backend_iam_profile.name
+    iam_instance_profile        = aws_iam_instance_profile.build_server_iam_profile.name
     
     subnet_id                   = var.BUILD_SERVER_SUBNET
     vpc_security_group_ids      = var.BUILD_SERVER_VPC_SG_IDS
@@ -31,7 +31,7 @@ resource "aws_iam_role_policy_attachment" "build_server_iam_policy_attachments" 
 ### Make adding github webhook conditional AND iterable over list of repos
 
 resource "github_repository_webhook" "github_webhook" {
-    count = var.
+    count = var.GITHUB_CREATE_WEBHOOK ? 1 : 0
     repository = var.GITHUB_REPO
 
     configuration {

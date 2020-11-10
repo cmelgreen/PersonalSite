@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"time"
 
 	_ "github.com/jackc/pgx/v4/stdlib"
 
@@ -11,17 +10,22 @@ import (
 
 const (
 	sqlDriver = "pgx"
-	configLoader = DBConfigFromAWS{}
 )
 
 // Database abstracts sqlx connection
 type Database struct {
 	*sqlx.DB
+	config DBConfig
+}
+
+// DBConfig abstracts generation of a database configuration string
+type DBConfig interface {
+	ConfigString(context.Context) (string, error)
 }
 
 // ConnectToDB creates a db connection with any predefined timeout
-func ConnectToDB(ctx context.Context) (*Database, error) {
-	config, err := configLoader.ConfigString(ctx)
+func ConnectToDB(ctx context.Context, dbConfig DBConfig) (*Database, error) {
+	config, err := dbConfig.ConfigString(ctx)
 	if err != nil {
 		return &Database{}, err
 	}
@@ -31,7 +35,7 @@ func ConnectToDB(ctx context.Context) (*Database, error) {
 		return &Database{}, err
 	}
 
-	return &Database{conn}, nil
+	return &Database{conn, dbConfig}, nil
 }
 
 // Connected pings server and returns bool response status

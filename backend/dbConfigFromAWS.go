@@ -1,75 +1,79 @@
 package main
 
 import (
-    "context"
-    "fmt"
+	"context"
+	"fmt"
 
-    "github.com/spf13/viper"
-)
-
-const (
-    baseRegion  = "AWS_REGION"
-    baseRoot    = "AWS_ROOT"
-    baseConfig  = "base_config"
-    basePath    = "./app_data/"
-
-    withEncrpytion = true
+	"github.com/spf13/viper"
 )
 
 var ssmParams = []string{
-    "database",
-    "host",
-    "port",
-    "user",
-    "password",
-
+	"database",
+	"host",
+	"port",
+	"user",
+	"password",
 }
 
-type DBConfigFromAWS struct {}
+// DBConfigFromAWS implements DBConfig
+type DBConfigFromAWS struct {
+	DBConfig
 
-func (dbConfig *dbConfigFromAWS) ConfigString(ctx context.Context) (string, error) {
-    return configStringFromAWS(ctx)
+	baseAWSRegion  string
+	baseAWSRoot    string
+	baseConfigName string
+	baseConfigPath string
+
+	withEncrpytion bool
+}
+
+func dbConfigFromAWS(ctx context.Context, region, root, config, path string, withEncrpytion bool) DBConfigFromAWS {
+	return DBConfigFromAWS{
+		baseAWSRegion:  region,
+		baseAWSRoot:    root,
+		baseConfigName: config,
+		baseConfigPath: path,
+		withEncrpytion: withEncrpytion}
 }
 
 // ConfigString returns database connection string based on AWS_ROOT and remote SSM parameters
-func configStringFromAWS(ctx context.Context) (string, error) {
-	err := loadBaseConfig()
+func (dbConfig DBConfigFromAWS) ConfigString(ctx context.Context) (string, error) {
+	err := dbConfig.loadBaseConfigFromDotEnv()
 	if err != nil {
 		return "", err
-    }
-    
-    awsRegion := viper.GetString(baseRegion)
-    ssmRoot := viper.GetString(baseRoot)
+	}
 
-    svc := newSSM(awsRegion)
-    
-    params, err := svc.getParams(ctx, withEncrpytion, ssmRoot, ssmParams)
-    if err != nil {
-        return "", err
-    }
+	awsRegion := viper.GetString(dbConfig.baseAWSRegion)
+	ssmRoot := viper.GetString(dbConfig.baseAWSRoot)
 
-    configString := fmt.Sprintf(
-        "database=%s host=%s port=%s user=%s password=%s",
+	svc := newSSM(awsRegion)
+
+	params, err := svc.getParams(ctx, withEncrpytion, ssmRoot, ssmParams)
+	if err != nil {
+		return "", err
+	}
+
+	configString := fmt.Sprintf(
+		"database=%s host=%s port=%s user=%s password=%s",
 		params["database"],
 		params["host"],
 		params["port"],
 		params["user"],
 		params["password"],
-    )
+	)
 
-    return configString, nil
+	return configString, nil
 }
 
 // Pull AWS_ROOT and AWS_REGION from .env file
-func loadBaseConfig() error {
-    viper.SetConfigName(baseConfig)
-    viper.AddConfigPath(basePath)
+func (dbConfig DBConfigFromAWS) loadBaseConfigFromDotEnv() error {
+	viper.SetConfigName(dbConfig.baseConfigName)
+	viper.AddConfigPath(dbConfig.baseConfigPath)
 
-    err := viper.ReadInConfig()
-    if err != nil {
-        return err
+	err := viper.ReadInConfig()
+	if err != nil {
+		return err
 	}
-	
+
 	return nil
 }
-

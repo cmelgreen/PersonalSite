@@ -5,6 +5,7 @@ import (
 	"log"
 	"os"
 	"time"
+	
 	"github.com/julienschmidt/httprouter"
 )
 
@@ -20,7 +21,7 @@ var (
 
 // Server struct for storing database, mux, and logger
 type Server struct{
-    db *Database
+    db map[int]*Database
     mux *httprouter.Router
     log *log.Logger
 }
@@ -31,29 +32,31 @@ func newServer(ctx context.Context) *Server {
         mux: httprouter.New(),
     }
 
-    db, err := ConnectToDB(ctx)
+	return &s
+}
+
+func (s *Server) addDBConnection(ctx context.Context, id int, dbConfig DBConfig) {
+	db, err := ConnectToDB(ctx, dbConfig)
     if err != nil {
         s.log.Println(err)
     }
 
-	s.db = db
+	s.db[id] = db
 
-	err = s.db.createTable(ctx)
+	err = s.db[id].createTable(ctx)
 	if err != nil {
 		s.log.Println("Error creating table: ", err)
 	}
 
-	s.maintainDBConnection(ctx)
-
-	return &s
+	s.maintainDBConnection(ctx, id, dbConfig)
 }
 
-func (s *Server) maintainDBConnection(ctx context.Context) {
+func (s *Server) maintainDBConnection(ctx context.Context, id int, dbConfig DBConfig) {
 	go func() {
 		var err error
 		for {
-			if s.db.Connected(ctx) != true {
-				s.db, err = ConnectToDB(ctx)
+			if s.db[id].Connected(ctx) != true {
+				s.db[id], err = ConnectToDB(ctx, dbConfig)
 				if err != nil {
 					s.log.Println("Error maintaining connection: ", err)
 				}

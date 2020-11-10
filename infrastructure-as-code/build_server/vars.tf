@@ -9,6 +9,8 @@ variable "BUILD_SERVER_SUBNET" {}
 variable "BUILD_SERVER_VPC_SG_IDS" {}
 variable "BUILD_SERVER_IAM_POLICIES" {}
 
+variable "GITHUB_CREATE_WEBHOOK" {}
+
 variable "GITHUB_TOKEN" {}
 variable "GITHUB_OWNER" {}
 variable "GITHUB_REPO" {}

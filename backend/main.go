@@ -4,13 +4,22 @@ import (
 	"context"
 	"net/http"
 	"os"
+	"time"
 )
 
 const (
-	portEnvVar = "PORT"
-	defaultPort = ":80"
+	timeout 		= 5
 
-	timeout = 5
+	portEnvVar 		= "PORT"
+	defaultPort		= ":80"
+
+	baseAWSRegion  	= "AWS_REGION"
+    baseAWSRoot    	= "AWS_ROOT"
+    baseConfigName 	= "base_config"
+    baseConfigPath 	= "./app_data/"
+	withEncrpytion 	= true
+	
+	contentDB 		= iota
 )
 
 // Create router and environment then serve
@@ -20,9 +29,20 @@ func main() {
 
 	s := newServer(ctx)
 
+	dbConfig := dbConfigFromAWS(
+		ctx, 
+		baseAWSRegion, 
+		baseAWSRoot, 
+		baseConfigName, 
+		baseConfigPath, 
+		withEncrpytion,
+	)
+
+	s.addDBConnection(ctx, contentDB, dbConfig)
+
 	s.mux.GET("/", s.index())
-	s.mux.GET("/health", s.healthCheck())
-	s.mux.GET("/content", s.content())
+	s.mux.GET("/health", s.healthCheck(contentDB))
+	s.mux.GET("/content", s.content(contentDB))
 	s.mux.GET("/icon", s.icon())
 	s.mux.ServeFiles("/static/*filepath", http.Dir("/frontend/static"))
 
