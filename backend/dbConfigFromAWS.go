@@ -3,13 +3,8 @@ package main
 import (
     "context"
     "fmt"
-    "strings"
 
     "github.com/spf13/viper"
-
-    "github.com/aws/aws-sdk-go/aws"
-    "github.com/aws/aws-sdk-go/aws/session"
-    "github.com/aws/aws-sdk-go/service/ssm"
 )
 
 const (
@@ -30,12 +25,14 @@ var ssmParams = []string{
 
 }
 
-type awsSSM struct {
-    *ssm.SSM
+type DBConfigFromAWS struct {}
+
+func (dbConfig *dbConfigFromAWS) ConfigString(ctx context.Context) (string, error) {
+    return configStringFromAWS(ctx)
 }
 
 // ConfigString returns database connection string based on AWS_ROOT and remote SSM parameters
-func ConfigStringFromAWS(ctx context.Context) (string, error) {
+func configStringFromAWS(ctx context.Context) (string, error) {
 	err := loadBaseConfig()
 	if err != nil {
 		return "", err
@@ -76,38 +73,3 @@ func loadBaseConfig() error {
 	return nil
 }
 
-// newSSM creates a new AWS connection returns a Simple Service Manager session
-func newSSM(region string) *awsSSM {
-    sess := session.New()
-
-    return &awsSSM{ssm.New(sess, 
-        &aws.Config{
-            Region: aws.String(region),
-    })}
-
-}
-
-// getParams returns map of key:value SSM Parameters as listed in paramsToGet along with any error fectching them
-func (svc *awsSSM) getParams(ctx context.Context, encrpyted bool, root string, paramsToGet []string) (map[string]string, error) {
-    params := make(map[string]string, len(paramsToGet))
-    var paramsToGetPaths []*string
-
-    for _, paramToGet := range paramsToGet {
-        paramPath := root + paramToGet
-        paramsToGetPaths = append(paramsToGetPaths, &paramPath)
-    } 
-    
-    output, err := svc.GetParametersWithContext(ctx, 
-            &ssm.GetParametersInput{
-                Names: paramsToGetPaths,
-                WithDecryption: aws.Bool(encrpyted),
-    })
-
-    for _, param := range output.Parameters {
-        key := strings.TrimPrefix(*param.Name, root)
-        val := *param.Value
-        params[key] = val
-    }
-    
-    return params, err
-}

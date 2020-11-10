@@ -8,14 +8,14 @@ import (
 
 const (
 	portEnvVar = "PORT"
-	defaultPort = "80"
+	defaultPort = ":80"
 
 	timeout = 5
 )
 
 // Create router and environment then serve
 func main() {
-	ctx, cancelFn := context.WithTimeout(context.Backgroun(), timeout*time.Second)
+	ctx, cancelFn := context.WithTimeout(context.Background(), timeout*time.Second)
 	defer cancelFn()
 
 	s := newServer(ctx)
@@ -28,7 +28,7 @@ func main() {
 
 	port := os.Getenv(portEnvVar)
 	if port == "" {
-		port = ":" + defaultPort
+		port = defaultPort
 	}
 
     s.log.Fatal(http.ListenAndServe(port, s.mux))

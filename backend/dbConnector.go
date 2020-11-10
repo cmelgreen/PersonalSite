@@ -11,6 +11,7 @@ import (
 
 const (
 	sqlDriver = "pgx"
+	configLoader = DBConfigFromAWS{}
 )
 
 // Database abstracts sqlx connection
@@ -18,9 +19,9 @@ type Database struct {
 	*sqlx.DB
 }
 
-// ConnectToDB creates a db connection with a predefined timeout
+// ConnectToDB creates a db connection with any predefined timeout
 func ConnectToDB(ctx context.Context) (*Database, error) {
-	config, err := ConfigStringFromAWS(ctx)
+	config, err := configLoader.ConfigString(ctx)
 	if err != nil {
 		return &Database{}, err
 	}

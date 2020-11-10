@@ -19,12 +19,12 @@ resource "aws_iam_instance_profile" "build_server_iam_profile" {
     role                = aws_iam_role.build_server_iam_role.name
 }
 
-### Add loop for IAM attachments to iterate over ARNS
-
 resource "aws_iam_role" "build_server_iam_role" {
     name                = var.BUILD_SERVER_IAM_ROLE
     assume_role_policy  = var.BUILD_SERVER_IAM_POLICY
 }
+
+### Add loop for IAM attachments to iterate over ARNS
 
 resource "aws_iam_role_policy_attachment" "build_server_iam_codedeploy_deployer" {
     policy_arn          = var.IAM_CD_DEPLOYER_ARN
@@ -42,20 +42,22 @@ resource "aws_iam_role_policy_attachment" "build_server_iam_full_ssm" {
 }
 
 resource "aws_iam_role_policy_attachment" "build_server_iam_s3" {
+    for_each
     policy_arn          = var.IAM_FULL_S3_ARN
     role                = aws_iam_role.build_server_iam_role.name
 }
 
-### Make adding github webhook conditional
+### Make adding github webhook conditional AND iterable over list of repos
 
 resource "github_repository_webhook" "github_webhook" {
-  repository = var.GITHUB_REPO
+    count = var.
+    repository = var.GITHUB_REPO
 
-  configuration {
-    url          = "http://${aws_instance.build_server.public_ip}/github-webhook/"
-    content_type = var.GITHUB_CONTENT_TYPE
-    insecure_ssl = var.GITHUB_INSECURE_SSL
-  }
+    configuration {
+        url          = "http://${aws_instance.build_server.public_ip}/github-webhook/"
+        content_type = var.GITHUB_CONTENT_TYPE
+        insecure_ssl = var.GITHUB_INSECURE_SSL
+    }
 
-  events = var.GITHUB_EVENTS
+    events = var.GITHUB_EVENTS
 }
