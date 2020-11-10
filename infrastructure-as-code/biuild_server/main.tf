@@ -9,9 +9,6 @@ resource "aws_instance" "build_server" {
     subnet_id                   = var.BUILD_SERVER_SUBNET
     vpc_security_group_ids      = var.BUILD_SERVER_VPC_SG_IDS
 
-    # subnet_id                   = aws_subnet.public_subnet.id
-	# vpc_security_group_ids      = [aws_security_group.server_sg.id]
-
     user_data                   = var.BUILD_SERVER_USER_DATA
 }
 
@@ -24,26 +21,10 @@ resource "aws_iam_role" "build_server_iam_role" {
     assume_role_policy  = var.BUILD_SERVER_IAM_POLICY
 }
 
-### Add loop for IAM attachments to iterate over ARNS
+resource "aws_iam_role_policy_attachment" "build_server_iam_policy_attachments" {
+    for_each            = toset(var.BUILD_SERVER_IAM_POLICIES)
 
-resource "aws_iam_role_policy_attachment" "build_server_iam_codedeploy_deployer" {
-    policy_arn          = var.IAM_CD_DEPLOYER_ARN
-    role                = aws_iam_role.build_server_iam_role.name
-}
-
-resource "aws_iam_role_policy_attachment" "build_server_iam_codedeploy" {
-    policy_arn          = var.IAM_CD_DEPLOY_ARN
-    role                = aws_iam_role.build_server_iam_role.name
-}
-
-resource "aws_iam_role_policy_attachment" "build_server_iam_full_ssm" {
-    policy_arn          = var.IAM_FULL_SSM_ARN
-    role                = aws_iam_role.build_server_iam_role.name
-}
-
-resource "aws_iam_role_policy_attachment" "build_server_iam_s3" {
-    for_each
-    policy_arn          = var.IAM_FULL_S3_ARN
+    policy_arn          = each.value
     role                = aws_iam_role.build_server_iam_role.name
 }
 
