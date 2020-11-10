@@ -17,6 +17,7 @@ type awsSSM struct {
 func newSSM(region string) *awsSSM {
     sess := session.New()
 
+
     return &awsSSM{ssm.New(sess, 
         &aws.Config{
             Region: aws.String(region),
@@ -29,17 +30,20 @@ func (svc *awsSSM) getParams(ctx context.Context, encrpyted bool, root string, p
     params := make(map[string]string, len(paramsToGet))
     var paramsToGetPaths []*string
 
+    // Concat parameter names to SSM path e.g. value to /path/value
     for _, paramToGet := range paramsToGet {
         paramPath := root + paramToGet
         paramsToGetPaths = append(paramsToGetPaths, &paramPath)
     } 
     
+    // Get all parameters with single call
     output, err := svc.GetParametersWithContext(ctx, 
             &ssm.GetParametersInput{
                 Names: paramsToGetPaths,
                 WithDecryption: aws.Bool(encrpyted),
     })
 
+    // Trim parameter paths back to names for map keys e.g. /path/value to value 
     for _, param := range output.Parameters {
         key := strings.TrimPrefix(*param.Name, root)
         val := *param.Value

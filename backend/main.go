@@ -29,7 +29,7 @@ func main() {
 
 	s := newServer(ctx)
 
-	dbConfig := dbConfigFromAWS(
+	contentDBConfig := dbConfigFromAWS(
 		ctx, 
 		baseAWSRegion, 
 		baseAWSRoot, 
@@ -38,7 +38,7 @@ func main() {
 		withEncrpytion,
 	)
 
-	s.addDBConnection(ctx, contentDB, dbConfig)
+	s.addDBConnection(ctx, contentDB, contentDBConfig)
 
 	s.mux.GET("/", s.index())
 	s.mux.GET("/health", s.healthCheck(contentDB))
