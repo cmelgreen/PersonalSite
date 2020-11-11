@@ -9,10 +9,7 @@ SERVER_VOL_TYPE             = "gp2"
 SERVER_VOL_SIZE             = 30
 SERVER_PUBLIC_IP            = false
 
-BACKEND_USER_DATA           = "./scripts/backend.sh"
-BACKEND_INSTANCE_TYPE       = "t2.small"
-BACKEND_IAM_ROLE            = "backend_iam_role"
-BACKEND_IAM_POLICY          = <<EOF
+EC2_CODEDEPLOY_IAM_POLICY          = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
