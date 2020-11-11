@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 provider "github" {
-	token = var.GITHUB_CREDENTIALS
+	token = file(var.GITHUB_CREDENTIALS)
 	owner = var.GITHUB_OWNER
 }
 
@@ -13,7 +13,7 @@ module "build_server" {
     NAME            = var.BUILD_SERVER_NAME
     ## Filter AMI better instead of hardcode
     AMI             = var.BUILD_SERVER_AMI
-    USER_DATA       = var.BUILD_SERVER_USER_DATA
+    USER_DATA       = file(var.BUILD_SERVER_USER_DATA)
     INSTANCE_TYPE   = var.BUILD_SERVER_INSTANCE
     KEY             = var.BUILD_SERVER_KEY
 
@@ -35,7 +35,7 @@ module "deployment_server_group" {
 
     NAME            = var.DEPLOYMENT_GROUP_NAME
     AMI             = var.DEPLOYMENT_GROUP_AMI
-    USER_DATA       = var.DEPLOYMENT_GROUP_USER_DATA
+    USER_DATA       = templatefile(var.DEPLOYMENT_GROUP_USER_DATA, {region = var.AWS_REGION})
     KEY             = var.DEPLOYMENT_GROUP_KEY
     VPC_ZONE_ID     = [aws_subnet.private_subnet.id]
     LC_SG           = [aws_security_group.public_http_sg.id]
