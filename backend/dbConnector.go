@@ -25,8 +25,6 @@ type DBConfig interface {
 
 // ConnectToDB creates a db connection with any predefined timeout
 func ConnectToDB(ctx context.Context, dbConfig DBConfig) (*Database, error) {
-
-
 	config, err := dbConfig.ConfigString(ctx)
 	if err != nil {
 		return &Database{}, err

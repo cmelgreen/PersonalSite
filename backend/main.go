@@ -8,7 +8,7 @@ import (
 )
 
 const (
-	timeout 		= 5
+	timeout 		= 15
 
 	portEnvVar 		= "PORT"
 	defaultPort		= ":80"
