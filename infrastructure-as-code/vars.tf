@@ -14,6 +14,9 @@ variable "GITHUB_CREDENTIALS" {
 variable "GITHUB_OWNER" {
     type    = string
 }
+variable "GITHUB_REPO" {
+    type    = string
+}
 
 variable "BUILD_SERVER_NAME" {
     type    = string

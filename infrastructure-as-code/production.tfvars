@@ -2,8 +2,9 @@ AWS_REGION                  = "us-west-2"
 AWS_AZ                      = "us-west-2a"
 AWS_BACKUP_AZ               = "us-west-2b"
 
-GITHUB_OWNER                = "cmelgreen"
 GITHUB_CREDENTIALS          = "credentials/github"
+GITHUB_OWNER                = "cmelgreen"
+GITHUB_REPO                 = "PersonalSite"
 
 BUILD_SERVER_NAME           = "build-server"
 BUILD_SERVER_AMI            = "ami-04ddade76a44c06c3"

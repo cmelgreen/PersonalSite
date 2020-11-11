@@ -29,6 +29,13 @@ module "build_server" {
     ]
 }
 
+module "github_webhook" {
+    source          = "./modules/github_webhook"
+
+    REPO            = var.GITHUB_REPO
+    TARGET_IP       = module.build_server.public_ip
+}
+
 module "deployment_server_group" {
     source          = "./modules/networked_asg"
 
