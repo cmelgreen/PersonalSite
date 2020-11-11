@@ -7,8 +7,8 @@ resource "aws_s3_bucket" "bucket" {
 }
 
 resource "aws_codedeploy_deployment_group" "group" {
-    deployment_group_name   = var.GROUP_NAME
-    app_name                    = "${aws_codedeploy_app.app.name}-group"
+    deployment_group_name   = "${aws_codedeploy_app.app.name}-group"
+    app_name                = aws_codedeploy_app.app.name
 
     service_role_arn        = var.SERVICE_ROLE
     autoscaling_groups      = var.ASG

@@ -38,31 +38,31 @@ resource "aws_security_group" "sg" {
 }
 
 resource "aws_ssm_parameter" "user" {
-    name        = "${var.IDENTIFIER}/user"
+    name        = "/${var.IDENTIFIER}/user"
     type        = "SecureString"
     value       = var.USERNAME
 }
 
 resource "aws_ssm_parameter" "password" {
-    name        = "${var.IDENTIFIER}/password"
+    name        = "/${var.IDENTIFIER}/password"
     type        = "SecureString"
     value       = var.PASSWORD
 }
 
 resource "aws_ssm_parameter" "port" {
-    name        = "${var.IDENTIFIER}/port"
+    name        = "/${var.IDENTIFIER}/port"
     type        = "SecureString"
     value       = var.PORT
 }
 
 resource "aws_ssm_parameter" "host" {
-    name        = "${var.IDENTIFIER}/host"
+    name        = "/${var.IDENTIFIER}/host"
     type        = "SecureString"
     value       = aws_db_instance.rds.address
 }
 
 resource "aws_ssm_parameter" "database" {
-    name        = "${var.IDENTIFIER}/database"
+    name        = "/${var.IDENTIFIER}/database"
     type        = "SecureString"
     value       = var.ENGINE
 }

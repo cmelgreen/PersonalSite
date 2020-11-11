@@ -68,7 +68,6 @@ module "codedeploy_app" {
 
     NAME            = var.CODEDEPLOY_NAME
     BUCKET          = var.CODEDEPLOY_BUCKET
-    GROUP_NAME      = var.CODEDEPLOY_GROUP_NAME
     ASG             = [module.deployment_server_group.asg.name]
     SERVICE_ROLE    = module.build_server.iam_role.arn
 }

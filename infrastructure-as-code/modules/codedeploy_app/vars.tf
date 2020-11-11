@@ -5,9 +5,6 @@ variable "NAME" {
 variable "BUCKET" {
     type    = string
 }
-variable "GROUP_NAME" {
-    type    = string
-}
 variable "SERVICE_ROLE" {
     type    = string
 }

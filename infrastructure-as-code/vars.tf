@@ -64,9 +64,6 @@ variable "CODEDEPLOY_NAME" {
 variable "CODEDEPLOY_BUCKET" {
     type    = string
 }
-variable "CODEDEPLOY_GROUP_NAME" {
-    type    = string
-}
 
 variable "IAM_FULL_SSM_ARN" {
     type    =  string
