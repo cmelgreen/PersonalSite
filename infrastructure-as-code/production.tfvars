@@ -9,6 +9,7 @@ GITHUB_REPO                 = "PersonalSite"
 BUILD_SERVER_NAME           = "build-server"
 BUILD_SERVER_AMI            = "ami-04ddade76a44c06c3"
 BUILD_SERVER_USER_DATA      = "scripts/build_server.sh"
+BUILD_SERVER_KEY            = "zoff"
 
 DEPLOYMENT_GROUP_NAME       = "deploymnet-server-group"
 DEPLOYMENT_GROUP_AMI        = "ami-04ddade76a44c06c3"

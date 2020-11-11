@@ -42,7 +42,7 @@ func (s *Server) newDBConnection(ctx context.Context, dbConfig DBConfig) {
 
 	s.db, err = ConnectToDB(ctx, dbConfig)
     if err != nil {
-        s.log.Println(err)
+		s.log.Println(err)
     }
 
 	err = s.db.createTable(ctx)

@@ -15,7 +15,7 @@ const (
 // Database abstracts sqlx connection
 type Database struct {
 	*sqlx.DB
-	config DBConfig
+	config *DBConfig
 }
 
 // DBConfig abstracts generation of a database configuration string
@@ -25,6 +25,8 @@ type DBConfig interface {
 
 // ConnectToDB creates a db connection with any predefined timeout
 func ConnectToDB(ctx context.Context, dbConfig DBConfig) (*Database, error) {
+
+
 	config, err := dbConfig.ConfigString(ctx)
 	if err != nil {
 		return &Database{}, err
@@ -35,7 +37,7 @@ func ConnectToDB(ctx context.Context, dbConfig DBConfig) (*Database, error) {
 		return &Database{}, err
 	}
 
-	return &Database{conn, dbConfig}, nil
+	return &Database{conn, &dbConfig}, nil
 }
 
 // Connected pings server and returns bool response status
