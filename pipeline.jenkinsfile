@@ -42,11 +42,11 @@ pipeline {
         success {
             step([
                 $class: 'AWSCodeDeployPublisher', 
-                applicationName: 'server-app', 
+                applicationName: 'personal-site', 
                 awsAccessKey: '', 
                 awsSecretKey: '', 
                 deploymentGroupAppspec: false, 
-                deploymentGroupName: 'server-app-group', 
+                deploymentGroupName: 'personal-site-group', 
                 deploymentMethod: 'deploy', 
                 excludes: 'infrastructure-as-code/, frontend/src/', 
                 iamRoleArn: '', 
@@ -54,7 +54,7 @@ pipeline {
                 proxyHost: '', 
                 proxyPort: 0,
                 region: 'us-west-2', 
-                s3bucket: 'server-app-bucket', 
+                s3bucket: 'personal-site-codedeploy-bucket', 
                 s3prefix: '', 
                 subdirectory: '', 
                 versionFileName: '', 
