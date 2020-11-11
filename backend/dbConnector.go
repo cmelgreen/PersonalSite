@@ -15,7 +15,6 @@ const (
 // Database abstracts sqlx connection
 type Database struct {
 	*sqlx.DB
-	config *DBConfig
 }
 
 // DBConfig abstracts generation of a database configuration string
@@ -35,7 +34,7 @@ func ConnectToDB(ctx context.Context, dbConfig DBConfig) (*Database, error) {
 		return &Database{}, err
 	}
 
-	return &Database{conn, &dbConfig}, nil
+	return &Database{conn}, nil
 }
 
 // Connected pings server and returns bool response status

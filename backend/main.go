@@ -8,7 +8,7 @@ import (
 )
 
 const (
-	timeout 		= 15
+	timeout 		= 5
 
 	portEnvVar 		= "PORT"
 	defaultPort		= ":80"
@@ -40,6 +40,8 @@ func main() {
 
 	s.newDBConnection(ctx, dbConfig)
 
+	s.log.Println("Setting up routes")
+
 	s.mux.GET("/", s.index())
 	s.mux.GET("/health", s.healthCheck())
 	s.mux.GET("/content", s.content())
@@ -50,6 +52,8 @@ func main() {
 	if port == "" {
 		port = defaultPort
 	}
+
+	s.log.Println("Running on ", port)
 
     s.log.Fatal(http.ListenAndServe(port, s.mux))
 }
