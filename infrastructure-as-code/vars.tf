@@ -1,42 +1,147 @@
-variable "AWS_REGION" {}
+variable "AWS_REGION" {
+    type    = string
+}
+variable "AWS_AZ" {
+    type    = string
+}
+variable "AWS_BACKUP_AZ" {
+    type    = string
+}
 
+variable "GITHUB_CREDENTIALS" {
+    type    = string
+}
+variable "GITHUB_OWNER" {
+    type    = string
+}
 
-variable "IAM_FULL_SSM_ARN" {}
-variable "IAM_READ_ONLY_SSM_ARN" {}
-variable "IAM_FULL_S3_ARN" {}
-variable "IAM_CD_EC2_ARN" {}
-variable "IAM_CD_DEPLOYER_ARN" {}
-variable "IAM_CD_DEPLOY_ARN" {}
+variable "BUILD_SERVER_NAME" {
+    type    = string
+}
+variable "BUILD_SERVER_AMI" {
+    type    = string
+}
+variable "BUILD_SERVER_USER_DATA" {
+    type    = string
+}
+variable "BUILD_SERVER_INSTANCE" {
+    type    = string
+    default = "t2.small"
+}
+variable "BUILD_SERVER_KEY" {
+    type    = string
+    default = ""
+}
 
+variable "DEPLOYMENT_GROUP_NAME" {
+    type    = string
+}
+variable "DEPLOYMENT_GROUP_AMI" {
+    type    = string
+}
+variable "DEPLOYMENT_GROUP_USER_DATA" {
+    type    = string
+}
+variable "DEPLOYMENT_GROUP_KEY" {
+    type    = string
+    default = ""
+}
 
-variable "VPC_CIDR" {}
-variable "VPC_DN_SUPPORT" {}
-variable "VPC_DNS_HOSTNAMES" {}
+variable "DB_IDENTIFIER" {
+    type    = string
+}
+variable "DB_USERNAME" {
+    type    = string
+    default = "postgres"
+}
 
-variable "PUBLIC_SUBNET_CIDR" {}
-variable "PUBLIC_SUBNET_MAP_IP" {}
-variable "PUBLIC_SUBNET_AZ" {}
+variable "CODEDEPLOY_NAME" {
+    type    = string
+}
+variable "CODEDEPLOY_BUCKET" {
+    type    = string
+}
 
-variable "PRIVATE_SUBNET_CIDR" {}
-variable "PRIVATE_SUBNET_AZ" {}
+variable "IAM_FULL_SSM_ARN" {
+    type    =  string
+    default = "arn:aws:iam::aws:policy/AmazonSSMFullAccess"
+}
+variable "IAM_READ_ONLY_SSM_ARN" {
+    type    =  string
+    default = "arn:aws:iam::aws:policy/AmazonSSMReadOnlyAccess"
+}
+variable "IAM_FULL_S3_ARN" {
+    type    =   string
+    default = "arn:aws:iam::aws:policy/AmazonS3FullAccess"
+}
+variable "IAM_CD_EC2_ARN" {
+    type    = string
+    default = "arn:aws:iam::aws:policy/service-role/AmazonEC2RoleforAWSCodeDeploy"
+}
+variable "IAM_CD_DEPLOYER_ARN" {
+    type    = string
+    default = "arn:aws:iam::aws:policy/AWSCodeDeployDeployerAccess"
+}
+variable "IAM_CD_DEPLOY_ARN" {
+    type    = string
+    default = "arn:aws:iam::aws:policy/service-role/AWSCodeDeployRole"
+}
 
-variable "BACKUP_SUBNET_CIDR" {}
-variable "BACKUP_SUBNET_AZ" {}
+variable "EC2_CODEDEPLOY_POLICY" {
+    type    = string
+    default = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "",
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "codedeploy.amazonaws.com"
+      },
+      "Action": "sts:AssumeRole"
+    },
+    {
+      "Sid": "",
+      "Effect": "Allow",
+      "Principal": {
+          "Service": [
+          "ec2.amazonaws.com"
+          ]
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
+}
+EOF
+}
 
+variable "VPC_CIDR" {
+    type    = string
+    default = "10.0.0.0/16"
+}
+variable "VPC_DN_SUPPORT" {
+    type    = bool
+    default = true
+}
+variable "VPC_DNS_HOSTNAMES" {
+    type    = bool
+    default = true
+}
 
-variable "APP_NAME" {}
-variable "APP_BUCKET" {}
-variable "APP_GROUP" {}
-variable "APP_ROLLBACK" {}
-variable "APP_ROLLBACK_EVENTS" {}
-
-
-variable "GITHUB_CREATE_WEBHOOK" {}
-
-variable "GITHUB_TOKEN" {}
-variable "GITHUB_OWNER" {}
-variable "GITHUB_REPO" {}
-variable "GITHUB_CONTENT_TYPE" {}
-variable "GITHUB_INSECURE_SSL" {}
-variable "GITHUB_EVENTS" {}  
-     
+variable "PUBLIC_SUBNET_CIDR" {
+    type    = string
+    default = "10.0.1.0/24"
+}
+variable "PUBLIC_SUBNET_MAP_IP" {
+    type    = bool
+    default = true
+}
+variable "PRIVATE_SUBNET_CIDR" {
+    type    = string
+    default = "10.0.2.0/24"
+}
+variable "BACKUP_SUBNET_CIDR" {
+    type    = string
+    default = "10.0.3.0/24"
+}

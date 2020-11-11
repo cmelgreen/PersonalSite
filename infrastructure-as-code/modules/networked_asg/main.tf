@@ -10,13 +10,13 @@ resource "aws_autoscaling_group" "asg" {
     force_delete                = var.FORCE_DELETE
 
     launch_configuration        = aws_launch_configuration.lc.name
-    vpc_zone_identifier         = var.VPC
+    vpc_zone_identifier         = var.VPC_ZONE_ID
 
     load_balancers              = [aws_elb.elb.name]
 }
 
 resource "aws_launch_configuration" "lc" {
-    name                        = vars.LC_NAME
+    name                        = "${var.NAME}_${formatdate("YY_MM_DD_HH_mm", timestamp())}"
 
     image_id                    = var.IMAGE
     instance_type               = var.INSTANCE_TYPE

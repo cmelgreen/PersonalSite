@@ -1,14 +1,10 @@
 variable "NAME" {
     type    = string
 }
-variable "LC_NAME" {
-    type    = string
-    default = "${var.NAME}_${formatdate("YY_MM_DD_HH_mm", timestamp())}"
-}
 variable "LC_SG" {
-    type    = string
+    type    = list(string)
 }
-variable "IMAGE" {
+variable "AMI" {
     type    = string
     default = "ami-07dd19a7900a1f049" // default Ubunut Server 20.04 LTS
 }             
@@ -34,10 +30,10 @@ variable "VOL_SIZE" {
 }
 variable "PUBLIC_IP" {
     type    = bool
-    default = true
+    default = false
 }
-variable "VPC" {
-    type    = string
+variable "VPC_ZONE_ID" {
+    type    = list(string)
 }
 variable "ASG_MIN" {
     type    = number
