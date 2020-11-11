@@ -1,6 +1,3 @@
-variable "NAME" {
-    type    = string
-}
 variable "AMI" {
     type    = string
 }

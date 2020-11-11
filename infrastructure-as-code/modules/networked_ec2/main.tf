@@ -1,5 +1,4 @@
 resource "aws_instance" "server" {
-    name                        = var.NAME
     ami                         = var.AMI
     instance_type               = var.INSTANCE_TYPE
     associate_public_ip_address = var.PUBLIC_IP
@@ -14,13 +13,13 @@ resource "aws_instance" "server" {
 }
 
 resource "aws_iam_instance_profile" "iam_profile" {
-    name                = "${var.NAME}_iam_profile"
+    name                = "server_iam_profile"
     role                = aws_iam_role.iam_role.name
 }
 
 resource "aws_iam_role" "iam_role" {
-    name                = "${var.NAME}_iam_role"
-    assume_role_policy  = var.IAM_POLICY
+    name                = "server_iam_role"
+    assume_role_policy  = var.IAM_BASE_POLICY
 }
 
 resource "aws_iam_role_policy_attachment" "iam_policy_attachments" {

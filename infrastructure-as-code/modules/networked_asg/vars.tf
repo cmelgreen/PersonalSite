@@ -47,23 +47,23 @@ variable "ASG_DESIRED" {
     type    = number
     default = 1
 }
-variable "ASG_HEALTH_PERIOD" {
+variable "HEALTH_PERIOD" {
     type    = number
     default = 30
 }
-variable "ASG_HEALTH_TYPE" {
+variable "HEALTH_TYPE" {
     type    = string
     default = "EC2"
 }
-variable "ASG_FORCE" {
+variable "FORCE_DELETE" {
     type    = bool
     default = true
 }
 variable "ELB_SG" {
-    type    = string
+    type    = list(string)
 }
 variable "ELB_SUBNETS" {
-    type    = string
+    type    = list(string)
 }
 variable "ELB_PORT" {
     type    = number

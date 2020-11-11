@@ -1,5 +1,5 @@
 output "elb_endpoint" {
-    value = aws_elb.server_elb.dns_name
+    value = aws_elb.elb.dns_name
 }
 
 output "asg" {

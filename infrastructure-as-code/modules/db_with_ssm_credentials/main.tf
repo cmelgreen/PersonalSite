@@ -1,5 +1,5 @@
 resource "aws_db_instance" "rds" {
-      identifier                = var.INDENTIFIER
+      identifier                = var.IDENTIFIER
       username                  = var.USERNAME
       password                  = var.PASSWORD
       final_snapshot_identifier = "${var.IDENTIFIER}-${var.SNAPSHOT_NAME}"
@@ -16,20 +16,17 @@ resource "aws_db_instance" "rds" {
 }
 
 resource "aws_db_subnet_group" "subnet_group" {
-    subnet_ids    = [
-        aws_subnet.private_subnet.id,
-        aws_subnet.backup_subnet.id
-    ]
+    subnet_ids    = var.SUBNETS
 }
 
 resource "aws_security_group" "sg" {
-    vpc_id          = aws_vpc.vpc.id
+    vpc_id              = var.VPC
 
     ingress {
         from_port       = var.PORT
         to_port         = var.PORT
         protocol        = "tcp"
-        security_groups = [aws_security_group.server_sg.id]
+        security_groups = var.INGRESS_SGS
     }
 
     egress {

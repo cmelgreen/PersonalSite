@@ -1,4 +1,4 @@
-variable "INDENTIFIER" {
+variable "IDENTIFIER" {
     type    = string
 }
 variable "USERNAME" {
@@ -14,6 +14,9 @@ variable "ALLOCATED_STORAGE" {
 variable "CIDR" {
     type    = string
     default = "0.0.0.0/0"
+}
+variable "VPC" {
+    type    = string
 }
 variable "STORAGE_TYPE" {
     type    = string
@@ -46,4 +49,12 @@ variable "SNAPSHOT_NAME" {
 variable "SNAPSHOT_SKIP" {
     type    = bool
     default = true
+}
+variable "SUBNETS" {
+    type    = list(string)
+    default = []
+}
+variable "INGRESS_SGS" {
+    type    = list(string)
+    default = []
 }

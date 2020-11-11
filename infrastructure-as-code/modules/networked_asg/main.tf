@@ -16,9 +16,9 @@ resource "aws_autoscaling_group" "asg" {
 }
 
 resource "aws_launch_configuration" "lc" {
-    name                        = "${var.NAME}_${formatdate("YY_MM_DD_HH_mm", timestamp())}"
+    name                        = "${var.NAME}-${formatdate("YY-MM-DD-HH-mm", timestamp())}"
 
-    image_id                    = var.IMAGE
+    image_id                    = var.AMI
     instance_type               = var.INSTANCE_TYPE
     user_data                   = var.USER_DATA
 
@@ -40,7 +40,7 @@ resource "aws_launch_configuration" "lc" {
 }
 
 resource "aws_elb" "elb" {
-    name                        = "${var.NAME}_elb"
+    name                        = "${var.NAME}-elb"
     security_groups             = var.ELB_SG
     subnets                     = var.ELB_SUBNETS
 
@@ -61,14 +61,14 @@ resource "aws_elb" "elb" {
 }
 
 resource "aws_iam_role" "iam_role" {
-    name                        = "${var.NAME}_iam_role"
+    name                        = "${var.NAME}-iam-role"
     force_detach_policies       = true
 
     assume_role_policy          = var.IAM_BASE_POLICY
 }
 
 resource "aws_iam_instance_profile" "iam_profile" {
-    name                        = "${var.NAME}_iam_policy"
+    name                        = "${var.NAME}-iam-policy"
     role                        = aws_iam_role.iam_role.name
 }
 

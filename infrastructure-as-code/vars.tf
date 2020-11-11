@@ -54,11 +54,17 @@ variable "DB_USERNAME" {
     type    = string
     default = "postgres"
 }
+variable "DB_PASSWORD" {
+    type = string
+}
 
 variable "CODEDEPLOY_NAME" {
     type    = string
 }
 variable "CODEDEPLOY_BUCKET" {
+    type    = string
+}
+variable "CODEDEPLOY_GROUP_NAME" {
     type    = string
 }
 

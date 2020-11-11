@@ -10,7 +10,6 @@ provider "github" {
 module "build_server" {
     source          = "./modules/networked_ec2"
 
-    NAME            = var.BUILD_SERVER_NAME
     ## Filter AMI better instead of hardcode
     AMI             = var.BUILD_SERVER_AMI
     USER_DATA       = file(var.BUILD_SERVER_USER_DATA)
@@ -54,6 +53,14 @@ module "database" {
 
     IDENTIFIER      = var.DB_IDENTIFIER
     USERNAME        = var.DB_USERNAME
+    PASSWORD        = file(var.DB_PASSWORD)
+
+    VPC             = aws_vpc.vpc.id
+    INGRESS_SGS     = [aws_security_group.public_http_sg.id]
+    SUBNETS         = [
+        aws_subnet.private_subnet.id,
+        aws_subnet.backup_subnet.id
+    ]
 }
 
 module "codedeploy_app" {
@@ -61,12 +68,10 @@ module "codedeploy_app" {
 
     NAME            = var.CODEDEPLOY_NAME
     BUCKET          = var.CODEDEPLOY_BUCKET
+    GROUP_NAME      = var.CODEDEPLOY_GROUP_NAME
     ASG             = [module.deployment_server_group.asg.name]
     SERVICE_ROLE    = module.build_server.iam_role.arn
 }
-
-
-### Remove variable refrences to prod.tfvars
 
 resource "aws_vpc" "vpc" {
     cidr_block              = var.VPC_CIDR
