@@ -41,12 +41,12 @@ module "deployment_server_group" {
 
     NAME            = var.DEPLOYMENT_GROUP_NAME
     AMI             = var.DEPLOYMENT_GROUP_AMI
-    USER_DATA       = templatefile(var.DEPLOYMENT_GROUP_USER_DATA, {root="/${var.CODEDEPLOY_NAME}/", region=var.AWS_REGION})
+    USER_DATA       = templatefile(var.DEPLOYMENT_GROUP_USER_DATA, {root="/${var.DB_IDENTIFIER}/", region=var.AWS_REGION})
     KEY             = var.DEPLOYMENT_GROUP_KEY
     VPC_ZONE_ID     = [aws_subnet.private_subnet.id]
     LC_SG           = [aws_security_group.public_http_sg.id]
 
-    ELB_SUBNETS     = [aws_subnet.private_subnet.id]
+    ELB_SUBNETS     = [aws_subnet.public_subnet.id]
     ELB_SG          = [aws_security_group.public_http_sg.id]
 
     IAM_POLICIES    = [
