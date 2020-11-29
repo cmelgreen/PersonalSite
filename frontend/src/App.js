@@ -1,16 +1,19 @@
-import React from "react";
-import "./App.css";
+import React from 'react';
+import { Provider } from 'react-redux';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-import Linkbar from "./components/linkbar/linkbar";
-import Title from "./components/title/title";
-import Content from "./components/content/content";
+import Store from './Store/Store';
+import './App.css'
 
-export default function App() {
+import  ParseRoutes from './Utils/ParseRoutes'
+import { routes } from './routes.json'
+
+export default function AppContainer() {
   return (
-    <div className="app">
-      <Linkbar />
-      <Title />
-      <Content />
-    </div>
-  );
+    <Provider store={Store()}>
+      <Router>
+          {ParseRoutes(routes).map((props, i) => <Route key={i} {...props} />)}
+      </Router>
+    </Provider>
+  )
 }

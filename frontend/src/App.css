@@ -3,29 +3,69 @@ body {
   padding: 0;
 }
 
-.app {
+.main-page {
+  font-family: sans-serif;
+  text-align: center;
+
   display: grid;
   grid-template-columns: 20% 1fr 20%;
-  grid-template-rows: 40px 75vh auto 50vh;
-  margin: 0;
+  grid-template-rows: 10%  auto 50vh;
+
+  height: 200vh;
+
   padding: 0;
+  margin: 0;
+  border: 0;
+
+  top: 0;
+  left: 0;
 }
 
-.link-bar {
-  background: black;
+@media (max-width: 600px) {
+  .main-page {
+    grid-template-columns: 1fr;
+  }
+}
+
+.header {
+  height: 10%;
   grid-column: 1/4;
   grid-row: 1;
 }
 
-.title {
+.content-list {
+  top: 0;
   grid-column: 2;
   grid-row: 2;
-
-  justify-content: center;
-  align-content: center;
 }
 
-.content {
+@media (max-width: 600px) {
+  .content-list {
+    grid-column: 1;
+  }
+}
+
+.post-container {
+  font-family: sans-serif;
+
+
+  display: grid;
+  grid-template-columns: 20% 1fr 20%;
+  grid-template-rows: 10%  auto 50vh;
+
+  height: 200vh;
+
+  padding: 0;
+  margin: 0;
+  border: 0;
+
+  top: 0;
+  left: 0;
+}
+
+.post {
+  top: 0;
   grid-column: 2;
-  grid-row: 3;
+  grid-row: 2;
+  text-align: center;
 }

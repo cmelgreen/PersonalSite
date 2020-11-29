@@ -2,3 +2,4 @@
 **/terraform.tfstate*
 **/credentials/
 **/.vscode/
+package-lock.json
