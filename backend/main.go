@@ -16,15 +16,14 @@ const (
 	defaultPort		= ":80"
 	frontendDir 	= "/frontend/static"
 
-	// AWS SSM path i
+	// Environment vars/files to check for AWS CLI & SSM configuration
 	baseAWSRegion  	= "AWS_REGION"
 	baseAWSRoot    	= "AWS_ROOT"
-
-	// ( name this better )
     baseConfigName 	= "base_config"
     baseConfigPath 	= "./app_data/"
 	withEncrpytion 	= true
 
+	// Path to serve api at
 	apiRoot 		= "/api"
 )
 
