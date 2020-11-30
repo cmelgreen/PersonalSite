@@ -29,16 +29,16 @@ func (s *Server) healthCheck() httprouter.Handle {
 
 func (s *Server) content() httprouter.Handle {
 	return func(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-		m, err := s.db.queryPost(r.Context())
+		r.ParseForm()
+		postTitle := r.FormValue("id")
+
+		p, err := s.db.queryPost(r.Context(), postTitle)
 		if err != nil {
-			m = message{"Error fetching data"}
+			p = post{}
 		}
 
-		mes, _ := json.Marshal(m)
-		s.log.Println(string(mes))
-
 		w.Header().Set("Content-Type", "application/json")
-		json.NewEncoder(w).Encode(m)
+		json.NewEncoder(w).Encode(p)
 	}
 }
 

@@ -8,18 +8,19 @@ import (
 )
 
 const (
+	// Default timeout length
 	timeout 		= 5
 
+	// Default environment variable for serving and default port
 	portEnvVar 		= "PORT"
 	defaultPort		= ":80"
 
+	// AWS SSM path i
 	baseAWSRegion  	= "AWS_REGION"
     baseAWSRoot    	= "AWS_ROOT"
     baseConfigName 	= "base_config"
     baseConfigPath 	= "./app_data/"
 	withEncrpytion 	= true
-	
-	contentDB 		= iota
 )
 
 // Create router and environment then serve
