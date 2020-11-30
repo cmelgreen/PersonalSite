@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-//go:generate go-bindata -fs -prefix "../frontend/build/static" ../frontend/build/static
+//go:generate go-bindata -fs -prefix "../frontend@temp/build/static" ../frontend@temp/build/static
 
 const (
 	// Default timeout length
