@@ -17,7 +17,7 @@ DEPLOYMENT_GROUP_USER_DATA  = "scripts/deployment_server.sh"
 DEPLOYMENT_GROUP_KEY        = "zoff"
 
 DB_IDENTIFIER               = "personal-site-db"
-DB_PASSWORD                 = "credentials/rds"
+DB_PASSWORD_FILE                 = "credentials/rds"
 
 CODEDEPLOY_NAME             = "personal-site"
 CODEDEPLOY_BUCKET           = "personal-site-codedeploy-bucket"

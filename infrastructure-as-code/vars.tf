@@ -54,11 +54,15 @@ variable "DB_IDENTIFIER" {
     type    = string
 }
 variable "DB_USERNAME" {
-    type    = string
-    default = "postgres"
+    type     = string
+    default  = "postgres"
 }
 variable "DB_PASSWORD" {
-    type = string
+    type     = string
+}
+variable "DB_PUBLIC_ACCESS" {
+    type    = bool
+    default = false
 }
 
 variable "CODEDEPLOY_NAME" {
@@ -93,8 +97,11 @@ variable "IAM_CD_DEPLOY_ARN" {
     default = "arn:aws:iam::aws:policy/service-role/AWSCodeDeployRole"
 }
 
+
 variable "EC2_CODEDEPLOY_POLICY" {
     type    = string
+
+    // No extra spaces allowed
     default = <<EOF
 {
   "Version": "2012-10-17",

@@ -60,7 +60,8 @@ module "database" {
 
     IDENTIFIER      = var.DB_IDENTIFIER
     USERNAME        = var.DB_USERNAME
-    PASSWORD        = file(var.DB_PASSWORD)
+    PASSWORD        = file(var.DB_PASSWORD_FILE)
+    PUBLIC_ACCESS   = var.DB_PUBLIC_ACCESS
 
     VPC             = aws_vpc.vpc.id
     INGRESS_SGS     = [aws_security_group.public_http_sg.id]

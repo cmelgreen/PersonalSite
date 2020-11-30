@@ -14,10 +14,13 @@ const (
 	// Default environment variable for serving and default port
 	portEnvVar 		= "PORT"
 	defaultPort		= ":80"
+	frontendDir 	= "/frontend/build/static"
 
 	// AWS SSM path i
 	baseAWSRegion  	= "AWS_REGION"
-    baseAWSRoot    	= "AWS_ROOT"
+	baseAWSRoot    	= "AWS_ROOT"
+	
+	// ( name this better )
     baseConfigName 	= "base_config"
     baseConfigPath 	= "./app_data/"
 	withEncrpytion 	= true
@@ -49,7 +52,7 @@ func main() {
 	s.mux.GET("/health", s.healthCheck())
 	s.mux.GET(apiRoot + "/post", s.getPostByID())
 	s.mux.GET("/icon", s.icon())
-	s.mux.ServeFiles("/static/*filepath", http.Dir("/frontend/static"))
+	s.mux.ServeFiles("/static/*filepath", http.Dir(frontendDir))
 
 	port := os.Getenv(portEnvVar)
 	if port == "" {

@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 
 	_ "github.com/jackc/pgx/v4/stdlib"
 
@@ -20,6 +21,29 @@ type Database struct {
 // DBConfig abstracts generation of a database configuration string
 type DBConfig interface {
 	ConfigString(context.Context) (string, error)
+}
+
+// DBConfigFromValues is the default DBConfig type using set values
+type dbConfigFromValues struct {
+	database	  	string
+	host    		string
+	port 			string
+	user 			string
+	password		string
+}
+
+// ConfigString returns DBConfigValues formatted into a configuartion string
+func (dbConfig dbConfigFromValues) ConfigString(ctx context.Context) (string, error) {
+	configString := fmt.Sprintf(
+	"database=%s host=%s port=%s user=%s password=%s",
+	dbConfig.database,
+	dbConfig.host,
+	dbConfig.port,
+	dbConfig.user,
+	dbConfig.password,
+	)
+	
+	return configString, nil
 }
 
 // ConnectToDB creates a db connection with any predefined timeout
@@ -54,7 +78,7 @@ func (db *Database) Connected(ctx context.Context) bool {
 
 func (db *Database) createTable(ctx context.Context) error {
 	schema := `CREATE TABLE post(
-		title varchar(1000)
+		title varchar(1000),
 		content varchar(1000)
 	)`
 

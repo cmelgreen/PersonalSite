@@ -17,8 +17,6 @@ var ssmParams = []string{
 
 // DBConfigFromAWS implements DBConfig
 type DBConfigFromAWS struct {
-	DBConfig
-
 	baseAWSRegion  string
 	baseAWSRoot    string
 	baseConfigName string
