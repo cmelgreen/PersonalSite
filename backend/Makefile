@@ -1,4 +1,4 @@
 build:
-	go get -u github.com/go-bindata/go-bindata/...
+	go install
 	go generate
 	go build -o server *.go
