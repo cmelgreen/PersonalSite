@@ -8,11 +8,9 @@ const api = '/api/post'
 export const getPostByID = (id) => {
     const dispatch = useDispatch()
     
-    axios.get(api + '?id=' + id)
-        .then((resp) => {
-            dispatch(setContent(resp.data.content))
-        })
-        .catch(() => clearCurrentPost())
+    axios.get(api, {params: {id}})
+        .then((resp) => dispatch(setContent(resp.data.post.content)))
+        .catch(() => dispatch(setContent('')))
 
     return useSelector((state) => state.content)
 }
