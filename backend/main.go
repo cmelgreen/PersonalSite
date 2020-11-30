@@ -47,7 +47,7 @@ func main() {
 
 	s.mux.GET("/", s.index())
 	s.mux.GET("/health", s.healthCheck())
-	s.mux.GET(apiRoot + "/post", s.content())
+	s.mux.GET(apiRoot + "/post", s.getPostByID())
 	s.mux.GET("/icon", s.icon())
 	s.mux.ServeFiles("/static/*filepath", http.Dir("/frontend/static"))
 

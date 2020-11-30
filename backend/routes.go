@@ -27,7 +27,7 @@ func (s *Server) healthCheck() httprouter.Handle {
 	}
 }
 
-func (s *Server) content() httprouter.Handle {
+func (s *Server) getPostByID() httprouter.Handle {
 	return func(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 		r.ParseForm()
 		postTitle := r.FormValue("id")
@@ -36,6 +36,8 @@ func (s *Server) content() httprouter.Handle {
 		if err != nil {
 			p = post{}
 		}
+
+		w.Write([]byte("fetching data"))
 
 		w.Header().Set("Content-Type", "application/json")
 		json.NewEncoder(w).Encode(p)
