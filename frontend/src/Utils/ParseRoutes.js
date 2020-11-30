@@ -6,6 +6,8 @@ const getComponentByName = {
     PostContainer: PostContainer
 }
 
-export const ParseRoutes = (routes) => {
+const ParseRoutes = (routes) => {
     return routes.map((props) => ({...props, component: getComponentByName[props.component]}))
 }
+
+export default ParseRoutes
