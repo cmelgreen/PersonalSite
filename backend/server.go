@@ -51,7 +51,7 @@ func (s *Server) newDBConnection(ctx context.Context, dbConfig DBConfig) {
 		s.log.Println("Error creating table: ", err)
 	}
 
-	s.maintainDBConnection(ctx, dbConfig)
+	//s.maintainDBConnection(ctx, dbConfig)
 }
 
 func (s *Server) maintainDBConnection(ctx context.Context, dbConfig DBConfig) {
@@ -64,7 +64,6 @@ func (s *Server) maintainDBConnection(ctx context.Context, dbConfig DBConfig) {
 					s.log.Println("Error maintaining connection: ", err)
 				}
 			}
-
 			time.Sleep(heartbeatTime * time.Second)
 		}
 	}()

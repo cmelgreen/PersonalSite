@@ -78,15 +78,13 @@ func (db *Database) Connected(ctx context.Context) bool {
 
 func (db *Database) createTable(ctx context.Context) error {
 	schema := `CREATE TABLE post(
-		title varchar(1000),
+		title varchar(1000) PRIMARY KEY,
 		content varchar(1000)
 	)`
 
 	_, err := db.ExecContext(ctx, schema)
 
-	if err != nil {
-		return err
-	}
+	// CHECK ERROR IS ALREADY CREATED OR OTHER
 
 	defaultPosts := postList{
 		[]post{
@@ -111,7 +109,7 @@ func (db *Database) queryPost(ctx context.Context, title string) (post, error) {
 	p := post{}
 
 	query := "SELECT * FROM post WHERE title=$1;"
-	err := db.QueryRowxContext(ctx, query, title).Scan(&p)
+	err := db.QueryRowxContext(ctx, query, title).Scan(&p.Title, &p.Content)
 
 	return p, err
 }

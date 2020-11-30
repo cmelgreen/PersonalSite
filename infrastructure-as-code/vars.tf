@@ -57,7 +57,7 @@ variable "DB_USERNAME" {
     type     = string
     default  = "postgres"
 }
-variable "DB_PASSWORD" {
+variable "DB_PASSWORD_FILE" {
     type     = string
 }
 variable "DB_PUBLIC_ACCESS" {

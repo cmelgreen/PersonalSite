@@ -9,12 +9,12 @@ import (
 
 const (
 	// Default timeout length
-	timeout 		= 5
+	timeout 		= 10
 
 	// Default environment variable for serving and default port
 	portEnvVar 		= "PORT"
-	defaultPort		= ":80"
-	frontendDir 	= "/frontend/build/static"
+	defaultPort		= ":8080"
+	frontendDir 	= "/frontend/static"
 
 	// AWS SSM path i
 	baseAWSRegion  	= "AWS_REGION"
@@ -43,6 +43,10 @@ func main() {
 		baseConfigPath, 
 		withEncrpytion,
 	)
+
+	// dbConfig := dbConfigFromValues{
+	// 	"postgres", "postgres.clqvtznvkb8x.us-west-2.rds.amazonaws.com", "5432", "postgres", "postgres",
+	// }
 
 	s.newDBConnection(ctx, dbConfig)
 
