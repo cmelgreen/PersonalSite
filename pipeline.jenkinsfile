@@ -6,6 +6,20 @@ pipeline {
             steps { git 'https://github.com/cmelgreen/PersonalSite' }
         }
 
+        stage('Frontend') {
+            agent { docker { 
+                image 'node:latest' 
+                reuseNode true
+            } }
+
+            steps { 
+                dir('frontend') {
+                    sh 'make install'
+                    sh 'make build -B' 
+                }
+            }
+        }
+
         stage('Backend') {
             agent { docker { 
                 image 'golang:latest' 
@@ -18,20 +32,6 @@ pipeline {
             steps { 
                 dir('backend') {
                     sh 'make build -B'
-                }
-            }
-        }
-
-        stage('Frontend') {
-            agent { docker { 
-                image 'node:latest' 
-                reuseNode true
-            } }
-
-            steps { 
-                dir('frontend') {
-                    sh 'make install'
-                    sh 'make build -B' 
                 }
             }
         }

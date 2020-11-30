@@ -7,6 +7,8 @@ import (
 	"time"
 )
 
+//go:generate go-bindata -fs -prefix "../frontend/build/static" ../frontend/build/static
+
 const (
 	// Default timeout length
 	timeout 		= 10
@@ -43,26 +45,18 @@ func main() {
 		withEncrpytion,
 	)
 
-	// dbConfig := dbConfigFromValues{
-	// 	"postgres", "postgres.clqvtznvkb8x.us-west-2.rds.amazonaws.com", "5432", "postgres", "postgres",
-	// }
-
 	s.newDBConnection(ctx, dbConfig)
-
-	s.log.Println("Setting up routes")
 
 	s.mux.GET("/", s.index())
 	s.mux.GET("/health", s.healthCheck())
 	s.mux.GET(apiRoot + "/post", s.getPostByID())
 	s.mux.GET("/icon", s.icon())
-	s.mux.ServeFiles("/static/*filepath", http.Dir(frontendDir))
+	s.mux.ServeFiles("/static/*filepath", AssetFile())
 
 	port := os.Getenv(portEnvVar)
 	if port == "" {
 		port = defaultPort
 	}
-
-	s.log.Println("Running on ", port)
 
     s.log.Fatal(http.ListenAndServe(port, s.mux))
 }

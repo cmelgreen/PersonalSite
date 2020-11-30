@@ -36,7 +36,6 @@ func newServer(ctx context.Context) *Server {
 	return &s
 }
 
-
 func (s *Server) newDBConnection(ctx context.Context, dbConfig DBConfig) {
 	var err error
 
