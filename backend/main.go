@@ -13,13 +13,13 @@ const (
 
 	// Default environment variable for serving and default port
 	portEnvVar 		= "PORT"
-	defaultPort		= ":8080"
+	defaultPort		= ":80"
 	frontendDir 	= "/frontend/static"
 
 	// AWS SSM path i
 	baseAWSRegion  	= "AWS_REGION"
 	baseAWSRoot    	= "AWS_ROOT"
-	
+
 	// ( name this better )
     baseConfigName 	= "base_config"
     baseConfigPath 	= "./app_data/"
