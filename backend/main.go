@@ -21,6 +21,8 @@ const (
     baseConfigName 	= "base_config"
     baseConfigPath 	= "./app_data/"
 	withEncrpytion 	= true
+
+	apiRoot 		= "/api"
 )
 
 // Create router and environment then serve
@@ -45,7 +47,7 @@ func main() {
 
 	s.mux.GET("/", s.index())
 	s.mux.GET("/health", s.healthCheck())
-	s.mux.GET("/content", s.content())
+	s.mux.GET(apiRoot + "/post", s.content())
 	s.mux.GET("/icon", s.icon())
 	s.mux.ServeFiles("/static/*filepath", http.Dir("/frontend/static"))
 
