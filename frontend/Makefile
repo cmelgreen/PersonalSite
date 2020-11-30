@@ -4,4 +4,5 @@ install:
 build:
 	yarn cache clean
 	yarn build
-	lsls ../
+	ls
+	ls ../
