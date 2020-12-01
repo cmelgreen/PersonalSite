@@ -7,7 +7,6 @@ import (
 	"time"
 )
 
-
 // PULL INTO YAML FILE
 const (
 	// Default timeout length
@@ -47,7 +46,6 @@ func main() {
 
 	s.newDBConnection(ctx, dbConfig)
 
-	s.mux.GET("/", s.index())
 	s.mux.GET("/health", s.healthCheck())
 	s.mux.GET(apiRoot + "/post", s.getPostByID())
 	s.mux.GET("/icon", s.icon())
