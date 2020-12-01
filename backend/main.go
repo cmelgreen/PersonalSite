@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"html/template"
 	"net/http"
 	"os"
 	"time"
@@ -46,11 +47,14 @@ func main() {
 
 	s.newDBConnection(ctx, dbConfig)
 
-	// FS is any http.FileSystem generated at build time containing the static files to serve
-	s.mux.ServeFiles("/static/*filepath", FS(false))
+	fileSystem := FS(false)
+	indexHTMLString := FSMustString(false, "/index.html")
+	tpl := template.Must(template.New("index").Parse(indexHTMLString))
+
+	s.mux.ServeFiles("/static/*filepath", fileSystem)
+	s.mux.GET("/", s.staticTemplate(tpl, "index"))
 	s.mux.GET("/health", s.healthCheck())
 	s.mux.GET(apiRoot + "/post", s.getPostByID())
-
 
 	port := os.Getenv(portEnvVar)
 	if port == "" {

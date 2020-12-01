@@ -2,11 +2,18 @@ package main
 
 import (
 	"encoding/json"
+	"html/template"
 	"net/http"
 
 	"github.com/julienschmidt/httprouter"
 )
 
+// staticTemplate executes the named template passed in
+func (s *Server) staticTemplate(tpl *template.Template, name string) httprouter.Handle {
+	return func(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+		tpl.ExecuteTemplate(w, name, nil)
+	}
+}
 
 // Healthcheck is a closure that returns a function ro check the database connection and write status to user
 func (s *Server) healthCheck() httprouter.Handle {
