@@ -1,5 +1,5 @@
 build:
-	sudo rm static.go
+	rm -f static.go
 	go get -u github.com/mjibson/esc
 	go generate esc -o static.go -prefix ../frontend/build ../frontend/build
 	cat static.go
