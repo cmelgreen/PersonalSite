@@ -7,8 +7,6 @@ import (
 	"time"
 )
 
-//go:generate esc -o static.go -prefix ../frontend/build/static ../frontend/build/static
-
 
 // PULL INTO YAML FILE
 const (
