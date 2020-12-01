@@ -46,10 +46,11 @@ func main() {
 
 	s.newDBConnection(ctx, dbConfig)
 
+	// FS is any http.FileSystem generated at build time containing the static files to serve
+	s.mux.ServeFiles("/static/*filepath", FS(false))
 	s.mux.GET("/health", s.healthCheck())
 	s.mux.GET(apiRoot + "/post", s.getPostByID())
-	s.mux.GET("/icon", s.icon())
-	s.mux.ServeFiles("/static/*filepath", FS(false))
+
 
 	port := os.Getenv(portEnvVar)
 	if port == "" {
