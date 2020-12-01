@@ -3,10 +3,10 @@ os: linux
 files:
   - source: backend/server
     destination: /backend
-  - source: frontend/build
-    destination: /frontend
-  - source: frontend/media/
-    destination: /frontend/media
+  # - source: frontend/build
+  #   destination: /frontend
+  # - source: frontend/media/
+  #   destination: /frontend/media
   - source: scripts/
     destination: /scripts
 
