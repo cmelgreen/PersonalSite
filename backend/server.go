@@ -39,7 +39,7 @@ func newServer(ctx context.Context) *Server {
 func (s *Server) newDBConnection(ctx context.Context, dbConfig DBConfig) {
 	var err error
 
-	// Fix null errors
+	// FIX NULL ERRORS
 	s.db, err = ConnectToDB(ctx, dbConfig)
     if err != nil {
 		s.log.Println(err)

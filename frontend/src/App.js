@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import Store from './Store/Store';
-import './App.css'
+import '/App.css'
 
 import  ParseRoutes from './Utils/ParseRoutes'
 import { routes } from './routes.json'

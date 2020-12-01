@@ -7,8 +7,10 @@ import (
 	"time"
 )
 
-//go:generate go-bindata -fs -prefix "../frontend/build/static" ../frontend/build/static
+//go:generate esc -o static.go -prefix ../frontend/build/static ../frontend/build/static
 
+
+// PULL INTO YAML FILE
 const (
 	// Default timeout length
 	timeout 		= 10
@@ -51,7 +53,7 @@ func main() {
 	s.mux.GET("/health", s.healthCheck())
 	s.mux.GET(apiRoot + "/post", s.getPostByID())
 	s.mux.GET("/icon", s.icon())
-	s.mux.ServeFiles("/static/*filepath", AssetFile())
+	s.mux.ServeFiles("/static/*filepath", FS(false))
 
 	port := os.Getenv(portEnvVar)
 	if port == "" {
