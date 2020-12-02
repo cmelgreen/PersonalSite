@@ -1,4 +1,4 @@
-package main 
+package main
 
 import (
 	"context"
@@ -11,22 +11,22 @@ import (
 // PULL INTO YAML FILE
 const (
 	// Default timeout length
-	timeout 		= 10
+	timeout = 10
 
 	// Default environment variable for serving and default port
-	portEnvVar 		= "PORT"
-	defaultPort		= ":80"
-	frontendDir 	= "/frontend/static"
+	portEnvVar  = "PORT"
+	defaultPort = ":80"
+	frontendDir = "/frontend/static"
 
 	// Environment vars/files to check for AWS CLI & SSM configuration
-	baseAWSRegion  	= "AWS_REGION"
-	baseAWSRoot    	= "AWS_ROOT"
-    baseConfigName 	= "base_config"
-    baseConfigPath 	= "./app_data/"
-	withEncrpytion 	= true
+	baseAWSRegion  = "AWS_REGION"
+	baseAWSRoot    = "AWS_ROOT"
+	baseConfigName = "base_config"
+	baseConfigPath = "./app_data/"
+	withEncrpytion = true
 
 	// Path to serve api at
-	apiRoot 		= "/api"
+	apiRoot = "/api"
 )
 
 // Create router and environment then serve
@@ -37,11 +37,11 @@ func main() {
 	s := newServer(ctx)
 
 	dbConfig := dbConfigFromAWS(
-		ctx, 
-		baseAWSRegion, 
-		baseAWSRoot, 
-		baseConfigName, 
-		baseConfigPath, 
+		ctx,
+		baseAWSRegion,
+		baseAWSRoot,
+		baseConfigName,
+		baseConfigPath,
 		withEncrpytion,
 	)
 
@@ -54,12 +54,14 @@ func main() {
 	s.mux.ServeFiles("/static/*filepath", fileSystem)
 	s.mux.GET("/", s.staticTemplate(tpl, "index"))
 	s.mux.GET("/health", s.healthCheck())
-	s.mux.GET(apiRoot + "/post", s.getPostByID())
+	s.mux.GET(apiRoot+"/post", s.getPostByID())
+
+	s.addPathsToRedirect(parseRoutes(FSMustByte(false, "/routes.json")))
 
 	port := os.Getenv(portEnvVar)
 	if port == "" {
 		port = defaultPort
 	}
 
-    s.log.Fatal(http.ListenAndServe(port, s.mux))
+	s.log.Fatal(http.ListenAndServe(port, s.mux))
 }

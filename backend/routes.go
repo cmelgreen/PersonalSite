@@ -8,10 +8,21 @@ import (
 	"github.com/julienschmidt/httprouter"
 )
 
+func redirectWithCookie(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	http.SetCookie(w, &http.Cookie{Name: "redirect", Value: r.URL.Path, Path: "/"})
+	http.Redirect(w, r, "/", http.StatusFound)
+}
+
 // staticTemplate executes the named template passed in
 func (s *Server) staticTemplate(tpl *template.Template, name string) httprouter.Handle {
 	return func(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 		tpl.ExecuteTemplate(w, name, nil)
+	}
+}
+
+func (s *Server) addPathsToRedirect(paths []string) {
+	for _, path := range paths {
+		s.mux.GET(path, redirectWithCookie)
 	}
 }
 
@@ -39,11 +50,5 @@ func (s *Server) getPostByID() httprouter.Handle {
 
 		w.Header().Set("Content-Type", "application/json")
 		json.NewEncoder(w).Encode(p)
-	}
-}
-
-func (s *Server) icon() httprouter.Handle {
-	return func(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-		http.ServeFile(w, r, "/frontend/media/icon.jpg")
 	}
 }

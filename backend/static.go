@@ -16,3 +16,8 @@ func FS(_ bool) http.FileSystem {
 func FSMustString(_ bool, _ string) string {
 	return ""
 }
+
+// FSMustByte is a placeholder for returning files as strings
+func FSMustByte(_ bool, _ string) []byte {
+	return []byte{}
+}
