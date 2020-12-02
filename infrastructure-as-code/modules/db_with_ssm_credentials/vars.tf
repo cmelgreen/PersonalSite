@@ -28,7 +28,7 @@ variable "ENGINE" {
 }
 variable "ENGINE_VERSION" {
     type    = string
-    default = "9.6.9"
+    default = "10.14"
 }
 variable "PORT" {
     type    = number
