@@ -1,4 +1,4 @@
-go/src/PersonalSite
+```go/src/PersonalSite
 ├── appspec.yml
 ├── backend
 │   ├── awsSSMParams.go
@@ -94,4 +94,4 @@ go/src/PersonalSite
 └── scripts
     ├── before_install.sh
     ├── start_server.sh
-    └── stop_server.sh
+    └── stop_server.sh```
