@@ -1,0 +1,87 @@
+---
+    - name: CI/CD Server Setup
+      hosts: localhost
+      
+      vars:
+          keys:
+          - https://download.docker.com/linux/ubuntu/gpg
+    
+          repos:
+          - deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable
+    
+          packages:
+          - apt-transport-https 
+          - ca-certificates 
+          - curl 
+          - gnupg-agent 
+          - software-properties-common
+          - ruby
+          - docker-ce
+    
+        
+          downloads:
+            urls:
+            - https://aws-codedeploy-{{ region }}.s3.{{ region }}.amazonaws.com/latest/install
+            
+            sudo_files:
+            - ./install auto > /tmp/logfile
+          
+      tasks:
+          
+        - name: add keys
+          apt_key:
+            state: present
+            url: '{{ item }}'
+          with_items: '{{ keys }}'
+          become: yes
+    
+        - name: add repositories
+          apt_repository: 
+            repo: '{{ item }}'
+            state: present
+          with_items: '{{ repos }}'
+          become: yes
+          
+        - name: install packages
+          apt: 
+            name: '{{ packages }}'
+            state: latest
+            update_cache: yes
+          become: yes
+    
+        - name: download files
+          get_url:
+            url: '{{ item }}'
+            dest: .
+            mode: +x
+          with_items: '{{ downloads.urls }}'
+          
+        - name: run as root downloads
+          command: './{{ item }}'
+          with_items: '{{ downloads.sudo_files }}'
+          become: yes
+          ignore_errors: no
+          
+        - name: Grant docker permissions
+          file:
+            path: /var/run/docker.sock
+            mode: 0666
+          become: yes
+          
+        - name: cleanup files
+          file:
+            path: './{{ item }}'
+            state: absent
+          with_items: '{{ downloads.sudo_files }}'
+    
+        - name: cleanup var/lib/cloud to use userdata
+          file:
+            path: /var/lib/cloud
+            state: absent
+          become: yes
+    
+        - name: cleanup var/lib/cloud to use userdata
+          file:
+            path: /var/lib/cloud
+            state: directory
+          become: yes

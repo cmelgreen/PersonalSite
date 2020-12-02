@@ -1,0 +1,37 @@
+{
+    "variables" : {
+        "region" : "us-west-2"
+    },
+
+    "builders" : [
+        {
+            "type" : "amazon-ebs",
+            "profile" : "default",
+            "region" : "{{user `region`}}",
+            "instance_type" : "t2.micro",
+            "source_ami" : "ami-06e54d05255faf8f6",
+            "ssh_username" : "ubuntu",
+            "ami_name" : "cicd_server_{{timestamp}}",
+            "ami_description" : "test"
+        }
+    ],
+    
+    "provisioners" : [
+    {   
+        "type" : "shell",
+            "inline" : [
+                "sleep 2m",
+                "sudo add-apt-repository universe",
+                "sudo apt-get update && sudo apt-get -y upgrade",
+                "sudo apt-get install -y ansible"
+            ]
+        }, {
+            "type" : "ansible-local",
+            "playbook_file": "./server.yml",
+            "extra_arguments": [
+                "--extra-vars", 
+                "region={{user `region`}}"
+            ]
+        }
+    ]
+}

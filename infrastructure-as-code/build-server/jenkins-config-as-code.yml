@@ -1,0 +1,31 @@
+jenkins:
+    ## UPDATE SECURITY
+    securityRealm:
+      local:
+        allowsSignup: false
+        users:
+         - id: admin
+           password: admin
+  
+  jobs:
+    - script: > 
+        pipelineJob('PersonalSite') {
+          def repo = 'https://github.com/cmelgreen/PersonalSite'
+        
+          triggers {
+            githubPush()
+          }
+          description("Pipeline for $repo")
+        
+          definition {
+            cpsScm {
+              scm {
+                git {
+                  remote { url(repo) }
+                  scriptPath('pipeline.jenkinsfile')
+                  extensions { }
+                }
+              }
+            }
+          }
+        }
