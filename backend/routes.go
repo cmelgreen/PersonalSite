@@ -5,6 +5,8 @@ import (
 	"html/template"
 	"net/http"
 
+	"PersonalSite/backend/models"
+
 	"github.com/julienschmidt/httprouter"
 )
 
@@ -43,9 +45,9 @@ func (s *Server) getPostByID() httprouter.Handle {
 		r.ParseForm()
 		postTitle := r.FormValue("id")
 
-		p, err := s.db.queryPost(r.Context(), postTitle)
+		p, err := s.db.QueryPost(r.Context(), postTitle)
 		if err != nil {
-			p = post{}
+			p = models.Post{}
 		}
 
 		w.Header().Set("Content-Type", "application/json")

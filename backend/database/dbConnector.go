@@ -1,9 +1,12 @@
-package main
+package database
 
 import (
 	"context"
 	"fmt"
 
+	"PersonalSite/backend/models"
+
+	// Database driver for db interactions
 	_ "github.com/jackc/pgx/v4/stdlib"
 
 	"github.com/jmoiron/sqlx"
@@ -76,7 +79,8 @@ func (db *Database) Connected(ctx context.Context) bool {
 	return true
 }
 
-func (db *Database) createTable(ctx context.Context) error {
+// CreateTable creates default tables
+func (db *Database) CreateTable(ctx context.Context) error {
 	schema := `DROP TABLE post;
 
 	CREATE TABLE post(
@@ -133,8 +137,9 @@ func (db *Database) createTable(ctx context.Context) error {
 	return nil
 }
 
-func (db *Database) queryPost(ctx context.Context, title string) (post, error) {
-	p := post{}
+// QueryPost queries single post
+func (db *Database) QueryPost(ctx context.Context, title string) (models.Post, error) {
+	p := models.Post{}
 
 	query := "SELECT * FROM post WHERE title=$1;"
 	err := db.QueryRowxContext(ctx, query, title).StructScan(&p)

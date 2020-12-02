@@ -5,6 +5,8 @@ import (
 	"log"
 	"os"
 	"time"
+
+	"PersonalSite/backend/database"
 	
 	"github.com/julienschmidt/httprouter"
 )
@@ -21,31 +23,33 @@ var (
 
 // Server struct for storing database, mux, and logger
 type Server struct{
-    db *Database
+    db *database.Database
     mux *httprouter.Router
     log *log.Logger
 }
 
+// NewServer returns new server with default log, mux, and database
 func newServer(ctx context.Context) *Server {
 	s := Server{
         log: log.New(logOut, logPrefix, logFlags),
 		mux: httprouter.New(),
-		db: &Database{},
+		db: &database.Database{},
     }
 
 	return &s
 }
 
-func (s *Server) newDBConnection(ctx context.Context, dbConfig DBConfig) {
+// NewDBConnection creates a new connection to a database for a server
+func (s *Server) newDBConnection(ctx context.Context, dbConfig database.DBConfig) {
 	var err error
 
 	// FIX NULL ERRORS
-	s.db, err = ConnectToDB(ctx, dbConfig)
+	s.db, err = database.ConnectToDB(ctx, dbConfig)
     if err != nil {
 		s.log.Println(err)
     }
 
-	err = s.db.createTable(ctx)
+	err = s.db.CreateTable(ctx)
 	if err != nil {
 		s.log.Println("Error creating table: ", err)
 	}
@@ -53,12 +57,12 @@ func (s *Server) newDBConnection(ctx context.Context, dbConfig DBConfig) {
 	//s.maintainDBConnection(ctx, dbConfig)
 }
 
-func (s *Server) maintainDBConnection(ctx context.Context, dbConfig DBConfig) {
+func (s *Server) maintainDBConnection(ctx context.Context, dbConfig database.DBConfig) {
 	go func() {
 		var err error
 		for {
 			if s.db.Connected(ctx) != true {
-				s.db, err = ConnectToDB(ctx, dbConfig)
+				s.db, err = database.ConnectToDB(ctx, dbConfig)
 				if err != nil {
 					s.log.Println("Error maintaining connection: ", err)
 				}

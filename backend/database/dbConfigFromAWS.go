@@ -1,4 +1,4 @@
-package main
+package database
 
 import (
 	"context"
@@ -17,21 +17,11 @@ var ssmParams = []string{
 
 // DBConfigFromAWS implements DBConfig
 type DBConfigFromAWS struct {
-	baseAWSRegion  string
-	baseAWSRoot    string
-	baseConfigName string
-	baseConfigPath string
-
-	withEncrpytion bool
-}
-
-func dbConfigFromAWS(ctx context.Context, region, root, config, path string, withEncrpytion bool) DBConfigFromAWS {
-	return DBConfigFromAWS{
-		baseAWSRegion:  region,
-		baseAWSRoot:    root,
-		baseConfigName: config,
-		baseConfigPath: path,
-		withEncrpytion: withEncrpytion}
+	BaseAWSRegion  string
+	BaseAWSRoot    string
+	BaseConfigName string
+	BaseConfigPath string
+	WithEncrpytion bool
 }
 
 // ConfigString returns database connection string based on AWS_ROOT and remote SSM parameters
@@ -41,12 +31,12 @@ func (dbConfig DBConfigFromAWS) ConfigString(ctx context.Context) (string, error
 		return "", err
 	}
 
-	awsRegion := viper.GetString(dbConfig.baseAWSRegion)
-	ssmRoot := viper.GetString(dbConfig.baseAWSRoot)
+	awsRegion := viper.GetString(dbConfig.BaseAWSRegion)
+	ssmRoot := viper.GetString(dbConfig.BaseAWSRoot)
 
 	svc := newSSM(awsRegion)
 
-	params, err := svc.getParams(ctx, withEncrpytion, ssmRoot, ssmParams)
+	params, err := svc.getParams(ctx, dbConfig.WithEncrpytion, ssmRoot, ssmParams)
 	if err != nil {
 		return "", err
 	}
@@ -65,8 +55,8 @@ func (dbConfig DBConfigFromAWS) ConfigString(ctx context.Context) (string, error
 
 // Pull AWS_ROOT and AWS_REGION from .env file
 func (dbConfig DBConfigFromAWS) loadBaseConfigFromDotEnv() error {
-	viper.SetConfigName(dbConfig.baseConfigName)
-	viper.AddConfigPath(dbConfig.baseConfigPath)
+	viper.SetConfigName(dbConfig.BaseConfigName)
+	viper.AddConfigPath(dbConfig.BaseConfigPath)
 
 	err := viper.ReadInConfig()
 	if err != nil {

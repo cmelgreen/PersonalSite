@@ -2,21 +2,22 @@
 .
 ├── appspec.yml
 ├── backend
-│   ├── awsSSMParams.go
 │   ├── database
+│   │   ├── awsSSMParams.go
+│   │   ├── dbConfigFromAWS.go
+│   │   ├── dbConnector.go
 │   │   └── schema.sql
-│   ├── dbConfigFromAWS.go
-│   ├── dbConnector.go
 │   ├── go.mod
 │   ├── go.sum
 │   ├── main.go
 │   ├── Makefile
-│   ├── models.go
-│   ├── parseRoues.go
+│   ├── models
+│   │   └── models.go
 │   ├── routes.go
 │   ├── server.go
-│   └── static.go
-├── Footer
+│   ├── static.go
+│   └── utils
+│       └── parseRoutes.go
 ├── frontend
 │   ├── Makefile
 │   ├── media
@@ -62,11 +63,12 @@
 │   ├── build-server
 │   │   ├── ami
 │   │   │   ├── ami.json
-│   │   │   ├── build_ami.sh
+│   │   │   ├── Makefile
 │   │   │   └── server.yml
 │   │   └── container
 │   │       ├── jenkins-config-as-code.yml
-│   │       └── jenkins.Dockerfile
+│   │       ├── jenkins.Dockerfile
+│   │       └── Makefile
 │   ├── credentials
 │   │   ├── github
 │   │   └── rds

@@ -6,6 +6,9 @@ import (
 	"net/http"
 	"os"
 	"time"
+
+	"PersonalSite/backend/database"
+	"PersonalSite/backend/utils"
 )
 
 // PULL INTO YAML FILE
@@ -36,14 +39,13 @@ func main() {
 
 	s := newServer(ctx)
 
-	dbConfig := dbConfigFromAWS(
-		ctx,
-		baseAWSRegion,
-		baseAWSRoot,
-		baseConfigName,
-		baseConfigPath,
-		withEncrpytion,
-	)
+	dbConfig := database.DBConfigFromAWS{
+		BaseAWSRegion: 	baseAWSRegion,
+		BaseAWSRoot: 	baseAWSRoot,
+		BaseConfigName: baseConfigName,
+		BaseConfigPath: baseConfigPath,
+		WithEncrpytion: withEncrpytion,
+	}
 
 	s.newDBConnection(ctx, dbConfig)
 
@@ -53,12 +55,11 @@ func main() {
 	tpl := template.Must(template.New("index").Parse(indexHTMLString))
 	s.mux.GET("/", s.staticTemplate(tpl, "index"))
 	s.mux.ServeFiles("/static/*filepath", fileSystem)
-	
-	
+
 	s.mux.GET("/health", s.healthCheck())
 	s.mux.GET(apiRoot+"/post", s.getPostByID())
 
-	s.addPathsToRedirect(parseRoutes(FSMustByte(false, "/routes.json")))
+	s.addPathsToRedirect(utils.ParseRoutesToRedirect(FSMustByte(false, "/routes.json")))
 
 	port := os.Getenv(portEnvVar)
 	if port == "" {

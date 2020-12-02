@@ -1,11 +1,14 @@
-package main
+package utils
 
 import (
+	"PersonalSite/backend/models"
+
 	"encoding/json"
 )
 
-func parseRoutes(file []byte) []string {
-	var routeFile routeFile
+// ParseRoutesToRedirect takes a byte string and returns list of routes to be redirected 
+func ParseRoutesToRedirect(file []byte) []string {
+	var routeFile models.RouteFile
 	var routeStrings []string
 
 	json.Unmarshal(file, &routeFile)
