@@ -49,10 +49,12 @@ func main() {
 
 	fileSystem := FS(false)
 	indexHTMLString := FSMustString(false, "/index.html")
-	tpl := template.Must(template.New("index").Parse(indexHTMLString))
 
-	s.mux.ServeFiles("/static/*filepath", fileSystem)
+	tpl := template.Must(template.New("index").Parse(indexHTMLString))
 	s.mux.GET("/", s.staticTemplate(tpl, "index"))
+	s.mux.ServeFiles("/static/*filepath", fileSystem)
+	
+	
 	s.mux.GET("/health", s.healthCheck())
 	s.mux.GET(apiRoot+"/post", s.getPostByID())
 

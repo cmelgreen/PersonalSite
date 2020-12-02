@@ -10,8 +10,10 @@ type routeFile struct {
 }
 
 type post struct {
-	Title 		string `json:"title" db:"title"`
-	Content 	string `json:"content" db:"content"`
+	ID			int    	`json:"id" db:"id"`
+	Title 		string 	`json:"title" db:"title"`
+	Summary		string 	`json:"summary" db:"summary"`
+	Content 	string 	`json:"content" db:"content"`
 }
 
 type postList struct {
