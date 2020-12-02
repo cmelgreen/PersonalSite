@@ -1,4 +1,5 @@
-```go/src/PersonalSite
+```
+.
 ├── appspec.yml
 ├── backend
 │   ├── awsSSMParams.go
@@ -15,6 +16,7 @@
 │   ├── routes.go
 │   ├── server.go
 │   └── static.go
+├── Footer
 ├── frontend
 │   ├── Makefile
 │   ├── media
@@ -33,14 +35,20 @@
 │       │   ├── ContentList
 │       │   │   ├── ContentList.css
 │       │   │   └── ContentList.js
-│       │   ├── Footer.js
-│       │   ├── Header.js
-│       │   ├── MainPage.js
-│       │   ├── Post.js
-│       │   ├── Title
-│       │   │   ├── Title.css
-│       │   │   └── Title.js
-│       │   └── Title.js
+│       │   ├── Footer
+│       │   │   └── Footer.js
+│       │   ├── Header
+│       │   │   ├── Header.css
+│       │   │   └── Header.js
+│       │   ├── MainPage
+│       │   │   ├── MainPage.css
+│       │   │   └── MainPage.js
+│       │   ├── Post
+│       │   │   ├── Post.css
+│       │   │   └── Post.js
+│       │   └── Title
+│       │       ├── Title.css
+│       │       └── Title.js
 │       ├── index.js
 │       ├── routes.json
 │       ├── Store
@@ -52,10 +60,13 @@
 │           └── RedirectRequest.js
 ├── infrastructure-as-code
 │   ├── build-server
-│   │   ├── ami.json
-│   │   ├── jenkins-config-as-code.yml
-│   │   ├── jenkins.Dockerfile
-│   │   └── server.yml
+│   │   ├── ami
+│   │   │   ├── ami.json
+│   │   │   ├── build_ami.sh
+│   │   │   └── server.yml
+│   │   └── container
+│   │       ├── jenkins-config-as-code.yml
+│   │       └── jenkins.Dockerfile
 │   ├── credentials
 │   │   ├── github
 │   │   └── rds

@@ -1,5 +1,5 @@
-import  MainPageContainer from "../Components/MainPage"
-import  PostContainer from "../Components/Post"
+import  MainPageContainer from "../Components/MainPage/MainPage"
+import  PostContainer from "../Components/Post/Post"
 
 const getComponentByName = {
     MainPageContainer: MainPageContainer,

@@ -1,10 +1,10 @@
 import React  from 'react'
 import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { HeaderContainer } from './Header'
+import { HeaderContainer } from '../Header/Header'
 import { Typography } from '@material-ui/core'
 
-import { getPostByID, clearCurrentPost } from '../Utils/ContentAPI'
+import { getPostByID, clearCurrentPost } from '../../Utils/ContentAPI'
 
 export default function PostContainer() {
   const content = getPostByID(useParams().postId)

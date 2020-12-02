@@ -1,5 +1,6 @@
 FROM jenkins/jenkins:latest
 
+# Add docker-in-docker
 COPY --from=docker /usr/local/bin/docker /usr/local/bin/docker
 
 ENV CASC_JENKINS_CONFIG=https://raw.githubusercontent.com/cmelgreen/PersonalSite/master/infrastructure-as-code/build-server/jenkins-config-as-code.yml

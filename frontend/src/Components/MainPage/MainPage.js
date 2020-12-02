@@ -1,7 +1,7 @@
 import React from 'react'
-import { HeaderContainer } from './Header'
-import { ContentListContainer } from './ContentList/ContentList'
-import { RedirectRequest } from '../Utils/RedirectRequest'
+import { HeaderContainer } from '../Header/Header'
+import { ContentListContainer } from '../ContentList/ContentList'
+import { RedirectRequest } from '../../Utils/RedirectRequest'
 
 export default function MainPageContainer(props) {
   const redirect = RedirectRequest()
