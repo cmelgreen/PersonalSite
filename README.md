@@ -94,4 +94,4 @@
 └── scripts
     ├── before_install.sh
     ├── start_server.sh
-    └── stop_server.sh```
+    └── stop_server.sh
