@@ -59,7 +59,8 @@ func (s *Server) getPostSummaries() httprouter.Handle {
 	return func(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 		postSummaries, err := s.db.QueryPostSummaries(r.Context(), 10)
 		if err != nil {
-			postSummaries = models.PostList{}
+			w.WriteHeader(http.StatusOK)
+			return
 		}
 
 		writeJSON(w, postSummaries)
