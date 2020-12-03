@@ -20,7 +20,7 @@ export function ContentListContainer(props) {
     axios.get('/api/post-summaries')
       .then(resp => {
         console.log(resp.data.posts)
-        dispatch(setContent(resp.data.posts))
+        dispatch(setSummaries(resp.data.posts))
         console.log("Summaries are set to: ", posts)
       })
       .catch(e => {
