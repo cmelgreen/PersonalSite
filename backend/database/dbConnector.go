@@ -149,9 +149,9 @@ func (db *Database) QueryPost(ctx context.Context, title string) (models.Post, e
 // QueryPostSummaries returns N post summaries with title and post id
 func (db *Database) QueryPostSummaries(ctx context.Context, nPosts int) ([]models.Post, error) {
 	var posts []models.Post
-
+	
 	query := "SELECT * FROM post LIMIT $1;"
-	err := db.SelectContext(ctx, &posts, query)
+	err := db.SelectContext(ctx, &posts, query, nPosts)
 
 	return posts, err
 }
