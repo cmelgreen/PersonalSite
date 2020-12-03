@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux' 
+import { useSelector, useDispatch, shallowEqual } from 'react-redux' 
 import axios from 'axios'
 
 import './ContentList.css'
@@ -13,7 +13,7 @@ import { setContent, setSummaries } from '../../Store/Actions'
 import { Grid } from '@material-ui/core'
 
 export function ContentListContainer(props) {
-  const posts = useSelector(state => state.summaries)
+  const posts = useSelector(state => state.summaries, shallowEqual)
   const dispatch = useDispatch()
 
   useEffect(() => {
