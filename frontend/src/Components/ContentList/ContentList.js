@@ -24,7 +24,7 @@ export function ContentListContainer(props) {
       })
       .catch(e => {
         console.log('error fething summaries: ', e)
-        dispatch(setSummaries(''))
+        dispatch(setSummaries([]))
       })
   }, [])
 
