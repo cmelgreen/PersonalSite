@@ -21,11 +21,10 @@ export function ContentListContainer(props) {
       .then(resp => {
         console.log(resp.data.posts)
         dispatch(setSummaries(resp.data.posts))
-
       })
       .catch(e => {
         console.log('error fething summaries: ', e)
-        dispatch(setContent(''))
+        dispatch(setSummaries(''))
       })
   }, [])
 
