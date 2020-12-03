@@ -1,19 +1,14 @@
 import React from 'react'
 
-import { useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux' 
-import axios from 'axios'
-
 import './ContentList.css'
 
 import { ContentCardContainer } from '../ContentCard/ContentCard'
-import { setSummaries } from '../../Store/Actions'
-import { fetchPostSummaries } from '../../Utils/ContentAPI'
+import { getPostSummaries } from '../../Utils/ContentAPI'
 
 import { Grid } from '@material-ui/core'
 
 export function ContentListContainer(props) {
-  const posts = fetchPostSummaries()
+  const posts = getPostSummaries()
 
   return <ContentList posts={posts} />
 }

@@ -1,26 +1,12 @@
 import React  from 'react'
-import { useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux' 
-import { useParams } from 'react-router-dom'
+
 import { HeaderContainer } from '../Header/Header'
 import { Typography } from '@material-ui/core'
-import axios from 'axios'
 
-import { setContent } from '../../Store/Actions'
-
+import { getPostByID } from '../../Utils/ContentAPI'
 
 export default function PostContainer() {
-  const content = useSelector(state => state.content)
-  const dispatch = useDispatch()
-  const id = useParams().postId
- 
-  useEffect(() => {
-    axios.get('/api/post', {params: {id}})
-      .then(resp => dispatch(setContent(resp.data.content)))
-      .catch(() => dispatch(setContent('')))
-    
-      return () => dispatch(setContent(''))
-  }, [])
+  const content = getPostByID(useParams().postID)
 
   return <Post content={content} />
 }
