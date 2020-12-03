@@ -58,8 +58,9 @@ func main() {
 
 	s.mux.GET("/health", s.healthCheck())
 	s.mux.GET(apiRoot+"/post", s.getPostByID())
+	s.mux.GET(apiRoot+"/post-summaries", s.getPostSummaries())
 
-	s.addPathsToRedirect(utils.ParseRoutesToRedirect(FSMustByte(false, "/routes.json")))
+	s.setPathsToRedirect(utils.ParseRoutesToRedirect(FSMustByte(false, "/routes.json")))
 
 	port := os.Getenv(portEnvVar)
 	if port == "" {

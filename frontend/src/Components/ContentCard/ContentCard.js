@@ -22,10 +22,10 @@ function ContentCard(props) {
   return (
     <Card className="content-card" >
       <CardActionArea className={"cardActionArea"} component={Link} to={props.link}>
-          <CardHeader title={props.text} />
+          <CardHeader title={props.title} />
           <CardContent>
             <Typography color="textSecondary">
-              test
+              {props.summary}
             </Typography>
           </CardContent>
           <CardActions />

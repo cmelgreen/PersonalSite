@@ -138,10 +138,20 @@ func (db *Database) CreateTable(ctx context.Context) error {
 
 // QueryPost queries single post
 func (db *Database) QueryPost(ctx context.Context, title string) (models.Post, error) {
-	p := models.Post{}
+	post := models.Post{}
 
 	query := "SELECT * FROM post WHERE title=$1;"
-	err := db.QueryRowxContext(ctx, query, title).StructScan(&p)
+	err := db.QueryRowxContext(ctx, query, title).StructScan(&post)
 
-	return p, err
+	return post, err
+}
+
+// QueryPostSummaries returns N post summaries with title and post id
+func (db *Database) QueryPostSummaries(ctx context.Context, nPosts int) (models.PostList, error) {
+	posts := models.PostList{}
+
+	query := "SELECT * FROM post LIMIT $1;"
+	err := db.QueryRowxContext(ctx, query, nPosts).StructScan(posts)
+
+	return posts, err
 }

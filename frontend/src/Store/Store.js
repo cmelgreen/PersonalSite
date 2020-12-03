@@ -1,11 +1,13 @@
 import { createStore } from 'redux';
 
-const initialValue = { content: '', validIds: ['AAA', 'BBB', 'CCC'] };
+const initialValue = { summaries: [], validIds: ['AAA', 'BBB', 'CCC'] };
 
 const valueReducer = (state = initialValue, action) => {
   switch (action.type) {
     case 'SET_CONTENT':
       return {...state,  content: action.content};
+    case 'SET_SUMMARIES':
+      return {...state, summaries: action.summaries}
     default:
       return state;
   }

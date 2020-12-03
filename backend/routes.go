@@ -15,16 +15,16 @@ func redirectWithCookie(w http.ResponseWriter, r *http.Request, _ httprouter.Par
 	http.Redirect(w, r, "/", http.StatusFound)
 }
 
+func (s *Server) setPathsToRedirect(paths []string) {
+	for _, path := range paths {
+		s.mux.GET(path, redirectWithCookie)
+	}
+}
+
 // staticTemplate executes the named template passed in
 func (s *Server) staticTemplate(tpl *template.Template, name string) httprouter.Handle {
 	return func(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 		tpl.ExecuteTemplate(w, name, nil)
-	}
-}
-
-func (s *Server) addPathsToRedirect(paths []string) {
-	for _, path := range paths {
-		s.mux.GET(path, redirectWithCookie)
 	}
 }
 
@@ -45,12 +45,28 @@ func (s *Server) getPostByID() httprouter.Handle {
 		r.ParseForm()
 		postTitle := r.FormValue("id")
 
-		p, err := s.db.QueryPost(r.Context(), postTitle)
+		post, err := s.db.QueryPost(r.Context(), postTitle)
 		if err != nil {
-			p = models.Post{}
+			post = models.Post{}
+			// IMPLEMENT ERROR HANDLING
 		}
 
-		w.Header().Set("Content-Type", "application/json")
-		json.NewEncoder(w).Encode(p)
+		writeJSON(w, post)
 	}
+}
+
+func (s *Server) getPostSummaries() httprouter.Handle {
+	return func(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+		postSummaries, err := s.db.QueryPostSummaries(r.Context(), 10)
+		if err != nil {
+			postSummaries = models.PostList{}
+		}
+
+		writeJSON(w, postSummaries)
+	}
+}
+
+func writeJSON(w http.ResponseWriter, message interface{}) {
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(message)
 }

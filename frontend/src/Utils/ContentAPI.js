@@ -1,14 +1,14 @@
 import { useDispatch, useSelector } from 'react-redux'
 
 import axios from 'axios'
-import { setContent } from '../Store/Actions'
+import { setContent, setSummaries } from '../Store/Actions'
 
-const api = '/api/post'
+const apiRoot = '/api'
 
 export const getPostByID = (id) => {
     const dispatch = useDispatch()
     
-    axios.get(api, {params: {id}})
+    axios.get(apiRoot+'/post', {params: {id}})
         .then((resp) => {
             console.log(resp)
             dispatch(setContent(resp.data.content))
@@ -16,6 +16,19 @@ export const getPostByID = (id) => {
         .catch(() => dispatch(setContent('')))
 
     return useSelector((state) => state.content)
+}
+
+export const getPostSummaries = () => {
+    const dispatch = useDispatch()
+
+    axios.get(apiRoot+'post-summmaries') 
+        .then((resp) => {
+            console.log(resp)
+            dispatch(setSummaries(resp.data))
+        })
+        .catch(() => dispatch(setSummaries('')))
+
+    return useSelector((state) => state.summaries)
 }
 
 export const addPost = (title, content) => {
