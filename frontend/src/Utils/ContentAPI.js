@@ -24,12 +24,12 @@ export const getPostSummaries = () => {
 
     axios.get(apiRoot+'/post-summaries') 
         .then((resp) => {
-            console.log(s, resp)
-            shallowEqual(s, resp.data)
+            console.log(s, resp.data)
+            console.log(shallowEqual(s, resp.data))
             dispatch(setSummaries(resp.data))
         })
         .catch(() => dispatch(setSummaries('')))
-
+        
     return s
     
 }
