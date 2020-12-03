@@ -46,7 +46,7 @@ function ContentList(props) {
               title={post.title} 
               summary={post.summary} 
               link={'post/' + post.title} 
-            />)
+            />
           </Grid>)
     })}
       </Grid>
