@@ -6,8 +6,7 @@ import { HeaderContainer } from '../Header/Header'
 import { Typography } from '@material-ui/core'
 import axios from 'axios'
 
-import { fetchPostByID, fetchPostSummaries} from '../../Utils/ContentAPI'
-import { setContent, setSummaries } from '../../Store/Actions'
+import { setContent } from '../../Store/Actions'
 
 
 export default function PostContainer() {

@@ -1,14 +1,13 @@
 import React from 'react'
 
 import { useEffect } from 'react'
-import { useSelector, useDispatch, shallowEqual } from 'react-redux' 
+import { useSelector, useDispatch } from 'react-redux' 
 import axios from 'axios'
 
 import './ContentList.css'
 
 import { ContentCardContainer } from '../ContentCard/ContentCard.js'
-import { fetchPostSummaries } from '../../Utils/ContentAPI'
-import { setContent, setSummaries } from '../../Store/Actions'
+import { setSummaries } from '../../Store/Actions'
 
 import { Grid } from '@material-ui/core'
 
@@ -18,17 +17,9 @@ export function ContentListContainer(props) {
 
   useEffect(() => {
     axios.get('/api/post-summaries')
-      .then(resp => {
-        console.log(resp.data.posts)
-        dispatch(setSummaries(resp.data.posts))
-      })
-      .catch(e => {
-        console.log('error fething summaries: ', e)
-        dispatch(setSummaries([]))
-      })
+      .then(resp => dispatch(setSummaries(resp.data.posts)))
+      .catch(() => dispatch(setSummaries([])) )
   }, [])
-
-  console.log("Summaries are set to: ", posts)
 
   return <ContentList posts={posts} />
 }
@@ -37,9 +28,8 @@ function ContentList(props) {
   return  (
     <div className='content-list'>
       <Grid container >
-        {props.posts.map((post, id) => {
-          console.log(post)
-          return (<Grid item xs={12} sm={12} lg={6}>
+        {props.posts.map((post, id) => 
+          <Grid item xs={12} sm={12} lg={6}>
             <ContentCardContainer 
               key={id} 
               id={id} 
@@ -48,7 +38,7 @@ function ContentList(props) {
               link={'post/' + post.title} 
             />
           </Grid>)
-    })}
+        }
       </Grid>
     </div>
   )
