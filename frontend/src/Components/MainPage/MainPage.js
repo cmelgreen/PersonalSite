@@ -5,7 +5,7 @@ import { RedirectRequest } from '../../Utils/RedirectRequest'
 
 export default function MainPageContainer(props) {
   const redirect = RedirectRequest()
-  
+
   return redirect ? redirect : <MainPage /> 
 }
 
