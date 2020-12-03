@@ -13,6 +13,7 @@ import { setContent, setSummaries } from '../../Store/Actions'
 export default function PostContainer() {
   const content = useSelector(state => state.content)
   const dispatch = useDispatch()
+  const id = useParams().postId
  
   useEffect(() => {
     axios.get('/api/post', {params: {id}})
