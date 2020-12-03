@@ -1,6 +1,6 @@
 import { createStore } from 'redux'
 
-const initialValue = { summaries: [], validIds: ['AAA', 'BBB', 'CCC'] }
+const initialValue = {}
 
 const valueReducer = (state = initialValue, action) => {
   console.log('action:', action)
