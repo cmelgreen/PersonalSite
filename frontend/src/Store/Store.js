@@ -8,7 +8,7 @@ const valueReducer = (state = initialValue, action) => {
     case 'SET_CONTENT':
       return {...state,  content: action.content}
     case 'SET_SUMMARIES':
-      return {...state, summaries: {...state.summaries, summaries: action.summaries}}
+      return {...state, summaries: action.summaries
     default:
       return state;
   }
