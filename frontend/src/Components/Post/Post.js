@@ -6,6 +6,7 @@ import { HeaderContainer } from '../Header/Header'
 import { Typography } from '@material-ui/core'
 
 import { fetchPostByID, fetchPostSummaries} from '../../Utils/ContentAPI'
+import { setContent, setSummaries } from '../Store/Actions'
 
 export default function PostContainer() {
   const content = useSelector(state => state.content)
