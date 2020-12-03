@@ -11,7 +11,7 @@ import {
 
 import MenuIcon from '@material-ui/icons/Menu';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
-import GithubIcon from '@material-ui/icons/Github';
+import GitHubIcon from '@material-ui/icons/GitHub';
 
 export function HeaderContainer(props) {
   const link = "/"
@@ -36,7 +36,7 @@ function Header(props) {
         <LinkedInIcon />
       </IconButton>
       <IconButton edge="end">
-        <GithubIcon />  
+        <GitHubIcon />  
       </IconButton>
       </Toolbar>
     </AppBar>
