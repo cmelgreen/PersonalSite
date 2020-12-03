@@ -29,6 +29,8 @@ export function ContentListContainer(props) {
       })
   }, [])
 
+  dispatch(setContent(['test1', 'test2', 'test3']))
+
   return <ContentList posts={posts} />
 }
 
