@@ -151,7 +151,7 @@ func (db *Database) QueryPostSummaries(ctx context.Context, nPosts int) ([]model
 	var posts []models.Post
 
 	query := "SELECT * FROM post LIMIT $1;"
-	err := db.SelectContext(ctx, posts, query)
+	err := db.SelectContext(ctx, &posts, query)
 
 	return posts, err
 }
