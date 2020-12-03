@@ -37,7 +37,7 @@ function ContentList(props) {
   return  (
     <div className='content-list'>
       <Grid container >
-        {props.posts.map((id, post) => {
+        {props.posts.map((post, id) => {
           console.log(post)
           return (<Grid item xs={12} sm={12} lg={6}>
             <ContentCardContainer 
