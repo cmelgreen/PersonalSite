@@ -1,7 +1,8 @@
 import React  from 'react'
+import { useParams } from 'react-router-dom'
+import { Typography } from '@material-ui/core'
 
 import { HeaderContainer } from '../Header/Header'
-import { Typography } from '@material-ui/core'
 
 import { getPostByID } from '../../Utils/ContentAPI'
 

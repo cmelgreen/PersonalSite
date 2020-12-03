@@ -1,9 +1,7 @@
 import { useEffect } from 'react'
-
 import { useDispatch, useSelector } from 'react-redux'
-
-import axios from 'axios'
 import { setContent, setSummaries } from '../Store/Actions'
+import axios from 'axios'
 
 const apiRoot = '/api'
 
