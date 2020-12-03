@@ -12,8 +12,11 @@ import { Grid } from '@material-ui/core'
 
 export function ContentListContainer(props) {
   const posts = useSelector(state => state.summaries)
+  const dispatch = useDispatch()
 
-  fetchPostSummaries()
+  useEffect(() => {
+    dispatch(setSummaries(fetchPostSummaries()))
+  }, [])
 
   return <ContentList posts={posts} />
 }
