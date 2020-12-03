@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { useEffect } from 'react'
-import { useSelector } from 'react-redux' 
+import { useSelector, useDispatch } from 'react-redux' 
 
 import './ContentList.css'
 
@@ -12,8 +12,9 @@ import { Grid } from '@material-ui/core'
 
 export function ContentListContainer(props) {
   const posts = useSelector(state => state.summaries)
+  const dispatch = useDispatch()
 
-  useEffect(() => fetchPostSummaries(), [])
+  useEffect(() => fetchPostSummaries(dispatch), [])
 
   return <ContentList posts={posts} />
 }
