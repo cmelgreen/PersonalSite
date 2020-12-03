@@ -18,8 +18,14 @@ export function ContentListContainer(props) {
 
   useEffect(() => {
     axios.get('/api/post-summaries')
-      .then(resp => dispatch(setContent(resp.data.posts)))
-      .catch(() => dispatch(setContent('')))
+      .then(resp => {
+        console.log(resp.data.posts)
+        dispatch(setContent(resp.data.posts))
+      })
+      .catch(() => {
+        console.log(resp)
+        dispatch(setContent(''))
+      })
   }, [])
 
   return <ContentList posts={posts} />
