@@ -1,5 +1,6 @@
+// modules
 import React from 'react'
-
+//components
 import { HeaderContainer } from '../Header/Header'
 import { ContentListContainer } from '../ContentList/ContentList'
 import { RedirectRequest } from '../../Utils/RedirectRequest'
