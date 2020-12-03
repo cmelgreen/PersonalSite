@@ -18,6 +18,8 @@ export default function PostContainer() {
     axios.get('/api/post', {params: {id}})
       .then(resp => dispatch(setContent(resp.data.content)))
       .catch(() => dispatch(setContent('')))
+    
+      return () => dispatch(setContent(''))
   }, [])
 
   return <Post content={content} />
