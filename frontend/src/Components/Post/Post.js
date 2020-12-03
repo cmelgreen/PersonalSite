@@ -14,13 +14,14 @@ export default function PostContainer() {
 
   return <Post content={content} />
 }
+
 function Post(props) {
   return (
-    <>
+    <div className='post'>
       <HeaderContainer />
-      <Typography className="post">
+      <Typography>
         {props.content}
       </Typography>
-    </>
+    </div>
   )
 }
