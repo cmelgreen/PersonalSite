@@ -21,6 +21,7 @@ export function ContentListContainer(props) {
       .then(resp => {
         console.log(resp.data.posts)
         dispatch(setContent(resp.data.posts))
+        console.log("Summaries are set to: ", setposts)
       })
       .catch(() => {
         console.log(resp)
