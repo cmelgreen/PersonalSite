@@ -1,7 +1,5 @@
 import React from 'react'
 
-import { useEffect } from 'react-redux'
-
 import './ContentList.css'
 
 import { ContentCardContainer } from '../ContentCard/ContentCard.js'
