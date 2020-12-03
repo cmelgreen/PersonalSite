@@ -23,8 +23,8 @@ export function ContentListContainer(props) {
         dispatch(setContent(resp.data.posts))
         console.log("Summaries are set to: ", setposts)
       })
-      .catch(() => {
-        console.log(resp)
+      .catch(e => {
+        console.log('error fething summaries: ', e)
         dispatch(setContent(''))
       })
   }, [])
