@@ -7,7 +7,7 @@ import './ContentList.css'
 
 import { ContentCardContainer } from '../ContentCard/ContentCard.js'
 import { fetchPostSummaries } from '../../Utils/ContentAPI'
-import { setContent, setSummaries } from '../Store/Actions'
+import { setContent, setSummaries } from '../../Store/Actions'
 
 import { Grid } from '@material-ui/core'
 
