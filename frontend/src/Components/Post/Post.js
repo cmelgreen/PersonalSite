@@ -4,10 +4,15 @@ import { useParams } from 'react-router-dom'
 import { HeaderContainer } from '../Header/Header'
 import { Typography } from '@material-ui/core'
 
-import { getPostByID, clearCurrentPost } from '../../Utils/ContentAPI'
+import { fetchPostByID, clearCurrentPost } from '../../Utils/ContentAPI'
 
 export default function PostContainer() {
-  const content = getPostByID(useParams().postId)
+  const content = useSelector(state => state.content)
+
+  useEffect(() => {
+    fetchPostByID(useParams().postId)
+    return clearCurrentPost()
+  }, [])
 
   return <Post content={content} />
 }

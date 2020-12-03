@@ -1,15 +1,19 @@
 import React from 'react'
 
+import { useEffect } from 'react'
+import { useSelector } from 'react-redux' 
+
 import './ContentList.css'
 
 import { ContentCardContainer } from '../ContentCard/ContentCard.js'
-import { getPostSummaries } from '../../Utils/ContentAPI'
+import { fetchPostSummaries } from '../../Utils/ContentAPI'
 
 import { Grid } from '@material-ui/core'
 
 export function ContentListContainer(props) {
-  useEffect()
-  const posts = getPostSummaries()
+  const posts = useSelector(state => state.summaries)
+
+  useEffect(() => fetchPostSummaries(), [])
 
   return <ContentList posts={posts} />
 }

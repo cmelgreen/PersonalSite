@@ -5,33 +5,27 @@ import { setContent, setSummaries } from '../Store/Actions'
 
 const apiRoot = '/api'
 
-export const getPostByID = (id) => {
+export const fetchPostByID = (id) => {
     const dispatch = useDispatch()
-    
+
     axios.get(apiRoot+'/post', {params: {id}})
-        .then((resp) => {
-            console.log(resp)
-            dispatch(setContent(resp.data.content))
-        })
+        .then(resp => dispatch(setContent(resp.data.content)))
         .catch(() => dispatch(setContent('')))
 
-    return useSelector((state) => state.content)
 }
 
-export const getPostSummaries = () => {
+export const clearCurrentPost = () => {
     const dispatch = useDispatch()
-    const s = useSelector(state => state.summaries, shallowEqual)
+
+    return () => dispatch(setContent(''))
+}
+
+export const fetchPostSummaries = () => {
+    const dispatch = useDispatch()
 
     axios.get(apiRoot+'/post-summaries') 
-        .then((resp) => {
-            console.log(s, resp.data)
-            console.log(shallowEqual(s, resp.data))
-            dispatch(setSummaries(resp.data))
-        })
-        .catch(() => dispatch(setSummaries('')))
-        
-    return s
-    
+        .then(resp => dispatch(setSummaries(resp.data.posts)))
+        .catch(() => dispatch(setSummaries()))
 }
 
 export const addPost = (title, content) => {
