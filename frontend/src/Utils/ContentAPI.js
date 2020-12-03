@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from 'react-redux'
+import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 
 import axios from 'axios'
 import { setContent, setSummaries } from '../Store/Actions'
@@ -28,7 +28,7 @@ export const getPostSummaries = () => {
         })
         .catch(() => dispatch(setSummaries('')))
 
-    return useSelector((state) => state.summaries)
+    return useSelector((state) => state.summaries, shallowEqual)
 }
 
 export const addPost = (title, content) => {
