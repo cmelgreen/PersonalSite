@@ -31,6 +31,5 @@ function ContentCard(props) {
           <CardActions />
     </CardActionArea>
    </Card>
-   
   )
 }
