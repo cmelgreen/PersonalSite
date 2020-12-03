@@ -13,7 +13,7 @@ import { setContent, setSummaries } from '../../Store/Actions'
 import { Grid } from '@material-ui/core'
 
 export function ContentListContainer(props) {
-  const posts = useSelector(state => state.summaries, shallowEqual)
+  const posts = useSelector(state => state.summaries)
   const dispatch = useDispatch()
 
   useEffect(() => {
