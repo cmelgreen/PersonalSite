@@ -17,7 +17,7 @@ export function ContentListContainer(props) {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    axios.get(apiRoot+'/api/post-summaries', {params: {id}})
+    axios.get('/api/post-summaries', {params: {id}})
       .then(resp => dispatch(setContent(resp.data.posts)))
       .catch(() => dispatch(setContent('')))
   }, [])
