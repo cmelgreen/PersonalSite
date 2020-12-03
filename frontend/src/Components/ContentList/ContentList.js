@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { useEffect } from 'react-redux'
+
 import './ContentList.css'
 
 import { ContentCardContainer } from '../ContentCard/ContentCard.js'
@@ -8,6 +10,7 @@ import { getPostSummaries } from '../../Utils/ContentAPI'
 import { Grid } from '@material-ui/core'
 
 export function ContentListContainer(props) {
+  useEffect()
   const posts = getPostSummaries()
 
   return <ContentList posts={posts} />
