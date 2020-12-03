@@ -12,14 +12,7 @@ import { setSummaries } from '../../Store/Actions'
 import { Grid } from '@material-ui/core'
 
 export function ContentListContainer(props) {
-  const posts = useSelector(state => state.summaries)
-  const dispatch = useDispatch()
-
-  useEffect(() => {
-    axios.get('/api/post-summaries')
-      .then(resp => dispatch(setSummaries(resp.data.posts)))
-      .catch(() => dispatch(setSummaries([])) )
-  }, [])
+  const posts = fetchPostSummaries()
 
   return <ContentList posts={posts} />
 }

@@ -17,7 +17,7 @@
 │   ├── server.go
 │   ├── static.go
 │   └── utils
-│       └── parseRoutes.go
+│       └── routeParsing.go
 ├── frontend
 │   ├── Makefile
 │   ├── media
@@ -73,6 +73,7 @@
 │   │   ├── github
 │   │   └── rds
 │   ├── main.tf
+│   ├── Makefile
 │   ├── modules
 │   │   ├── codedeploy_app
 │   │   │   ├── main.tf
