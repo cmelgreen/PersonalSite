@@ -20,15 +20,18 @@ export const getPostByID = (id) => {
 
 export const getPostSummaries = () => {
     const dispatch = useDispatch()
+    const s = useSelector(state => state.summaries, shallowEqual)
 
     axios.get(apiRoot+'/post-summaries') 
         .then((resp) => {
-            console.log(resp)
+            console.log(s, resp)
+            shallowEqual(s, resp.data)
             dispatch(setSummaries(resp.data))
         })
         .catch(() => dispatch(setSummaries('')))
 
-    return useSelector((state) => state.summaries, shallowEqual)
+    return s
+    
 }
 
 export const addPost = (title, content) => {
