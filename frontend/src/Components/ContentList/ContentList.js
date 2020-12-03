@@ -6,8 +6,9 @@ import axios from 'axios'
 
 import './ContentList.css'
 
-import { ContentCardContainer } from '../ContentCard/ContentCard.js'
+import { ContentCardContainer } from '../ContentCard/ContentCard'
 import { setSummaries } from '../../Store/Actions'
+import { fetchPostSummaries } from '../../Utils/ContentAPI'
 
 import { Grid } from '@material-ui/core'
 
