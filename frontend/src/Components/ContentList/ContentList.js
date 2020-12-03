@@ -2,6 +2,7 @@ import React from 'react'
 
 import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux' 
+import axios from 'axios'
 
 import './ContentList.css'
 
