@@ -13,10 +13,10 @@ export default function PostContainer() {
   const dispatch = useDispatch()
  
   useEffect(() => {
-    dispatch(setContent(fetchPostByID(useParams().postId)))
-    return () => setContent('')
+    axios.get(apiRoot+'/post', {params: {id}})
+      .then(resp => dispatch(setContent(resp.data.content)))
+      .catch(() => dispatch(setContent('')))
   }, [])
-
 
   return <Post content={content} />
 }
