@@ -21,7 +21,7 @@ export const getPostByID = (id) => {
 export const getPostSummaries = () => {
     const dispatch = useDispatch()
 
-    axios.get(apiRoot+'/post-summmaries') 
+    axios.get(apiRoot+'/post-summaries') 
         .then((resp) => {
             console.log(resp)
             dispatch(setSummaries(resp.data))
