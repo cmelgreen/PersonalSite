@@ -12,9 +12,8 @@ import { Grid } from '@material-ui/core'
 
 export function ContentListContainer(props) {
   const posts = useSelector(state => state.summaries)
-  const dispatch = useDispatch()
 
-  useEffect(() => fetchPostSummaries(dispatch), [])
+  fetchPostSummaries()
 
   return <ContentList posts={posts} />
 }
@@ -25,7 +24,13 @@ function ContentList(props) {
       <Grid container >
         {props.posts.map((id, post) => (
           <Grid item xs={12} sm={12} lg={6}>
-            <ContentCardContainer key={id} id={id} title={post.title} summary={post.summary} link={'post/' + post.title} />
+            <ContentCardContainer 
+              key={id} 
+              id={id} 
+              title={post.title} 
+              summary={post.summary} 
+              link={'post/' + post.title} 
+            />
           </Grid>
         ))}
       </Grid>

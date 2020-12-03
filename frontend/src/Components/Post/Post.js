@@ -9,12 +9,8 @@ import { fetchPostByID, clearCurrentPost } from '../../Utils/ContentAPI'
 
 export default function PostContainer() {
   const content = useSelector(state => state.content)
-  const dispatch = useDispatch()
+  fetchPostByID()
 
-  useEffect(() => {
-    fetchPostByID(useParams().postId, dispatch)
-    return clearCurrentPost(dispatch)
-  }, [])
 
   return <Post content={content} />
 }
