@@ -15,7 +15,7 @@ export default function PostContainer() {
   const dispatch = useDispatch()
  
   useEffect(() => {
-    axios.get(apiRoot+'/post', {params: {id}})
+    axios.get(apiRoot+'/api/post', {params: {id}})
       .then(resp => dispatch(setContent(resp.data.content)))
       .catch(() => dispatch(setContent('')))
   }, [])
