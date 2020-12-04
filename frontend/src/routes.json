@@ -2,6 +2,6 @@
   "routes": [
     {"path": "/post/:postID", "component": "PostContainer", "redirect": true},
     {"path": "/", "component": "MainPageContainer", "exact": true},
-    {"path": "/editr", "component": "Editor", "redirect": true}
+    {"path": "/editor", "component": "Editor", "redirect": true}
   ]
 }
