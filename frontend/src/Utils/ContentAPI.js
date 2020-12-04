@@ -5,7 +5,7 @@ import axios from 'axios'
 
 const apiRoot = '/api'
 
-export const usePostbyID = (id) => {    
+export const usePostByID = (id) => {    
     const dispatch = useDispatch()
    
     useEffect(() => {
