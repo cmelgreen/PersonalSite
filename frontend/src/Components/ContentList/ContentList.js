@@ -3,12 +3,12 @@ import React from 'react'
 import './ContentList.css'
 
 import { ContentCardContainer } from '../ContentCard/ContentCard'
-import { getPostSummaries } from '../../Utils/ContentAPI'
+import { usePostSummaries } from '../../Utils/ContentAPI'
 
 import { Grid } from '@material-ui/core'
 
 export function ContentListContainer(props) {
-  const posts = getPostSummaries()
+  const posts = usePostSummaries()
 
   return <ContentList posts={posts} />
 }

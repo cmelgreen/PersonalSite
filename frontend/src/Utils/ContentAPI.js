@@ -5,7 +5,7 @@ import axios from 'axios'
 
 const apiRoot = '/api'
 
-export const getPostByID = (id) => {    
+export const usePostbyID = (id) => {    
     const dispatch = useDispatch()
    
     useEffect(() => {
@@ -19,7 +19,7 @@ export const getPostByID = (id) => {
     return useSelector(state => state.content)
 }
 
-export const getPostSummaries = () => {
+export const usePostSummaries = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
