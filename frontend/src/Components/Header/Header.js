@@ -1,7 +1,7 @@
+// modules
 import React from "react"
-
 import { Link } from "react-router-dom";
-
+// components
 import { 
   AppBar, 
   IconButton,
@@ -9,9 +9,11 @@ import {
   Typography,
   } from "@material-ui/core"
 
+// styles
 import MenuIcon from '@material-ui/icons/Menu';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import GitHubIcon from '@material-ui/icons/GitHub';
+import "./Header.css"
 
 export function HeaderContainer(props) {
   const link = "/"
