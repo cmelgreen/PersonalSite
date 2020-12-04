@@ -7,7 +7,7 @@ type FSDummy struct {
 	http.FileSystem
 }
 
-// FS is a placeholder for compile-time static generated filesystem  
+// FS is a placeholder for compile-time static generated filesystem
 func FS(_ bool) http.FileSystem {
 	return FSDummy{}
 }

@@ -28,24 +28,24 @@ type DBConfig interface {
 
 // DBConfigFromValues is the default DBConfig type using set values
 type dbConfigFromValues struct {
-	database	  	string
-	host    		string
-	port 			string
-	user 			string
-	password		string
+	database string
+	host     string
+	port     string
+	user     string
+	password string
 }
 
 // ConfigString returns DBConfigValues formatted into a configuartion string
 func (dbConfig dbConfigFromValues) ConfigString(ctx context.Context) (string, error) {
 	configString := fmt.Sprintf(
-	"database=%s host=%s port=%s user=%s password=%s",
-	dbConfig.database,
-	dbConfig.host,
-	dbConfig.port,
-	dbConfig.user,
-	dbConfig.password,
+		"database=%s host=%s port=%s user=%s password=%s",
+		dbConfig.database,
+		dbConfig.host,
+		dbConfig.port,
+		dbConfig.user,
+		dbConfig.password,
 	)
-	
+
 	return configString, nil
 }
 
@@ -132,7 +132,7 @@ func (db *Database) CreateTable(ctx context.Context) error {
 	if _, err = db.ExecContext(ctx, insertQuery); err != nil {
 		return err
 	}
-	
+
 	return nil
 }
 
@@ -149,7 +149,7 @@ func (db *Database) QueryPost(ctx context.Context, title string) (models.Post, e
 // QueryPostSummaries returns N post summaries with title and post id
 func (db *Database) QueryPostSummaries(ctx context.Context, nPosts int) (models.PostList, error) {
 	var posts []*models.Post
-	
+
 	query := "SELECT * FROM post LIMIT $1;"
 	err := db.SelectContext(ctx, &posts, query, nPosts)
 

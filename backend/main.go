@@ -40,8 +40,8 @@ func main() {
 	s := newServer(ctx)
 
 	dbConfig := database.DBConfigFromAWS{
-		BaseAWSRegion: 	baseAWSRegion,
-		BaseAWSRoot: 	baseAWSRoot,
+		BaseAWSRegion:  baseAWSRegion,
+		BaseAWSRoot:    baseAWSRoot,
 		BaseConfigName: baseConfigName,
 		BaseConfigPath: baseConfigPath,
 		WithEncrpytion: withEncrpytion,

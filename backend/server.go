@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"PersonalSite/backend/database"
-	
+
 	"github.com/julienschmidt/httprouter"
 )
 
@@ -16,25 +16,25 @@ const (
 )
 
 var (
-	logOut = os.Stdout
+	logOut    = os.Stdout
 	logPrefix = log.Prefix()
-	logFlags = log.Flags()
+	logFlags  = log.Flags()
 )
 
 // Server struct for storing database, mux, and logger
-type Server struct{
-    db *database.Database
-    mux *httprouter.Router
-    log *log.Logger
+type Server struct {
+	db  *database.Database
+	mux *httprouter.Router
+	log *log.Logger
 }
 
 // NewServer returns new server with default log, mux, and database
 func newServer(ctx context.Context) *Server {
 	s := Server{
-        log: log.New(logOut, logPrefix, logFlags),
+		log: log.New(logOut, logPrefix, logFlags),
 		mux: httprouter.New(),
-		db: &database.Database{},
-    }
+		db:  &database.Database{},
+	}
 
 	return &s
 }
@@ -45,9 +45,9 @@ func (s *Server) newDBConnection(ctx context.Context, dbConfig database.DBConfig
 
 	// FIX NULL ERRORS
 	s.db, err = database.ConnectToDB(ctx, dbConfig)
-    if err != nil {
+	if err != nil {
 		s.log.Println(err)
-    }
+	}
 
 	err = s.db.CreateTable(ctx)
 	if err != nil {
