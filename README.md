@@ -12,7 +12,7 @@
 │   ├── main.go
 │   ├── Makefile
 │   ├── models
-│   │   └── models.go
+│   │   └── Posts.go
 │   ├── routes.go
 │   ├── server.go
 │   ├── static.go
@@ -36,6 +36,9 @@
 │       │   ├── ContentList
 │       │   │   ├── ContentList.css
 │       │   │   └── ContentList.js
+│       │   ├── Editor
+│       │   │   ├── Editor.css
+│       │   │   └── Editor.js
 │       │   ├── Footer
 │       │   │   └── Footer.js
 │       │   ├── Header
