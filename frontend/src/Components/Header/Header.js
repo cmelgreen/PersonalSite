@@ -13,7 +13,7 @@ import {
 import MenuIcon from '@material-ui/icons/Menu';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import GitHubIcon from '@material-ui/icons/GitHub';
-import "./Header.css"
+
 
 export function HeaderContainer(props) {
   const link = "/"
