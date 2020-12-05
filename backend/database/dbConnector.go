@@ -141,7 +141,7 @@ func (db *Database) QueryPost(ctx context.Context, title string) (models.Post, e
 	post := models.Post{}
 
 	query := "SELECT * FROM post WHERE title=$1;"
-	err := db.SelectContext(ctx, &post, query, title)
+	err := db.SelectContext(ctx, post, query, title)
 
 	return post, err
 }
