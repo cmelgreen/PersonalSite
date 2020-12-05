@@ -27,23 +27,23 @@ type DBConfig interface {
 }
 
 // DBConfigFromValues is the default DBConfig type using set values
-type dbConfigFromValues struct {
-	database string
-	host     string
-	port     string
-	user     string
-	password string
+type DBConfigFromValues struct {
+	Database string
+	Host     string
+	Port     string
+	User     string
+	Password string
 }
 
 // ConfigString returns DBConfigValues formatted into a configuartion string
-func (dbConfig dbConfigFromValues) ConfigString(ctx context.Context) (string, error) {
+func (dbConfig DBConfigFromValues) ConfigString(ctx context.Context) (string, error) {
 	configString := fmt.Sprintf(
 		"database=%s host=%s port=%s user=%s password=%s",
-		dbConfig.database,
-		dbConfig.host,
-		dbConfig.port,
-		dbConfig.user,
-		dbConfig.password,
+		dbConfig.Database,
+		dbConfig.Host,
+		dbConfig.Port,
+		dbConfig.User,
+		dbConfig.Password,
 	)
 
 	return configString, nil
@@ -99,7 +99,7 @@ func (db *Database) CreateTable(ctx context.Context) error {
 		tag_id int REFERENCES tag (id)
 	);`
 
-	_, err := db.ExecContext(ctx, schema)
+	db.ExecContext(ctx, schema)
 
 	// CHECK ERROR IS ALREADY CREATED OR OTHER
 
@@ -129,9 +129,7 @@ func (db *Database) CreateTable(ctx context.Context) error {
 		AND tag.value IN ('letter a', 'LET A');
 	`
 
-	if _, err = db.ExecContext(ctx, insertQuery); err != nil {
-		return err
-	}
+	db.ExecContext(ctx, insertQuery)
 
 	test := models.Post{
 		ID: 5,
