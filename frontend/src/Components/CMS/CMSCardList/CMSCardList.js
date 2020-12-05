@@ -5,7 +5,7 @@ import { Grid } from '@material-ui/core'
 import { usePostSummaries } from '../../Utils/ContentAPI'
 import CMSSummaryCard from '../CMSSummaryCard/CMSSummaryCard'
 
-import './CMSPostList.css'
+import './CMSCardList.css'
 
 export default function CMSPostList(props) {
   const posts = usePostSummaries()
