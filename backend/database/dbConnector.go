@@ -133,6 +133,16 @@ func (db *Database) CreateTable(ctx context.Context) error {
 		return err
 	}
 
+	test := models.Post{
+		ID: 5,
+		Title: "EEE",
+		Summary: "eee",
+		Content: "Surprise!", 
+	}
+
+	query := "INSERT INTO post VALUES (:id, :title, :summary :content)"
+	db.NamedExecContext(ctx, query, &test)
+
 	return nil
 }
 
