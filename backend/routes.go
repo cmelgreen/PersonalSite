@@ -47,11 +47,11 @@ func (s *Server) getPostByID() httprouter.Handle {
 
 		post, err := s.db.QueryPost(r.Context(), postTitle)
 		if err != nil {
-			post = &models.Post{}
+			post = models.Post{}
 			// IMPLEMENT ERROR HANDLING
 		}
 
-		writeJSON(w, *post)
+		writeJSON(w, post)
 	}
 }
 

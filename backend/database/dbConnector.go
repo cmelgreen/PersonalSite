@@ -137,11 +137,11 @@ func (db *Database) CreateTable(ctx context.Context) error {
 }
 
 // QueryPost queries single post
-func (db *Database) QueryPost(ctx context.Context, title string) (*models.Post, error) {
-	post := &models.Post{}
+func (db *Database) QueryPost(ctx context.Context, title string) (models.Post, error) {
+	post := models.Post{}
 
 	query := "SELECT * FROM post WHERE title=$1;"
-	err := db.SelectContext(ctx, post, query, title)
+	err := db.GetContext(ctx, &post, query, title)
 
 	return post, err
 }
