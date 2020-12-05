@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Grid } from '@material-ui/core'
 
-import { usePostSummaries } from '../../Utils/ContentAPI'
+import { usePostSummaries } from '../../../Utils/ContentAPI'
 import CMSSummaryCard from '../CMSSummaryCard/CMSSummaryCard'
 
 import './CMSCardList.css'
