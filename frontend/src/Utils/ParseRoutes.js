@@ -1,11 +1,11 @@
 import MainPageContainer from "../Components/MainPage/MainPage"
 import PostContainer from "../Components/Post/Post"
-import Editor from "../Components/Editor/Editor"
+import CMS from "../Components/CMS/CMS"
 
 const getComponentByName = {
     MainPageContainer: MainPageContainer,
     PostContainer: PostContainer,
-    Editor: Editor
+    CMS: CMS
 }
 
 const ParseRoutes = (routes) => {

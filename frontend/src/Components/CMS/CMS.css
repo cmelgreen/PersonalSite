@@ -1,0 +1,24 @@
+.cms {
+    font-family: sans-serif;
+  
+    display: grid;
+    grid-template-columns: 5% 20% 70% 5%;
+    grid-template-rows: 10%  auto 50vh;
+  
+    padding: 0;
+    margin: 0;
+    border: 0;
+  
+    top: 0;
+    left: 0;
+  }
+  .cms-card-list {
+    grid-column: 2;
+    grid-row: 2;
+  }
+  
+  .editor {
+    top: 0;
+    grid-column: 3;
+    grid-row: 2;
+  }
