@@ -1,7 +1,7 @@
 import React from 'react'
 
-import Editor from './Editor'
-import CMSCardList from './CMSCardList'
+import Editor from './Editor/Editor'
+import CMSCardList from './CMSCardList/CMSCardList'
 
 import './CMS.css'
 
