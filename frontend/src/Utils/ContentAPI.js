@@ -30,10 +30,18 @@ export const usePostSummaries = () => {
   useEffect(() => {
     axios.get(apiRoot+'/post-summaries')
       .then(resp => dispatch(setSummaries(resp.data.posts)))
-      .catch(() => dispatch(setSummaries([])) )
+      .catch(() => dispatch(setSummaries([])))
   }, [])
 
   return useSelector(state => state.summaries)
+}
+
+export const useUpdatePostSummaries = () => {
+  const dispatch = useDispatch()
+  
+  axios.get(apiRoot+'/post-summaries')
+    .then(resp => dispatch(setSummaries(resp.data.posts)))
+    .catch(() => dispatch(setSummaries([])))
 }
 
 export const addPost = (title, content) => {

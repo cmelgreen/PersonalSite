@@ -4,7 +4,7 @@ import { useState } from "react";
 import { TextField } from "@material-ui/core";
 import MUIRichTextEditor from "mui-rte";
 
-import { createPost } from '../../../Utils/ContentAPI'
+import { createPost, useUpdatePostSummaries } from '../../../Utils/ContentAPI'
 
 import "./Editor.css"
 
@@ -13,7 +13,10 @@ export default function Editor(props) {
   const [summary, setSummary] = useState('Post Summary')
   const [tags, setTags] = useState('Tags')
 
-  const onSave = (data) => createPost({title: title, summary: summary, data: data});
+  const onSave = (data) => {
+    createPost({title: title, summary: summary, content: data})
+    useUpdatePostSummaries()
+  }
 
   return (
     <div className="editor">
