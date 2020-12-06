@@ -55,6 +55,25 @@ func (s *Server) getPostByID() httprouter.Handle {
 	}
 }
 
+func (s *Server) createPost() httprouter.Handle {
+	return func(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+		r.ParseForm()
+		post := models.Post{}
+
+		err := json.NewDecoder(r.Body).Decode(&post)
+		if err != nil {
+			s.log.Println(err)
+			// ADD ERROR HANDLING
+		}
+
+		err = s.db.InsertPost(r.Context(), post)
+		if err != nil {
+			s.log.Println(err)
+			// ADD ERROR HANDLING
+		}
+	}
+}
+
 func (s *Server) getPostSummaries() httprouter.Handle {
 	return func(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 		postSummaries, err := s.db.QueryPostSummaries(r.Context(), 10)

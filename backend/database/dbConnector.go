@@ -154,6 +154,14 @@ func (db *Database) QueryPost(ctx context.Context, title string) (models.Post, e
 	return post, err
 }
 
+// InsertPost inserts single post
+func (db *Database) InsertPost(ctx context.Context, post models.Post) error {
+	query := "INSERT INTO post VALUES (default, :title, :summary, :content)"
+	_, err := db.NamedExecContext(ctx, query, &post)
+
+	return err
+}
+
 // QueryPostSummaries returns N post summaries with title and post id
 func (db *Database) QueryPostSummaries(ctx context.Context, nPosts int) (models.PostList, error) {
 	var posts []*models.Post

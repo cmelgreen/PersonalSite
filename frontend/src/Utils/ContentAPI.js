@@ -19,6 +19,11 @@ export const usePostByID = (id) => {
     return useSelector(state => state.content)
 }
 
+export const createPost = (post) => {
+  axios.post(apiRoot+'/post', post)
+    
+}
+
 export const usePostSummaries = () => {
   const dispatch = useDispatch()
 

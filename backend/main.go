@@ -58,6 +58,7 @@ func main() {
 
 	s.mux.GET("/health", s.healthCheck())
 	s.mux.GET(apiRoot+"/post", s.getPostByID())
+	s.mux.POST(apiRoot+"/post", s.createPost())
 	s.mux.GET(apiRoot+"/post-summaries", s.getPostSummaries())
 
 	s.setPathsToRedirect(utils.ParseRoutesToRedirect(FSMustByte(false, "/routes.json")))

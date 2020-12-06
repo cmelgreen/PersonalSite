@@ -121,5 +121,3 @@
     ├── before_install.sh
     ├── start_server.sh
     └── stop_server.sh
-
-35 directories, 86 files
