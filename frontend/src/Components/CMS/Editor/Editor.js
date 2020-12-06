@@ -13,7 +13,7 @@ export default function Editor(props) {
   const [summary, setSummary] = useState('Post Summary')
   const [tags, setTags] = useState('Tags')
 
-  const onSave = (data) => createPost({post: {title: title, summary: summary, data: data}});
+  const onSave = (data) => createPost({title: title, summary: summary, data: data});
 
   return (
     <div className="editor">
