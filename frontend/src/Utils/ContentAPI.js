@@ -11,6 +11,7 @@ const apiRoot = '/api'
 
 const renderRTF = (data) => {
   console.log(data)
+  console.log("better print")
   console.log('Converted: ', convertFromRaw(data))
   return ReactHtmlParser(stateToHTML(convertFromRaw(data)))
 }
