@@ -14,8 +14,8 @@ export default function Editor(props) {
   const [tags, setTags] = useState('Tags')
 
   const onSave = (data) => {
-    createPost({title: title, summary: summary, content: data})
-    useUpdatePostSummaries()
+    createPost(title, summary, data, tags)
+    useUpdatePostSummaries() // FIX
   }
 
   return (

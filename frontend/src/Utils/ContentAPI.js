@@ -26,7 +26,8 @@ export const usePostByID = (id) => {
     return useSelector(state => state.content)
 }
 
-export const createPost = (post) => {
+export const createPost = (title, summary, data, tags) => {
+  const post = {title: title, summary: summary, rawContent: data}
   axios.post(apiRoot+'/post', post)
     
 }
@@ -49,8 +50,4 @@ export const useUpdatePostSummaries = () => {
   axios.get(apiRoot+'/post-summaries')
     .then(resp => dispatch(setSummaries(resp.data.posts)))
     .catch(() => dispatch(setSummaries([])))
-}
-
-export const addPost = (title, content) => {
-    axios.post(api, {id: title, content: content})
 }

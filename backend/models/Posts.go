@@ -17,6 +17,7 @@ type Post struct {
 	Title 		string 	`json:"title" db:"title"`
 	Summary		string 	`json:"summary" db:"summary"`
 	Content 	string 	`json:"content" db:"content"`
+	RawContent  string	`json:"rawContent" db:"raw_content"`
 }
 
 // PostList is a list of Posts
