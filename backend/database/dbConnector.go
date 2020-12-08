@@ -105,12 +105,12 @@ func (db *Database) CreateTable(ctx context.Context) error {
 	// CHECK ERROR IS ALREADY CREATED OR OTHER
 
 	insertQuery := `
-	INSERT INTO post (title, summary, content)
+	INSERT INTO post (title, summary, content, raw_content)
 	VALUES 
-		('AAA', 'aaa', 'Post 1 is fun'),
-		('BBB', 'bbb', 'Post 2 for you'),
-		('CCC', 'ccc', 'Post 3 for me'),
-		('DDD', 'ddd', 'Post 4 some more');
+		('AAA', 'aaa', 'Post 1 is fun', 'Post 1 is fun'),
+		('BBB', 'bbb', 'Post 2 for you'. 'Post 2 for you'),
+		('CCC', 'ccc', 'Post 3 for me'. 'Post 3 for me'),
+		('DDD', 'ddd', 'Post 4 some more', 'Post 4 some more');
 		
 	INSERT INTO tag (value)
 	VALUES 
@@ -137,6 +137,7 @@ func (db *Database) CreateTable(ctx context.Context) error {
 		Title: "EEE",
 		Summary: "eee",
 		Content: "Surprise!", 
+		RawContent: "Suprise!",
 	}
 
 	query := "INSERT INTO post VALUES (:id, :title, :summary, :content)"
