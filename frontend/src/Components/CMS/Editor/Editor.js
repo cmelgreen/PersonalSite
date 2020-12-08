@@ -15,7 +15,7 @@ export default function Editor(props) {
 
   const onSave = (data) => {
     createPost(title, summary, data, tags)
-    useUpdatePostSummaries() // FIX
+   // useUpdatePostSummaries() // FIX
   }
 
   return (
