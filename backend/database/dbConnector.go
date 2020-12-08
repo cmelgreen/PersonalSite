@@ -140,7 +140,7 @@ func (db *Database) CreateTable(ctx context.Context) error {
 		RawContent: "Suprise!",
 	}
 
-	query := "INSERT INTO post VALUES (:id, :title, :summary, :content)"
+	query := "INSERT INTO post VALUES (:id, :title, :summary, :content, :raw_content)"
 	db.NamedExecContext(ctx, query, &test)
 
 	return nil

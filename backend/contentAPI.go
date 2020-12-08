@@ -21,6 +21,7 @@ func (s *Server) getPostByID() httprouter.Handle {
 
 		post, err := s.db.QueryPost(r.Context(), postTitle)
 		if err != nil {
+			s.log.Println(err)
 			post = models.Post{}
 			// IMPLEMENT ERROR HANDLING
 		}
@@ -57,7 +58,7 @@ func (s *Server) getPostSummaries() httprouter.Handle {
 	return func(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 		postSummaries, err := s.db.QueryPostSummaries(r.Context(), 10)
 		if err != nil {
-			return
+			s.log.Println(err)
 		}
 
 		writeJSON(w, postSummaries)
