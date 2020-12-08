@@ -5,12 +5,14 @@ import axios from 'axios'
 
 const apiRoot = '/api'
 
+const renderRTF = (data) => ReactHtmlParser(stateToHTML(convertFromRaw(data)))
+
 export const usePostByID = (id) => {    
     const dispatch = useDispatch()
    
     useEffect(() => {
       axios.get(apiRoot+'/post', {params: {id}})
-        .then(resp => dispatch(setContent(resp.data.content)))
+        .then(resp => dispatch(setContent(renderRTF(resp.data.content))))
         .catch(() => dispatch(setContent('')))
       
         return () => dispatch(setContent(''))
@@ -38,7 +40,7 @@ export const usePostSummaries = () => {
 
 export const useUpdatePostSummaries = () => {
   const dispatch = useDispatch()
-  
+
   axios.get(apiRoot+'/post-summaries')
     .then(resp => dispatch(setSummaries(resp.data.posts)))
     .catch(() => dispatch(setSummaries([])))
