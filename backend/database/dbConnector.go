@@ -108,8 +108,8 @@ func (db *Database) CreateTable(ctx context.Context) error {
 	INSERT INTO post (title, summary, content, raw_content)
 	VALUES 
 		('AAA', 'aaa', 'Post 1 is fun', 'Post 1 is fun'),
-		('BBB', 'bbb', 'Post 2 for you'. 'Post 2 for you'),
-		('CCC', 'ccc', 'Post 3 for me'. 'Post 3 for me'),
+		('BBB', 'bbb', 'Post 2 for you', 'Post 2 for you'),
+		('CCC', 'ccc', 'Post 3 for me', 'Post 3 for me'),
 		('DDD', 'ddd', 'Post 4 some more', 'Post 4 some more');
 		
 	INSERT INTO tag (value)
