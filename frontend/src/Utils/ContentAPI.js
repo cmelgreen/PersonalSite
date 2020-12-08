@@ -11,7 +11,7 @@ const apiRoot = '/api'
 
 const renderRTF = (data) => {
   console.log(data)
-  return ReactHtmlParser(stateToHTML(convertFromRaw(data))))
+  return ReactHtmlParser(stateToHTML(convertFromRaw(data)))
 }
 
 export const usePostByID = (id) => {    
