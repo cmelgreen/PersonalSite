@@ -105,7 +105,7 @@ func (db *Database) CreateTable(ctx context.Context) error {
 	// CHECK ERROR IS ALREADY CREATED OR OTHER
 
 	insertQuery := `
-	INSERT INTO post (title, summary, content, raw_content)
+	INSERT INTO post (title, summary, content, rawcontent)
 	VALUES 
 		('AAA', 'aaa', 'Post 1 is fun', 'Post 1 is fun'),
 		('BBB', 'bbb', 'Post 2 for you', 'Post 2 for you'),
@@ -140,7 +140,7 @@ func (db *Database) CreateTable(ctx context.Context) error {
 		RawContent: "Suprise!",
 	}
 
-	query := "INSERT INTO post VALUES (:id, :title, :summary, :content, :raw_content)"
+	query := "INSERT INTO post VALUES (:id, :title, :summary, :content, :rawcontent)"
 	db.NamedExecContext(ctx, query, &test)
 
 	return nil
@@ -158,7 +158,7 @@ func (db *Database) QueryPost(ctx context.Context, title string) (models.Post, e
 
 // InsertPost inserts single post
 func (db *Database) InsertPost(ctx context.Context, post models.Post) error {
-	query := "INSERT INTO post VALUES (default, :title, :summary, :content, :raw_content)"
+	query := "INSERT INTO post VALUES (default, :title, :summary, :content, :rawcontent)"
 	_, err := db.NamedExecContext(ctx, query, &post)
 
 	return err
