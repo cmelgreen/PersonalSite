@@ -50,6 +50,7 @@ func main() {
 	s.newDBConnection(ctx, dbConfig)
 
 	fileSystem := FS(false)
+	richTextEditor := &utils.DraftJS{}
 	indexHTMLString := FSMustString(false, "/index.html")
 
 	tpl := template.Must(template.New("index").Parse(indexHTMLString))
@@ -57,8 +58,9 @@ func main() {
 	s.mux.ServeFiles("/static/*filepath", fileSystem)
 
 	s.mux.GET("/health", s.healthCheck())
+
 	s.mux.GET(apiRoot+"/post", s.getPostByID())
-	s.mux.POST(apiRoot+"/post", s.createPost())
+	s.mux.POST(apiRoot+"/post", s.createPost(richTextEditor))
 	s.mux.GET(apiRoot+"/post-summaries", s.getPostSummaries())
 
 	s.setPathsToRedirect(utils.ParseRoutesToRedirect(FSMustByte(false, "/routes.json")))
