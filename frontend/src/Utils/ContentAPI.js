@@ -3,8 +3,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setContent, setSummaries } from '../Store/Actions'
 import axios from 'axios'
 
-import { convertFromRaw } from 'draft-js'
-import { stateToHTML } from 'draft-js-export-html'
 import ReactHtmlParser from 'react-html-parser'
 
 const apiRoot = '/api'
