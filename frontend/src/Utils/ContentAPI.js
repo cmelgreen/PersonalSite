@@ -9,7 +9,7 @@ import ReactHtmlParser from 'react-html-parser'
 
 const apiRoot = '/api'
 
-const renderRTF = (data) => ReactHtmlParser(stateToHTML(convertFromRaw(data)))
+const renderRTF = (data) => (ReactHtmlParser(stateToHTML(convertFromRaw(data))))
 
 export const usePostByID = (id) => {    
     const dispatch = useDispatch()
