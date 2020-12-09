@@ -48,6 +48,7 @@ func (s *Server) createPost(richText RichTextHandler) httprouter.Handle {
 
 		post.Content = html
 
+		s.log.Println("html: ", html)
 		s.log.Println(post)
 		s.log.Println(post.Content)
 
