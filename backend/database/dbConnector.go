@@ -139,7 +139,7 @@ func (db *Database) CreateTable(ctx context.Context) error {
 func (db *Database) QueryPost(ctx context.Context, title string) (models.Post, error) {
 	post := models.Post{}
 
-	query := "SELECT (id, title, summary, raw_content) FROM post WHERE title=$1;"
+	query := "SELECT id, title, summary, raw_content FROM post WHERE title=$1;"
 	err := db.GetContext(ctx, &post, query, title)
 
 	return post, err
@@ -149,7 +149,7 @@ func (db *Database) QueryPost(ctx context.Context, title string) (models.Post, e
 func (db *Database) QueryPostRaw(ctx context.Context, title string) (models.Post, error) {
 	post := models.Post{}
 
-	query := "SELECT (id, title, summary, raw_content AS content) FROM post WHERE title=$1;"
+	query := "SELECT id, title, summary, raw_content FROM post WHERE title=$1;"
 	err := db.GetContext(ctx, &post, query, title)
 
 	return post, err
@@ -169,10 +169,10 @@ func (db *Database) QueryPostSummaries(ctx context.Context, nPosts int) (models.
 	var err error
 
 	if nPosts > 0 {
-		query := "SELECT (id, title, summary) FROM post LIMIT $1;"
+		query := "SELECT id, title, summary FROM post LIMIT $1;"
 		err = db.SelectContext(ctx, &posts, query, nPosts)
 	} else {
-		query := "SELECT (id, title, summary) FROM post;"
+		query := "SELECT id, title, summary FROM post;"
 		err = db.SelectContext(ctx, &posts, query)
 	}
 
