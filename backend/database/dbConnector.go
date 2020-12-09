@@ -149,7 +149,7 @@ func (db *Database) QueryPost(ctx context.Context, title string) (models.Post, e
 func (db *Database) QueryPostRaw(ctx context.Context, title string) (models.Post, error) {
 	post := models.Post{}
 
-	query := "SELECT (id, title, summary, raw_content AS content) FROM post WHERE title=$1"
+	query := "SELECT (id, title, summary, raw_content AS content) FROM post WHERE title=$1;"
 	err := db.GetContext(ctx, &post, query, title)
 
 	return post, err
@@ -157,7 +157,7 @@ func (db *Database) QueryPostRaw(ctx context.Context, title string) (models.Post
 
 // InsertPost inserts single post
 func (db *Database) InsertPost(ctx context.Context, post models.Post) error {
-	query := "INSERT INTO post VALUES (default, :title, :summary, :content, :raw_content)"
+	query := "INSERT INTO post VALUES (default, :title, :summary, :content, :raw_content);"
 	_, err := db.NamedExecContext(ctx, query, &post)
 
 	return err
@@ -172,7 +172,7 @@ func (db *Database) QueryPostSummaries(ctx context.Context, nPosts int) (models.
 		query := "SELECT (id, title, summary) FROM post LIMIT $1;"
 		err = db.SelectContext(ctx, &posts, query, nPosts)
 	} else {
-		query := "SELECT (id, title, summary) FROM post"
+		query := "SELECT (id, title, summary) FROM post;"
 		err = db.SelectContext(ctx, &posts, query)
 	}
 
