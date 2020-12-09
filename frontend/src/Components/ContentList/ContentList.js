@@ -8,7 +8,7 @@ import { usePostSummaries } from '../../Utils/ContentAPI'
 import { Grid } from '@material-ui/core'
 
 export function ContentListContainer(props) {
-  const posts = usePostSummaries()
+  const posts = usePostSummaries(props.numPosts)
 
   return <ContentList posts={posts} />
 }

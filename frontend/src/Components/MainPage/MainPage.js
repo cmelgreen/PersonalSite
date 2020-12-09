@@ -15,7 +15,7 @@ function MainPage(props) {
   return (
     <div className='main-page'>
       <HeaderContainer />
-      <ContentListContainer />
+      <ContentListContainer numPosts={10}/>
     </div>
   )
 }

@@ -6,48 +6,39 @@ import axios from 'axios'
 import ReactHtmlParser from 'react-html-parser'
 
 const apiRoot = '/api'
+const apiPost = apiRoot + '/post'
+const apiPostSummaries = apiRoot + '/post-summaries'
 
 const renderRTF = (data) => {
-  console.log(data)
   return ReactHtmlParser(data)
 }
 
-export const usePostRawByID = (id) => {
+export const usePostByID = (id, raw=false) => {
+  const dispatch = useDispatch()
+
   useEffect(() => {
-    axios.get(apiRoot+'/post', {params: {id}})
+    axios.get(apiPost, {params: {id, raw}})
       .then(resp => dispatch(setContent(renderRTF(resp.data.content))))
       .catch(() => dispatch(setContent('')))
     
       return () => dispatch(setContent(''))
   }, [])
-}
 
-export const usePostByID = (id) => {    
-    const dispatch = useDispatch()
-   
-    useEffect(() => {
-      axios.get(apiRoot+'/post', {params: {id}})
-        .then(resp => dispatch(setContent(renderRTF(resp.data.content))))
-        .catch(() => dispatch(setContent('')))
-      
-        return () => dispatch(setContent(''))
-    }, [])
-
-    return useSelector(state => state.content)
+  return useSelector(state => state.content)
 }
 
 export const createPost = (title, summary, data, tags) => {
   const post = {title: title, summary: summary, rawContent: data}
-  axios.post(apiRoot+'/post', post)
+  axios.post(apiPost, post)
     .then(resp => console.log("Created", resp))
     .catch(resp => console.log("Error creating post", resp))
 }
 
-export const usePostSummaries = () => {
+export const usePostSummaries = (numPosts) => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    axios.get(apiRoot+'/post-summaries')
+    axios.get(apiPostSummaries, {params: {numPosts}})
       .then(resp => dispatch(setSummaries(resp.data.posts)))
       .catch(() => dispatch(setSummaries([])))
   }, [])
@@ -58,7 +49,7 @@ export const usePostSummaries = () => {
 export const useUpdatePostSummaries = () => {
   const dispatch = useDispatch()
 
-  axios.get(apiRoot+'/post-summaries')
+  axios.get(apiPostSummaries)
     .then(resp => dispatch(setSummaries(resp.data.posts)))
     .catch(() => dispatch(setSummaries([])))
 }

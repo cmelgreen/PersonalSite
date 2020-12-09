@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 	"strconv"
+	"strings"
 
 	"PersonalSite/backend/models"
 
@@ -15,14 +16,42 @@ type RichTextHandler interface{
 	RichTextToHTML(string) (string, error)
 }
 
+func writeStatus(w http.ResponseWriter, statusCode int) {
+	w.WriteHeader(statusCode)
+}
+
+func writeJSON(w http.ResponseWriter, message interface{}) {
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(message)
+}
+
+func unwrapBool(s string) bool {
+	value, err := strconv.ParseBool(s)
+
+	if err != nil {
+		return false
+	}
+
+	return value
+}
+
 func (s *Server) getPostByID() httprouter.Handle {
 	return func(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-		postTitle := r.FormValue("id")
+		formTitle := r.FormValue("id")
 
-		post, err := s.db.QueryPost(r.Context(), postTitle)
+		var post models.Post 
+		var err error
+
+		if unwrapBool(r.FormValue("raw")) {
+			post, err = s.db.QueryPostRaw(r.Context(), formTitle)
+		} else {
+			post, err = s.db.QueryPost(r.Context(), formTitle)
+		}
+
 		if err != nil {
 			s.log.Println(err)
-			post = models.Post{}
+			writeStatus(w, 0)
+			return
 			// IMPLEMENT ERROR HANDLING
 		}
 
@@ -63,7 +92,7 @@ func (s *Server) createPost(richText RichTextHandler) httprouter.Handle {
 
 func (s *Server) getPostSummaries() httprouter.Handle {
 	return func(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-		nPostValue := r.FormValue("num-posts")
+		nPostValue := r.FormValue("numPosts")
 		nPosts, err := strconv.Atoi(nPostValue)
 
 		if err != nil {
@@ -78,13 +107,4 @@ func (s *Server) getPostSummaries() httprouter.Handle {
 
 		writeJSON(w, postSummaries)
 	}
-}
-
-func writeStatus(w http.ResponseWriter, statusCode int) {
-	w.WriteHeader(statusCode)
-}
-
-func writeJSON(w http.ResponseWriter, message interface{}) {
-	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(message)
 }
