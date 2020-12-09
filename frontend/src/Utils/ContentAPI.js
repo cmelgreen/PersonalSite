@@ -39,7 +39,8 @@ export const usePostByID = (id) => {
 export const createPost = (title, summary, data, tags) => {
   const post = {title: title, summary: summary, rawContent: data}
   axios.post(apiRoot+'/post', post)
-    .then(resp => console.log(resp))
+    .then(resp => console.log("Created", resp))
+    .catch(resp => console.log("Error creating post", resp))
 }
 
 export const usePostSummaries = () => {
