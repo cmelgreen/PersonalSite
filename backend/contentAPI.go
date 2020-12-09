@@ -46,6 +46,9 @@ func (s *Server) createPost(richText RichTextHandler) httprouter.Handle {
 			s.log.Println(err)
 		}
 
+		s.log.Println(post)
+		s.log.Println(post.Content)
+
 		err = s.db.InsertPost(r.Context(), post)
 		if err != nil {
 			s.log.Println(err)
