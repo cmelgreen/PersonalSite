@@ -9,8 +9,10 @@ import { createPost, useUpdatePostSummaries } from '../../../Utils/ContentAPI'
 import "./Editor.css"
 
 export default function Editor(props) {
-  const [title, setTitle] = useState('Title')
-  const [summary, setSummary] = useState('Post Summary')
+  const post = usePostByID(useParams().postID)
+
+  const [title, setTitle] = useState(post.title)
+  const [summary, setSummary] = useState(post.summary)
   const [tags, setTags] = useState('Tags')
 
   const onSave = (data) => {

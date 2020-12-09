@@ -9,16 +9,12 @@ const apiRoot = '/api'
 const apiPost = apiRoot + '/post'
 const apiPostSummaries = apiRoot + '/post-summaries'
 
-const renderRTF = (data) => {
-  return ReactHtmlParser(data)
-}
-
 export const usePostByID = (id, raw=false) => {
   const dispatch = useDispatch()
 
   useEffect(() => {
     axios.get(apiPost, {params: {id, raw}})
-      .then(resp => dispatch(setContent(renderRTF(resp.data.content))))
+      .then(resp => dispatch(setContent(resp.data)))
       .catch(() => dispatch(setContent('')))
     
       return () => dispatch(setContent(''))
