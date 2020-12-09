@@ -12,6 +12,12 @@ func redirectWithCookie(w http.ResponseWriter, r *http.Request, _ httprouter.Par
 	http.Redirect(w, r, "/", http.StatusFound)
 }
 
+// ServeStaticSite serves a static site
+func (s *Server) ServeStaticSite(index *template.Template, fileSystem http.FileSystem) {
+	s.mux.GET("/", staticTemplate(index, "index"))
+	s.mux.ServeFiles("/static/*filepath", fileSystem)
+}
+
 func (s *Server) setPathsToRedirect(paths []string) {
 	for _, path := range paths {
 		s.mux.GET(path, redirectWithCookie)
@@ -19,7 +25,7 @@ func (s *Server) setPathsToRedirect(paths []string) {
 }
 
 // staticTemplate executes the named template passed in
-func (s *Server) staticTemplate(tpl *template.Template, name string) httprouter.Handle {
+func staticTemplate(tpl *template.Template, name string) httprouter.Handle {
 	return func(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 		tpl.ExecuteTemplate(w, name, nil)
 	}

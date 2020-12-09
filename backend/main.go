@@ -50,15 +50,15 @@ func main() {
 	s.newDBConnection(ctx, dbConfig)
 
 	fileSystem := FS(false)
-	richTextEditor := &utils.DraftJS{}
 	indexHTMLString := FSMustString(false, "/index.html")
-
 	tpl := template.Must(template.New("index").Parse(indexHTMLString))
-	s.mux.GET("/", s.staticTemplate(tpl, "index"))
-	s.mux.ServeFiles("/static/*filepath", fileSystem)
+
+	s.ServeStaticSite(tpl, fileSystem)
 
 	s.mux.GET("/health", s.healthCheck())
 
+	richTextEditor := &utils.DraftJS{}
+	
 	s.mux.GET(apiRoot+"/post", s.getPostByID())
 	s.mux.POST(apiRoot+"/post", s.createPost(richTextEditor))
 	s.mux.GET(apiRoot+"/post-summaries", s.getPostSummaries())

@@ -38,19 +38,26 @@ func (s *Server) createPost(richText RichTextHandler) httprouter.Handle {
 		err := json.NewDecoder(r.Body).Decode(&post)
 		if err != nil {
 			s.log.Println(err)
+			writeStatus(w, 0)
+			return
 			// ADD ERROR HANDLING
 		}
 
 		post.Content, err = richText.RichTextToHTML(post.RawContent)
 		if err != nil {
 			s.log.Println(err)
+			writeStatus(w, 0)
+			return
 		}
 
 		err = s.db.InsertPost(r.Context(), post)
 		if err != nil {
 			s.log.Println(err)
-			// ADD ERROR HANDLING
+			writeStatus(w, 0)
+			return
 		}
+
+		writeStatus(w, 200)
 	}
 }
 
@@ -71,6 +78,10 @@ func (s *Server) getPostSummaries() httprouter.Handle {
 
 		writeJSON(w, postSummaries)
 	}
+}
+
+func writeStatus(w http.ResponseWriter, statusCode int) {
+	w.WriteHeader(statusCode)
 }
 
 func writeJSON(w http.ResponseWriter, message interface{}) {

@@ -12,6 +12,16 @@ const renderRTF = (data) => {
   return ReactHtmlParser(data)
 }
 
+export const usePostRawByID = (id) => {
+  useEffect(() => {
+    axios.get(apiRoot+'/post', {params: {id}})
+      .then(resp => dispatch(setContent(renderRTF(resp.data.content))))
+      .catch(() => dispatch(setContent('')))
+    
+      return () => dispatch(setContent(''))
+  }, [])
+}
+
 export const usePostByID = (id) => {    
     const dispatch = useDispatch()
    
@@ -29,7 +39,7 @@ export const usePostByID = (id) => {
 export const createPost = (title, summary, data, tags) => {
   const post = {title: title, summary: summary, rawContent: data}
   axios.post(apiRoot+'/post', post)
-    
+    .then(resp => console.log(resp))
 }
 
 export const usePostSummaries = () => {
