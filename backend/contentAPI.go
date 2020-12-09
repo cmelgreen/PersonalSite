@@ -41,16 +41,10 @@ func (s *Server) createPost(richText RichTextHandler) httprouter.Handle {
 			// ADD ERROR HANDLING
 		}
 
-		html, err := richText.RichTextToHTML(post.Content)
+		post.Content, err = richText.RichTextToHTML(post.RawContent)
 		if err != nil {
 			s.log.Println(err)
 		}
-
-		post.Content = html
-
-		s.log.Println("html: ", html)
-		s.log.Println(post)
-		s.log.Println(post.Content)
 
 		err = s.db.InsertPost(r.Context(), post)
 		if err != nil {
