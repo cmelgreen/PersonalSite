@@ -156,8 +156,12 @@ func (db *Database) InsertPost(ctx context.Context, post models.Post) error {
 // QueryPostSummaries returns N post summaries with title and post id
 func (db *Database) QueryPostSummaries(ctx context.Context, nPosts int) (models.PostList, error) {
 	var posts []*models.Post
-
 	query := "SELECT * FROM post LIMIT $1;"
+
+	if nPosts < 0 {
+		query = "SELECT * FROM post"
+	}
+	
 	err := db.SelectContext(ctx, &posts, query, nPosts)
 
 	return models.PostList{Posts: posts}, err

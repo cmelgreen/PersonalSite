@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"net/http"
+	"strconv"
 
 	"PersonalSite/backend/models"
 
@@ -16,7 +17,6 @@ type RichTextHandler interface{
 
 func (s *Server) getPostByID() httprouter.Handle {
 	return func(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-		r.ParseForm()
 		postTitle := r.FormValue("id")
 
 		post, err := s.db.QueryPost(r.Context(), postTitle)
@@ -56,7 +56,15 @@ func (s *Server) createPost(richText RichTextHandler) httprouter.Handle {
 
 func (s *Server) getPostSummaries() httprouter.Handle {
 	return func(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-		postSummaries, err := s.db.QueryPostSummaries(r.Context(), 10)
+		nPostValue := r.FormValue("num-posts")
+		nPosts, err := strconv.Atoi(nPostValue)
+
+		if err != nil {
+			s.log.Println(err)
+			nPosts = -1
+		}
+
+		postSummaries, err := s.db.QueryPostSummaries(r.Context(), nPosts)
 		if err != nil {
 			s.log.Println(err)
 		}
