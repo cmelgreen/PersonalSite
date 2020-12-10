@@ -15,7 +15,11 @@ export default function CMSPostList(props) {
       <Grid container direction="column">
           {posts.map((post, id) => (
             <Grid item xs={12} sm={12} lg={6}>
-              <CMSSummaryCard id={id} post={post} />
+              <CMSSummaryCard 
+                id={id} 
+                post={post} 
+                link={'cms/' + post.title} 
+                />
             </Grid>
           ))}
       </Grid>

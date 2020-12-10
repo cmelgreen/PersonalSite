@@ -3,13 +3,16 @@ import React from "react";
 import { useState } from "react";
 import { TextField } from "@material-ui/core";
 import MUIRichTextEditor from "mui-rte";
+import { useParams } from 'react-router-dom'
 
-import { createPost, useUpdatePostSummaries } from '../../../Utils/ContentAPI'
+import { createPost, usePostByID, useUpdatePostSummaries } from '../../../Utils/ContentAPI'
 
 import "./Editor.css"
 
 export default function Editor(props) {
-  const post = usePostByID(useParams().postID)
+  const id = useParams().postID
+
+  const post = id ? usePostByID(id, raw=true) : 'Start typing...'
 
   const [title, setTitle] = useState(post.title)
   const [summary, setSummary] = useState(post.summary)
@@ -50,7 +53,7 @@ export default function Editor(props) {
         />
       </div>
       <div className="content-editor">
-        <MUIRichTextEditor label="Start typing..." onSave={onSave} />
+        <MUIRichTextEditor defaultValue={post} onSave={onSave} />
       </div>
     </div>
   );
