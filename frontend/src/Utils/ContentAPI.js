@@ -3,15 +3,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setContent, setSummaries } from '../Store/Actions'
 import axios from 'axios'
 
-import ReactHtmlParser from 'react-html-parser'
-
 const apiRoot = '/api'
 const apiPost = apiRoot + '/post'
 const apiPostSummaries = apiRoot + '/post-summaries'
-
-const renderRTF = (data) => {
-  return ReactHtmlParser(data)
-}
 
 export const usePostByID = (id, raw=false) => {
   const dispatch = useDispatch()

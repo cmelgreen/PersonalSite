@@ -13,7 +13,7 @@ import './Post.css'
 export default function PostContainer() {
   const post = usePostByID(useParams().postID)
 
-  return <Post content={renderHTML(post.content)} />
+  return <Post content={renderHTML(post)} />
 }
 
 function Post(props) {
