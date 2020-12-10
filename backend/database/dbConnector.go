@@ -149,7 +149,7 @@ func (db *Database) QueryPost(ctx context.Context, title string) (models.Post, e
 func (db *Database) QueryPostRaw(ctx context.Context, title string) (models.Post, error) {
 	post := models.Post{}
 
-	query := "SELECT id, title, summary, raw_content FROM post WHERE title=$1;"
+	query := "SELECT id, title, summary, raw_content as content FROM post WHERE title=$1;"
 	err := db.GetContext(ctx, &post, query, title)
 
 	return post, err
