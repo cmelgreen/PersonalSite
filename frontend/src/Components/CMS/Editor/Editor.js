@@ -12,8 +12,7 @@ import "./Editor.css"
 export default function Editor(props) {
   const id = useParams().postID
 
-  //id ? usePostByID(id, raw=true) :
-  const post =  'Start typing...'
+  const post = id ? usePostByID(id, raw=true) : {title: 'Start typing...'}
 
   const [title, setTitle] = useState(post.title)
   const [summary, setSummary] = useState(post.summary)
