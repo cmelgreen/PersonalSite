@@ -33,7 +33,10 @@ export const usePostSummaries = (numPosts) => {
 
   useEffect(() => {
     axios.get(apiPostSummaries, {params: {numPosts}})
-      .then(resp => dispatch(setSummaries(resp.data.posts)))
+      .then(resp => {
+        console.log(resp)
+        dispatch(setSummaries(resp.data.posts))
+      })
       .catch(() => dispatch(setSummaries([])))
   }, [])
 
