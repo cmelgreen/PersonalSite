@@ -1,6 +1,7 @@
 {
   "routes": [
     {"path": "/post/:postID", "component": "PostContainer", "redirect": true},
+    {"path": "/cms/:postID", "component": "CMS", "redirect": false},
     {"path": "/cms", "component": "CMS", "redirect": true},
     {"path": "/", "component": "MainPageContainer", "exact": true}
   ]
