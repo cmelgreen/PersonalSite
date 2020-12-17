@@ -12,16 +12,9 @@ export const usePostByID = (id, raw=false) => {
 
   useEffect(() => {
     axios.get(apiPost, {params: {id, raw}})
-      .then(resp => {
-        console.log(resp)
-        dispatch(setContent(resp.data.content))
-      })
-      .catch(e => {
-        console.log(e)
-        dispatch(setContent(''))
-      })
+      .then(resp => dispatch(setContent(resp.data.content)))
+      .catch(() => dispatch(setContent('')))
     
-      // return function to clear content on unmount
       return () => dispatch(setContent(''))
   }, [])
 
@@ -40,14 +33,8 @@ export const usePostSummaries = (numPosts) => {
 
   useEffect(() => {
     axios.get(apiPostSummaries, {params: {numPosts}})
-      .then(resp => {
-        console.log(resp)
-        dispatch(setSummaries(resp.data.posts))
-      })
-      .catch(e => {
-        console.log(e)
-        dispatch(setSummaries([]))
-      })
+      .then(resp => dispatch(setSummaries(resp.data.posts)))
+      .catch(() => dispatch(setSummaries([])))
   }, [])
 
   return useSelector(state => state.summaries)
