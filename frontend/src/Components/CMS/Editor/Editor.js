@@ -11,7 +11,9 @@ import './Editor.css'
 
 export default function Editor(props) {
   const id = useParams().postID
+  console.log(id)
 
+  
   const post = id ? usePostByID(id, raw=true) : {title: 'Title', summary: 'What are you writing about?', content: 'start typing'}
 
   const [title, setTitle] = useState(post.title)
@@ -28,7 +30,8 @@ export default function Editor(props) {
       <div className='title-editor'>
         <TextField
           id='title'
-          label={post.title}
+          label="Title"
+          defaultValue={post.title}
           onChange={e => setTitle(e.target.value)}
           variant='standard'
           fullWidth={true}
