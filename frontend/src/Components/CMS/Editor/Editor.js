@@ -54,7 +54,7 @@ export default function Editor(props) {
         />
       </div>
       <div className="content-editor">
-
+        <MUIRichTextEditor onSave={onSave} />
       </div>
     </div>
   );
