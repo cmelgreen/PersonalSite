@@ -18,6 +18,7 @@ type Post struct {
 	Summary		string 	`json:"summary" db:"summary"`
 	Content 	string 	`json:"content" db:"content"`
 	RawContent  string	`json:"rawContent" db:"raw_content"`
+	Tags 		Tags
 }
 
 // PostList is a list of Posts
@@ -35,4 +36,9 @@ type PostSummary struct {
 // PostSummaryList is a list of PostSummaries
 type PostSummaryList struct {
 	Posts 		[]*PostSummary `json:"posts"`
+}
+
+// Tags are post tags 
+type Tags struct {
+	values []string 
 }

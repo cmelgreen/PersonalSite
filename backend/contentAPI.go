@@ -4,11 +4,22 @@ import (
 	"encoding/json"
 	"net/http"
 	"strconv"
+	"strings"
 
 	"PersonalSite/backend/models"
 
 	"github.com/julienschmidt/httprouter"
 )
+
+// PostRequest is the 
+type PostRequest struct {
+	Summary 	bool 	`request:"summary"`
+	IDs			[]int	`request:"ids"`
+	Num 		int		`request:"num"`
+	Raw			bool	`request:"raw"`
+	SortBy		string	`request:"sort-by"`
+	FilterBy	string	`request:"filter-by"`
+}
 
 // RichTextHandler is interface for converting Rich Text Editor output to HTML
 type RichTextHandler interface{
@@ -32,6 +43,51 @@ func unwrapBool(s string) bool {
 	}
 
 	return value
+}
+
+// ParsePostRequest takes *http.Request and returns a PostRequest struct
+func ParsePostRequest(r *http.Request) (*PostRequest, error) {
+	r.ParseForm()
+
+	summary, err := strconv.ParseBool(r.FormValue("summary"))
+	if err != nil {
+		return nil, err
+	}
+
+	var ids []int
+	for _, idString := range strings.Split(strings.Trim(r.FormValue("ids"), "[]"), ",") {
+		id, err := strconv.Atoi(idString)
+		if err != nil {
+			return nil, err
+		}
+
+		ids = append(ids, id)
+	}
+
+	num, err := strconv.Atoi(r.FormValue("num"))
+	if err != nil {
+		return nil, err
+	}
+
+	raw, err := strconv.ParseBool(r.FormValue("raw"))
+	if err != nil {
+		return nil, err
+	}
+
+	sortBy := r.FormValue("sort")
+
+	filterBy := r.FormValue("filter")
+
+	postRequest := &PostRequest{
+		Summary: 	summary,
+		IDs: 		ids,
+		Num: 		num,
+		Raw: 		raw,
+		SortBy: 	sortBy,
+		FilterBy: 	filterBy,
+	}
+
+	return postRequest, nil
 }
 
 func (s *Server) getPostByID() httprouter.Handle {
