@@ -12,7 +12,7 @@ import "./Editor.css"
 export default function Editor(props) {
   const id = useParams().postID
 
-  const post = id ? usePostByID(id, raw=true) : {title: 'Start typing...', summary: 'What are you writing about?'}
+  const post = id ? usePostByID(id, raw=true) : {title: 'Start typing...', summary: 'What are you writing about?', content: "start typing"}
 
   const [title, setTitle] = useState(post.title)
   const [summary, setSummary] = useState(post.summary)
@@ -53,7 +53,7 @@ export default function Editor(props) {
         />
       </div>
       <div className="content-editor">
-        <MUIRichTextEditor defaultValue={post} onSave={onSave} />
+        <MUIRichTextEditor defaultValue={post.content} onSave={onSave} />
       </div>
     </div>
   );
