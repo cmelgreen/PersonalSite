@@ -4,12 +4,14 @@ import (
 	"encoding/json"
 	"net/http"
 	"strconv"
-	"strings"
 
 	"PersonalSite/backend/models"
+	"PersonalSite/backend/utils"
 
 	"github.com/julienschmidt/httprouter"
 )
+
+//go:generate go run utils/requestBinding/requestBinding.go -f contentAPI.go -out APIBindings.go
 
 // PostRequest is the 
 type PostRequest struct {
@@ -47,47 +49,10 @@ func unwrapBool(s string) bool {
 
 // ParsePostRequest takes *http.Request and returns a PostRequest struct
 func ParsePostRequest(r *http.Request) (*PostRequest, error) {
-	r.ParseForm()
+	postRequest := &PostRequest{}
+	err := utils.UnmarshalRequest(r, postRequest)
 
-	summary, err := strconv.ParseBool(r.FormValue("summary"))
-	if err != nil {
-		return nil, err
-	}
-
-	var ids []int
-	for _, idString := range strings.Split(strings.Trim(r.FormValue("ids"), "[]"), ",") {
-		id, err := strconv.Atoi(idString)
-		if err != nil {
-			return nil, err
-		}
-
-		ids = append(ids, id)
-	}
-
-	num, err := strconv.Atoi(r.FormValue("num"))
-	if err != nil {
-		return nil, err
-	}
-
-	raw, err := strconv.ParseBool(r.FormValue("raw"))
-	if err != nil {
-		return nil, err
-	}
-
-	sortBy := r.FormValue("sort")
-
-	filterBy := r.FormValue("filter")
-
-	postRequest := &PostRequest{
-		Summary: 	summary,
-		IDs: 		ids,
-		Num: 		num,
-		Raw: 		raw,
-		SortBy: 	sortBy,
-		FilterBy: 	filterBy,
-	}
-
-	return postRequest, nil
+	return postRequest, err
 }
 
 func (s *Server) getPostByID() httprouter.Handle {

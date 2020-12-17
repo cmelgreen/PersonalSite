@@ -2,6 +2,7 @@
 .
 ├── appspec.yml
 ├── backend
+│   ├── APIBindings.go
 │   ├── contentAPI.go
 │   ├── database
 │   │   ├── awsSSMParams.go
@@ -18,9 +19,11 @@
 │   ├── static.go
 │   ├── staticSite.go
 │   └── utils
-│       ├── draftJS.go
-│       ├── responseBinding.go
-│       └── routeParsing.go
+│       ├── draftJSToHTML.go
+│       ├── requestBinding
+│       │   └── bindingGenerator.go
+│       ├── routeParsing.go
+│       └── unmarshalHTTPRequest.go
 ├── frontend
 │   ├── Makefile
 │   ├── media
