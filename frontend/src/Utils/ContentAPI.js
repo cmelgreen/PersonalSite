@@ -16,8 +16,12 @@ export const usePostByID = (id, raw=false) => {
         console.log(resp)
         dispatch(setContent(resp.data.content))
       })
-      .catch(() => dispatch(setContent('')))
+      .catch(e => {
+        console.log(e)
+        dispatch(setContent(''))
+      })
     
+      // return function to clear content on unmount
       return () => dispatch(setContent(''))
   }, [])
 
@@ -40,7 +44,10 @@ export const usePostSummaries = (numPosts) => {
         console.log(resp)
         dispatch(setSummaries(resp.data.posts))
       })
-      .catch(() => dispatch(setSummaries([])))
+      .catch(e => {
+        console.log(e)
+        dispatch(setSummaries([]))
+      })
   }, [])
 
   return useSelector(state => state.summaries)
