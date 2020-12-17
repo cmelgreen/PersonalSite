@@ -1,7 +1,8 @@
-
-'''.
+```
+.
 ├── appspec.yml
 ├── backend
+│   ├── contentAPI.go
 │   ├── database
 │   │   ├── awsSSMParams.go
 │   │   ├── dbConfigFromAWS.go
@@ -13,17 +14,18 @@
 │   ├── Makefile
 │   ├── models
 │   │   └── Posts.go
-│   ├── routes.go
 │   ├── server.go
 │   ├── static.go
+│   ├── staticSite.go
 │   └── utils
+│       ├── draftJS.go
+│       ├── responseBinding.go
 │       └── routeParsing.go
 ├── frontend
 │   ├── Makefile
 │   ├── media
 │   │   └── icon.jpg
 │   ├── package.json
-│   ├── package-lock.json
 │   ├── public
 │   │   └── index.html
 │   └── src
@@ -70,7 +72,8 @@
 │       └── Utils
 │           ├── ContentAPI.js
 │           ├── ParseRoutes.js
-│           └── RedirectRequest.js
+│           ├── RedirectRequest.js
+│           └── RenderRichText.js
 ├── infrastructure-as-code
 │   ├── build-server
 │   │   ├── ami
@@ -121,5 +124,3 @@
     ├── before_install.sh
     ├── start_server.sh
     └── stop_server.sh
-
-35 directories, 86 files
