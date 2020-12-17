@@ -14,7 +14,7 @@ export default function Editor(props) {
   console.log(id)
 
   
-  const post = id ? usePostByID(id, raw=true) : {title: 'Title', summary: 'What are you writing about?', content: 'start typing'}
+  const post = id ? usePostByID(id, true) : {title: 'Title', summary: 'What are you writing about?', content: 'start typing'}
 
   const [title, setTitle] = useState(post.title)
   const [summary, setSummary] = useState(post.summary)
