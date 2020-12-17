@@ -112,7 +112,7 @@ func (s *Server) createPost(richText RichTextHandler) httprouter.Handle {
 
 func (s *Server) getPostSummaries() httprouter.Handle {
 	return func(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-		nPostValue := r.FormValue("numPosts")
+		nPostValue := r.FormValue("num-posts")
 		nPosts, err := strconv.Atoi(nPostValue)
 
 		if err != nil {

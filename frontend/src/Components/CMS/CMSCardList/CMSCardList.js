@@ -16,9 +16,9 @@ export default function CMSPostList(props) {
           {posts.map((post, id) => (
             <Grid item xs={12} sm={12} lg={6}>
               <CMSSummaryCard 
-                id={id} 
+                key={id} 
                 post={post} 
-                link={'cms/' + post.title} 
+                link={'/cms/' + post.title} 
                 />
             </Grid>
           ))}
