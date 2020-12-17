@@ -15,8 +15,8 @@ export default function Editor(props) {
   //id ? usePostByID(id, raw=true) :
   const post = {title: 'Start typing...', summary: 'What are you writing about?', content: "start typing"}
 
-  const [title, setTitle] = useState(post.title)
-  const [summary, setSummary] = useState(post.summary)
+  const [title, setTitle] = useState("Title")
+  const [summary, setSummary] = useState("Summary")
   const [tags, setTags] = useState('Tags')
 
   const onSave = (data) => {
@@ -54,7 +54,7 @@ export default function Editor(props) {
         />
       </div>
       <div className="content-editor">
-        <MUIRichTextEditor defaultValue={post.content} onSave={onSave} />
+        <MUIRichTextEditor defaultValue={"Start typing"} onSave={onSave} />
       </div>
     </div>
   );
