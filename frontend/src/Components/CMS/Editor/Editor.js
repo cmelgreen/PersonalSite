@@ -10,11 +10,9 @@ import { createPost, usePostByID, useUpdatePostSummaries } from '../../../Utils/
 import './Editor.css'
 
 export default function Editor(props) {
-  const id = useParams().postID
-  console.log(id)
-
+  const id = usePostByID(useParams().postID, true)
   
-  const post = id ? usePostByID(id, true) : {title: 'Title', summary: 'What are you writing about?', content: 'start typing'}
+  const post = id ? id : {title: 'Title', summary: 'What are you writing about?', content: 'start typing'}
 
   console.log(post)
 
