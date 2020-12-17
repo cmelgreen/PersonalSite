@@ -27,8 +27,8 @@ export default function Editor(props) {
     <div className='editor'>
       <div className='title-editor'>
         <TextField
-          id='outlined-basic'
-          label='Title'
+          id='title'
+          label={post.title}
           onChange={e => setTitle(e.target.value)}
           variant='standard'
           fullWidth={true}
@@ -36,8 +36,8 @@ export default function Editor(props) {
       </div>
       <div className='summary-editor'>
         <TextField
-          id='outlined-basic'
-          label='Summary'
+          id='summary'
+          label={post.summary}
           onChange={e => setSummary(e.target.value)}
           variant='standard'
           fullWidth={true}
@@ -45,7 +45,7 @@ export default function Editor(props) {
       </div>
       <div className='tags-editor'>
         <TextField
-          id='outlined-basic'
+          id='tags'
           label='Tags'
           onChange={e => setTags(e.target.value.split(','))}
           variant='standard'
@@ -53,7 +53,7 @@ export default function Editor(props) {
         />
       </div>
       <div className='content-editor'>
-        <MUIRichTextEditor defaultValue={''} onSave={onSave} />
+        <MUIRichTextEditor label="Start Typing" onSave={onSave} />
       </div>
     </div>
   );
