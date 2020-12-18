@@ -1,10 +1,10 @@
 
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { setContent, setPost, setSummaries } from '../Store/Actions'
+import { setPost, setSummaries } from '../Store/Actions'
 import axios from 'axios'
 
-import { NewPost } from "../Models/Posts"
+import { NewPost } from '../Models/Posts'
 
 const apiRoot = '/api'
 const apiPost = apiRoot + '/post'
@@ -28,10 +28,10 @@ export const usePostByID = (id, raw=false) => {
 }
 
 export const createPost = (title, summary, data, tags) => {
-  const post = {title: title, summary: summary, rawContent: data}
+  const post = {title: title, summary: summary, content: data}
   axios.post(apiPost, post)
-    .then(resp => console.log("Created", resp))
-    .catch(resp => console.log("Error creating post", resp))
+    .then(resp => console.log('Created', resp))
+    .catch(resp => console.log('Error creating post', resp))
 }
 
 export const usePostSummaries = (numPosts) => {
