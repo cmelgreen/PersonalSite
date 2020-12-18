@@ -1,6 +1,8 @@
 import { createStore } from 'redux'
 
-const initialValue = {summaries: []}
+import newPost from "../Models/Post"
+
+const initialValue = {summaries: [], post: NewPost()}
 
 const valueReducer = (state = initialValue, action) => {
   switch (action.type) {
