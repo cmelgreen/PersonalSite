@@ -1,5 +1,5 @@
 export const setPost = (post) => (
-    { type: 'SET_CONTENT', post }
+    { type: 'SET_POST', post }
 )
 
 export const setSummaries = (summaries) => (

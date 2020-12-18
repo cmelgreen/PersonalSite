@@ -6,8 +6,8 @@ const initialValue = {summaries: [], post: NewPost()}
 
 const valueReducer = (state = initialValue, action) => {
   switch (action.type) {
-    case 'SET_CONTENT':
-      return {...state,  content: action.content}
+    case 'SET_POST':
+      return {...state,  content: action.post}
     case 'SET_SUMMARIES':
       return {...state, summaries: action.summaries}
     default:
