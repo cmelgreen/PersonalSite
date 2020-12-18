@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { setContent, setSummaries } from '../Store/Actions'
+import { setPost, setSummaries } from '../Store/Actions'
 import axios from 'axios'
 
 const apiRoot = '/api'
@@ -12,10 +12,10 @@ export const usePostByID = (id, raw=false) => {
 
   useEffect(() => {
     axios.get(apiPost, {params: {id, raw}})
-      .then(resp => dispatch(setContent(resp.data)))
-      .catch(() => dispatch(setContent({})))
+      .then(resp => dispatch(setPost(resp.data)))
+      .catch(() => dispatch(setContentsetPost{})))
     
-      return () => dispatch(setContent({}))
+      return () => dispatch(setPost({}))
   }, [])
 
   return useSelector(state => state.content)
