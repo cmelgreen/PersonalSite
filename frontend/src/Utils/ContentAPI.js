@@ -13,7 +13,10 @@ export const usePostByID = (id, raw=false) => {
   useEffect(() => {
     axios.get(apiPost, {params: {id, raw}})
       .then(resp => dispatch(setPost(resp.data)))
-      .catch(() => dispatch(setPost({})))
+      .catch(e => {
+        console.log(e)
+        dispatch(setPost({}))
+      })
     
       return () => dispatch(setPost({}))
   }, [])
