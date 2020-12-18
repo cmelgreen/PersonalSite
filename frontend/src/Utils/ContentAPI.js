@@ -19,10 +19,10 @@ export const usePostByID = (id, raw=false) => {
       .catch(e => {
         console.log(e)
         dispatch(setPost(NewPost()))
-      }, [])
+      })
     
       return () => dispatch(setPost(NewPost()))
-  })
+  }, [])
 
   return useSelector(state => state.post)
 }
