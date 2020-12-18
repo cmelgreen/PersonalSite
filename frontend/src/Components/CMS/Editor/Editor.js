@@ -10,10 +10,9 @@ import { createPost, usePostByID, useUpdatePostSummaries } from '../../../Utils/
 import './Editor.css'
 
 export default function Editor(props) {
-  const id = usePostByID(useParams().postID, true)
-  console.log(useParams().postID)
+  const id = useParams().postID
   
-  const post = id ? id : {title: 'Title', summary: 'What are you writing about?', content: 'start typing'}
+  const post = id ? usePostByID(id, true) : {title: 'Title', summary: 'What are you writing about?', content: 'start typing'}
 
   console.log(post)
 
@@ -40,8 +39,9 @@ export default function Editor(props) {
       </div>
       <div className='summary-editor'>
         <TextField
-          id='summary'
-          label={post.summary}
+          id='Summary'
+          defaultValue={post.summary}
+          label="Summary"
           onChange={e => setSummary(e.target.value)}
           variant='standard'
           fullWidth={true}
