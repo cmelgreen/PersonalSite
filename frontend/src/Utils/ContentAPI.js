@@ -19,7 +19,7 @@ export const usePostByID = (id, raw=false) => {
       .catch(e => {
         console.log(e)
         dispatch(setPost(NewPost()))
-      })
+      }, [id])
     
       return () => dispatch(setPost(NewPost()))
   })
