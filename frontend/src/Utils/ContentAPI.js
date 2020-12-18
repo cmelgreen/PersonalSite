@@ -15,7 +15,7 @@ export const usePostByID = (id, raw=false) => {
 
   useEffect(() => {
     axios.get(apiPost, {params: {id, raw}})
-      .then(resp => dispatch(setPost(resp.data)))
+      .then(resp => {if ( resp.data ) dispatch(setPost(resp.data))})
       .catch(() => dispatch(setPost(NewPost())))
     
       return () => dispatch(setPost(NewPost()))
@@ -36,7 +36,7 @@ export const usePostSummaries = (numPosts) => {
 
   useEffect(() => {
     axios.get(apiPostSummaries, {params: {numPosts}})
-      .then(resp => dispatch(setSummaries(resp.data.posts)))
+      .then(resp => {if ( resp.data.posts ) dispatch(setSummaries(resp.data.posts))})
       .catch(() => dispatch(setSummaries([])))
   }, [])
 

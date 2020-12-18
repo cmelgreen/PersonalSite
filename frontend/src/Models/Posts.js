@@ -4,3 +4,9 @@ export const NewPost = (id = "", title = "", summary = "", content = "") => ({
     summary,
     content
 })
+
+export const NewPostSummary = (id = "", title = "", summary = "") => ({
+    id,
+    title,
+    summary
+})

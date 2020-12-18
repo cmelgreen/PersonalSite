@@ -1,6 +1,6 @@
 import { createStore } from 'redux'
 
-import { NewPost } from "../Models/Posts"
+import { NewPost, NewSummary } from "../Models/Posts"
 
 const initialValue = {summaries: [], post: NewPost()}
 
