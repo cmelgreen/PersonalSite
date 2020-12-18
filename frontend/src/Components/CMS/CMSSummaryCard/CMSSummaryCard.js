@@ -21,7 +21,7 @@ export default function CMSSummaryCard(props) {
             <CardHeader title={props.post.title} />
             <CardContent>
                 <Typography color="textSecondary">
-                {props.post.summary}
+                  {props.post.summary}
                 </Typography>
             </CardContent>
         </ CardActionArea>

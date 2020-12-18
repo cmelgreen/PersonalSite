@@ -11,6 +11,7 @@ import './Editor.css'
 
 export default function Editor(props) {
   const id = usePostByID(useParams().postID, true)
+  console.log(useParams().postID)
   
   const post = id ? id : {title: 'Title', summary: 'What are you writing about?', content: 'start typing'}
 
