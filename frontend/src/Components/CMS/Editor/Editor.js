@@ -31,7 +31,7 @@ export default function Editor(props) {
         <TextField
           id='title'
           label="Title"
-          defaultValue={post.title}
+          value={post.title}
           onChange={e => setTitle(e.target.value)}
           variant='standard'
           fullWidth={true}
@@ -40,7 +40,7 @@ export default function Editor(props) {
       <div className='summary-editor'>
         <TextField
           id='Summary'
-          defaultValue={post.summary}
+          value={post.summary}
           label="Summary"
           onChange={e => setSummary(e.target.value)}
           variant='standard'
