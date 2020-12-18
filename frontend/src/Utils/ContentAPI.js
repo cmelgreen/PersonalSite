@@ -31,6 +31,13 @@ export const createPost = (title, summary, data, tags) => {
     .catch(resp => console.log('Error creating post', resp))
 }
 
+export const updatePost = (title, summary, data, tags) => {
+  const post = {title: title, summary: summary, content: data}
+  axios.put(apiPost, post)
+    .then(resp => console.log('Updated', resp))
+    .catch(resp => console.log('Error creating post', resp))
+}
+
 export const usePostSummaries = (numPosts) => {
   const dispatch = useDispatch()
 

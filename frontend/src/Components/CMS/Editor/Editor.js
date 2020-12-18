@@ -5,14 +5,14 @@ import { TextField } from '@material-ui/core'
 import MUIRichTextEditor from 'mui-rte';
 import { useParams } from 'react-router-dom'
 
-import { createPost, usePostByID } from '../../../Utils/ContentAPI'
+import { createPost, usePostByID, updatePost } from '../../../Utils/ContentAPI'
 
 import './Editor.css'
 
 export default function Editor(props) {
   const post = usePostByID(useParams().postID, true)
 
-  console.log(post)
+  const newPost = Boolean(useParams().postID)
 
   const [title, setTitle] = useState(post.title)
   const [summary, setSummary] = useState(post.summary)
@@ -23,10 +23,9 @@ export default function Editor(props) {
     setSummary(post.summary)
   }, [post])
 
-  const onSave = (data) => {
-    createPost(title, summary, data, tags)
-   // useUpdatePostSummaries() // FIX
-  }
+  const onSave = useParams().postID ? 
+    (data) => createPost(title, summary, data, tags) :
+    (data) => updatePost(title, summary, data, tags)
 
   return (
     <div className='editor'>
