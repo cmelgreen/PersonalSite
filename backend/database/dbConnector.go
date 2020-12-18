@@ -104,33 +104,33 @@ func (db *Database) CreateTable(ctx context.Context) error {
 
 	// CHECK ERROR IS ALREADY CREATED OR OTHER
 
-	insertQuery := `
-	INSERT INTO post (title, summary, content, raw_content)
-	VALUES 
-		('AAA', 'aaa', 'Post 1 is fun', 'Post 1 is fun'),
-		('BBB', 'bbb', 'Post 2 for you', 'Post 2 for you'),
-		('CCC', 'ccc', 'Post 3 for me', 'Post 3 for me'),
-		('DDD', 'ddd', 'Post 4 some more', 'Post 4 some more');
+	// insertQuery := `
+	// INSERT INTO post (title, summary, content, raw_content)
+	// VALUES 
+	// 	('AAA', 'aaa', 'Post 1 is fun', 'Post 1 is fun'),
+	// 	('BBB', 'bbb', 'Post 2 for you', 'Post 2 for you'),
+	// 	('CCC', 'ccc', 'Post 3 for me', 'Post 3 for me'),
+	// 	('DDD', 'ddd', 'Post 4 some more', 'Post 4 some more');
 		
-	INSERT INTO tag (value)
-	VALUES 
-		('letter a'),
-		('letter b/c');
+	// INSERT INTO tag (value)
+	// VALUES 
+	// 	('letter a'),
+	// 	('letter b/c');
 		
-	INSERT INTO post_tag
-	SELECT post.id, tag.id
-	FROM post CROSS JOIN tag
-	WHERE post.title in ('BBB', 'CCC')
-		AND tag.value = 'letter b/c';
+	// INSERT INTO post_tag
+	// SELECT post.id, tag.id
+	// FROM post CROSS JOIN tag
+	// WHERE post.title in ('BBB', 'CCC')
+	// 	AND tag.value = 'letter b/c';
 		
-	INSERT INTO post_tag
-	SELECT post.id, tag.id
-	FROM post CROSS JOIN tag
-	WHERE post.title  = 'AAA'
-		AND tag.value IN ('letter a', 'LET A');
-	`
+	// INSERT INTO post_tag
+	// SELECT post.id, tag.id
+	// FROM post CROSS JOIN tag
+	// WHERE post.title  = 'AAA'
+	// 	AND tag.value IN ('letter a', 'LET A');
+	// `
 
-	db.ExecContext(ctx, insertQuery)
+	// db.ExecContext(ctx, insertQuery)
 
 	return nil
 }

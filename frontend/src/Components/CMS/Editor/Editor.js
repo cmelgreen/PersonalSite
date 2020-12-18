@@ -66,5 +66,3 @@ export default function Editor(props) {
     </div>
   );
 }
-
-//        <MUIRichTextEditor defaultValue={'Start typing'} onSave={onSave} />
