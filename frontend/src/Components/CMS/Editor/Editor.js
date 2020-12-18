@@ -29,7 +29,7 @@ export default function Editor(props) {
         <TextField
           id='title'
           label="Title"
-          value={post.title}
+          value={title}
           onChange={e => setTitle(e.target.value)}
           variant='standard'
           fullWidth={true}
@@ -37,9 +37,9 @@ export default function Editor(props) {
       </div>
       <div className='summary-editor'>
         <TextField
-          id='Summary'
-          value={post.summary}
+          id='summary'
           label="Summary"
+          value={summary}
           onChange={e => setSummary(e.target.value)}
           variant='standard'
           fullWidth={true}
@@ -49,6 +49,7 @@ export default function Editor(props) {
         <TextField
           id='tags'
           label='Tags'
+          value={tags}
           onChange={e => setTags(e.target.value.split(','))}
           variant='standard'
           fullWidth={true}
