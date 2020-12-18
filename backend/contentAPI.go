@@ -13,14 +13,14 @@ import (
 
 //go:generate go run utils/requestBinding/bindingGenerator.go -f contentAPI.go -out APIBindings.go
 
-// PostRequest is the 
+// PostRequest represents the request for a post
 type PostRequest struct {
 	Summary 	bool 	`request:"summary"`
 	Title		string	`request:"id"`
-	Num 		int		`request:"num"`
+	Num 		int		`request:"numPosts"`
 	Raw			bool	`request:"raw"`
-	SortBy		string	`request:"sort-by"`
-	FilterBy	string	`request:"filter-by"`
+	SortBy		string	`request:"sortBy"`
+	FilterBy	string	`request:"filterBy"`
 }
 
 // RichTextHandler is interface for converting Rich Text Editor output to HTML
@@ -45,14 +45,6 @@ func unwrapBool(s string) bool {
 	}
 
 	return value
-}
-
-// ParsePostRequest takes *http.Request and returns a PostRequest struct
-func ParsePostRequest(r *http.Request) (*PostRequest, error) {
-	postRequest := &PostRequest{}
-	err := utils.UnmarshalRequest(r, postRequest)
-
-	return postRequest, err
 }
 
 func (s *Server) getPostByID() httprouter.Handle {
@@ -82,7 +74,6 @@ func (s *Server) getPostByID() httprouter.Handle {
 
 func (s *Server) createPost(richText RichTextHandler) httprouter.Handle {
 	return func(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-		r.ParseForm()
 		post := models.Post{}
 
 		err := json.NewDecoder(r.Body).Decode(&post)
@@ -116,15 +107,10 @@ func (s *Server) createPost(richText RichTextHandler) httprouter.Handle {
 
 func (s *Server) getPostSummaries() httprouter.Handle {
 	return func(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-		nPostValue := r.FormValue("num-posts")
-		nPosts, err := strconv.Atoi(nPostValue)
-
-		if err != nil {
-			s.log.Println(err)
-			nPosts = -1
-		}
-
-		postSummaries, err := s.db.QueryPostSummaries(r.Context(), nPosts)
+		var request PostRequest
+		utils.UnmarshalRequest(r, &request)
+		
+		postSummaries, err := s.db.QueryPostSummaries(r.Context(), request.Num)
 		if err != nil {
 			s.log.Println(err)
 		}

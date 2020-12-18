@@ -1,5 +1,5 @@
-export const setContent = (content) => (
-    { type: 'SET_CONTENT', content }
+export const setPost = (post) => (
+    { type: 'SET_CONTENT', post }
 )
 
 export const setSummaries = (summaries) => (

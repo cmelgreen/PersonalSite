@@ -12,10 +12,10 @@ export const usePostByID = (id, raw=false) => {
 
   useEffect(() => {
     axios.get(apiPost, {params: {id, raw}})
-      .then(resp => dispatch(setContent(resp.data.content)))
-      .catch(() => dispatch(setContent('')))
+      .then(resp => dispatch(setContent(resp.data)))
+      .catch(() => dispatch(setContent({})))
     
-      return () => dispatch(setContent(''))
+      return () => dispatch(setContent({}))
   }, [])
 
   return useSelector(state => state.content)
