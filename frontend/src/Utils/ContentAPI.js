@@ -24,7 +24,7 @@ export const usePostByID = (id, raw=false) => {
       return () => dispatch(setPost({}))
   }, [])
 
-  return useSelector(state => state.content)
+  return useSelector(state => state.post)
 }
 
 export const createPost = (title, summary, data, tags) => {
