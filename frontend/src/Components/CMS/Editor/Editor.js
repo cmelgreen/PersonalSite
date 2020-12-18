@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { TextField } from '@material-ui/core'
 import MUIRichTextEditor from 'mui-rte';
 import { useParams } from 'react-router-dom'
@@ -17,6 +17,11 @@ export default function Editor(props) {
   const [title, setTitle] = useState(post.title)
   const [summary, setSummary] = useState(post.summary)
   const [tags, setTags] = useState('Tags')
+
+  useEffect(() => {
+    setTitle(post.title)
+    setSummary(post.summary)
+  }, [post])
 
   const onSave = (data) => {
     createPost(title, summary, data, tags)
