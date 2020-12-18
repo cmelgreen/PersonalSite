@@ -18,7 +18,7 @@ export default function CMSPostList(props) {
               <CMSSummaryCard 
                 key={id} 
                 post={post} 
-                link={'/cms/' + post.title} 
+                link={'cms/' + post.title} 
                 />
             </Grid>
           ))}

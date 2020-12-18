@@ -11,12 +11,12 @@ import (
 	"github.com/julienschmidt/httprouter"
 )
 
-//go:generate go run utils/requestBinding/requestBinding.go -f contentAPI.go -out APIBindings.go
+//go:generate go run utils/requestBinding/bindingGenerator.go -f contentAPI.go -out APIBindings.go
 
 // PostRequest is the 
 type PostRequest struct {
 	Summary 	bool 	`request:"summary"`
-	IDs			[]int	`request:"ids"`
+	Title		string	`request:"ids"`
 	Num 		int		`request:"num"`
 	Raw			bool	`request:"raw"`
 	SortBy		string	`request:"sort-by"`
@@ -57,15 +57,16 @@ func ParsePostRequest(r *http.Request) (*PostRequest, error) {
 
 func (s *Server) getPostByID() httprouter.Handle {
 	return func(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-		formTitle := r.FormValue("id")
+		var request PostRequest 
+		utils.UnmarshalRequest(r, &request)
 
 		var post models.Post 
 		var err error
 
-		if unwrapBool(r.FormValue("raw")) {
-			post, err = s.db.QueryPostRaw(r.Context(), formTitle)
+		if request.Raw {
+			post, err = s.db.QueryPostRaw(r.Context(), request.Title)
 		} else {
-			post, err = s.db.QueryPost(r.Context(), formTitle)
+			post, err = s.db.QueryPost(r.Context(), request.Title)
 		}
 
 		if err != nil {
@@ -92,12 +93,15 @@ func (s *Server) createPost(richText RichTextHandler) httprouter.Handle {
 			// ADD ERROR HANDLING
 		}
 
-		post.Content, err = richText.RichTextToHTML(post.RawContent)
+		html, err := richText.RichTextToHTML(post.Content)
 		if err != nil {
 			s.log.Println(err)
 			writeStatus(w, 0)
 			return
 		}
+
+		post.RawContent = post.Content
+		post.Content = html
 
 		err = s.db.InsertPost(r.Context(), post)
 		if err != nil {
