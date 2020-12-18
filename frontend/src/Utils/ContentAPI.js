@@ -15,13 +15,13 @@ export const usePostByID = (id, raw=false) => {
 
   useEffect(() => {
     axios.get(apiPost, {params: {id, raw}})
-      .then(resp => dispatch(setPost(resp.data.content)))
+      .then(resp => dispatch(setPost(resp.data)))
       .catch(() => dispatch(setPost(NewPost())))
     
       return () => dispatch(setPost(NewPost()))
   }, [])
 
-  return useSelector(state => state.content)
+  return useSelector(state => state.post)
 }
 
 export const createPost = (title, summary, data, tags) => {
