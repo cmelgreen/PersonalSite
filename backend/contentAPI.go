@@ -16,7 +16,7 @@ import (
 // PostRequest is the 
 type PostRequest struct {
 	Summary 	bool 	`request:"summary"`
-	Title		string	`request:"ids"`
+	Title		string	`request:"id"`
 	Num 		int		`request:"num"`
 	Raw			bool	`request:"raw"`
 	SortBy		string	`request:"sort-by"`

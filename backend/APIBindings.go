@@ -15,6 +15,6 @@ func (p *PostRequest) FieldMap(r *http.Request) binding.FieldMap {
 		&p.Raw: "raw",
 		&p.SortBy: "sort-by",
 		&p.Summary: "summary",
-		&p.Title: "ids",
+		&p.Title: "id",
 	}
 }
