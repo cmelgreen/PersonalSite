@@ -5,6 +5,7 @@ import { NewPost } from "../Models/Posts"
 const initialValue = {summaries: [], post: NewPost()}
 
 const valueReducer = (state = initialValue, action) => {
+  console.log(action)
   switch (action.type) {
     case 'SET_POST':
       return {...state,  content: action.post}
