@@ -5,7 +5,7 @@ import { TextField } from '@material-ui/core'
 import MUIRichTextEditor from 'mui-rte';
 import { useParams } from 'react-router-dom'
 
-import { createPost, usePostByID, useUpdatePostSummaries } from '../../../Utils/ContentAPI'
+import { createPost, usePostByID } from '../../../Utils/ContentAPI'
 
 import './Editor.css'
 
@@ -55,7 +55,7 @@ export default function Editor(props) {
         />
       </div>
       <div className='content-editor'>
-        <MUIRichTextEditor label="Start Typing" onSave={onSave} />
+        <MUIRichTextEditor defaultValue={post.content} label="Start Typing" onSave={onSave} />
       </div>
     </div>
   );
