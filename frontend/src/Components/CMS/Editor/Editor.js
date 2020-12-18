@@ -55,7 +55,7 @@ export default function Editor(props) {
         />
       </div>
       <div className='content-editor'>
-        <MUIRichTextEditor defaultValue={post.content} label="Start Typing" onSave={onSave} />
+        <MUIRichTextEditor label={post.content} onSave={onSave} />
       </div>
     </div>
   );
