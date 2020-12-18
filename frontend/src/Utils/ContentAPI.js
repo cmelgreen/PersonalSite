@@ -22,7 +22,7 @@ export const usePostByID = (id, raw=false) => {
       })
     
       return () => dispatch(setPost(NewPost()))
-  }, [])
+  }, [id])
 
   return useSelector(state => state.post)
 }
