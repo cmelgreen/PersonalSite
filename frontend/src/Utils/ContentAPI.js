@@ -41,7 +41,7 @@ export const updatePost = (id, title, summary, data, tags) => {
     .catch(e => console.log('Error updating post', e))
 }
 
-export const usePostSummaries = (numPosts = -1, dependencies = []) => {
+export const usePostSummaries = (numPosts=-1, dependencies=[]) => {
   const dispatch = useDispatch()
 
   useEffect(() => {
