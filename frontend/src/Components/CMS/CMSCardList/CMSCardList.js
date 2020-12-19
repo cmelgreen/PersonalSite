@@ -13,10 +13,17 @@ export default function CMSPostList(props) {
   return (
     <div className="cms-card-list">
       <Grid container direction="column">
+          <Grid item xs={12} sm={12} lg={6}>
+            <CMSSummaryCard
+              key={0}
+              post={{title: "New Post", summary: "Create new post"}}
+              link={'/cms/'}
+            />
+          </Grid>
           {posts.map((post, id) => (
             <Grid item xs={12} sm={12} lg={6}>
               <CMSSummaryCard 
-                key={id} 
+                key={id+1} 
                 post={post} 
                 link={'/cms/' + post.title} 
                 />
