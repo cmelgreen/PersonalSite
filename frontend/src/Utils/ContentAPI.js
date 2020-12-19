@@ -50,9 +50,7 @@ export const usePostSummaries = (numPosts, dependencies = []) => {
       .catch(() => dispatch(setSummaries([])))
   }, dependencies)
 
-  updatePostSummaries()
-
-  return [useSelector(state => state.summaries), updatePostSummaries]
+  return useSelector(state => state.summaries)
 }
 
 export const updatePostSummaries = () => {
