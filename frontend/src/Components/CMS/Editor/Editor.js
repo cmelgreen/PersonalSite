@@ -26,7 +26,7 @@ export default function Editor(props) {
   const create = (data) => updatePost(id, title, summary, data, tags)
   const update = (data) => createPost(id, title, summary, data, tags)
 
-  const onSave = () => (useParams().postID ? create : update).then(updatePostSummaries())
+  const onSave = () => useParams().postID ? create : update
     
     .then(updatePostSummaries())
 
