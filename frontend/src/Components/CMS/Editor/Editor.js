@@ -18,7 +18,7 @@ export default function Editor(props) {
   const [title, setTitle] = useState(post.title)
   const [summary, setSummary] = useState(post.summary)
   const [tags, setTags] = useState('Tags')
-  const [saveState, setSaveState] = useState()
+  const [saveState, setSaveState] = useState(true)
 
   useEffect(() => {
     setID(post.id)
@@ -27,7 +27,7 @@ export default function Editor(props) {
   }, [post])
 
   const onSave = useParams().postID ? 
-    (data) => { updatePost(id, title, summary, data, tags); setSaveState() } :
+    (data) => { updatePost(id, title, summary, data, tags); setSaveState(!saveState) } :
     (data) => { createPost(title, summary, data, tags); ; setSaveState() }
     
   return (
