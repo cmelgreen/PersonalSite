@@ -1,5 +1,6 @@
 import React from 'react'
 
+import { useSelector } from 'react-redux'
 import { useState, useEffect } from 'react'
 import { TextField } from '@material-ui/core'
 import MUIRichTextEditor from 'mui-rte';
@@ -13,6 +14,8 @@ export default function Editor(props) {
   const post = usePostByID(useParams().postID, true)
 
   const summaries = usePostSummaries(-1, saveState)
+
+  const s = useSelector(state => state.summaries)
 
   const [id, setID] = useState(post.id)
   const [title, setTitle] = useState(post.title)
