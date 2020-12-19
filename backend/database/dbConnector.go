@@ -165,7 +165,7 @@ func (db *Database) InsertPost(ctx context.Context, post models.Post) error {
 
 // UpdatePost updates single post
 func (db *Database) UpdatePost(ctx context.Context, post models.Post) error {
-	query := "UPDATE post SET (summary, content, raw_content)=(:summary, :content, :raw_content) WHERE title=:title"
+	query := "UPDATE post SET (title summary, content, raw_content)=(:title, :summary, :content, :raw_content) WHERE id=:id"
 	_, err := db.NamedExecContext(ctx, query, &post)
 
 	return err
