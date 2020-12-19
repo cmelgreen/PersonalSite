@@ -86,47 +86,57 @@ func generateStructBindings(file, pkg, targetTag string) (*bindTemplate, bool) {
 
 	// Parse file Abstract Syntax Tree of file to find any Structs
 	ast.Inspect(f, func(n ast.Node) bool {
-		if typeSpec, ok := n.(*ast.TypeSpec); ok {
-			if structType, ok := typeSpec.Type.(*ast.StructType); ok {
+		typeSpec, ok := n.(*ast.TypeSpec)
+		if !ok {
+			return true
+		}
 
-				// if Struct has any tagged fields add it to bindTemplate.Structs
-				if parsedFields := parseFieldTags(structType, targetTag); len(parsedFields) > 0 {
+		structType, ok := typeSpec.Type.(*ast.StructType)
+		if !ok {
+			return true
+		}
 
-					bindTemplate.Structs = append(bindTemplate.Structs,
-						&parsedStruct{
-							Name:   typeSpec.Name.Name,
-							Token:  strings.ToLower(string(typeSpec.Name.Name[0])),
-							Fields: parsedFields,
-						})
-				}
-			}
+		parsedFields := parseFieldTags(structType, targetTag)
+
+		if len(parsedFields) > 0 {
+			bindTemplate.Structs = append(bindTemplate.Structs,
+				&parsedStruct{
+					Name:   typeSpec.Name.Name,
+					Token:  strings.ToLower(string(typeSpec.Name.Name[0])),
+					Fields: parsedFields,
+				},
+			)
+			return false
 		}
 
 		return true
 	})
 
-	// Return ok == true as long as bindTemplate contains any structs
 	return bindTemplate, len(bindTemplate.Structs) > 0
 }
 
 func parseFieldTags(structType *ast.StructType, target string) map[string]*parsedTag {
 	parsedTags := make(map[string]*parsedTag)
 
-	// For each field cast non-nil tags to reflect.StructTag and add target value to map
 	for _, field := range structType.Fields.List {
-		if tag := field.Tag; tag != nil {
-			if value, ok := (reflect.StructTag)(strings.Trim(tag.Value, "`")).Lookup(target); ok {
-				required := false
-
-				// mholt/binding includes option for required fields that needs to be evaluated
-				if strings.HasSuffix(value, requiredFieldFlag) {
-					value = strings.TrimSuffix(value, requiredFieldFlag)
-					required = true
-				}
-
-				parsedTags[field.Names[0].Name] = &parsedTag{value, required}
-			}
+		tag := field.Tag 
+		if tag == nil {
+			break
 		}
+
+		// reflect.StructTag is just a string but includes methods for parsing tag values
+		value, ok := (reflect.StructTag)(strings.Trim(tag.Value, "`")).Lookup(target)
+		if !ok {
+			break
+		}
+
+		// mholt/binding includes option for required fields that needs to be evaluated
+		required := strings.HasSuffix(value, requiredFieldFlag)
+		if required {
+			value = strings.TrimSuffix(value, requiredFieldFlag)
+		}
+
+		parsedTags[field.Names[0].Name] = &parsedTag{value, required}
 	}
 
 	return parsedTags
@@ -146,6 +156,7 @@ func main() {
 	}
 
 	os.Remove(*fileOut)
+	
 	f, err := os.OpenFile(*fileOut, os.O_WRONLY|os.O_CREATE, 0666)
 	if err != nil {
 		panic(err)

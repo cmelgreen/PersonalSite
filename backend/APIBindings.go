@@ -10,10 +10,10 @@ import (
 // FieldMap is auto-generated from struct tags to provide bindings for with mholt/binding
 func (p *PostRequest) FieldMap(r *http.Request) binding.FieldMap {
 	return binding.FieldMap {
-		&p.FilterBy: "filter-by",
-		&p.Num: "num",
+		&p.FilterBy: "filterBy",
+		&p.Num: "numPosts",
 		&p.Raw: "raw",
-		&p.SortBy: "sort-by",
+		&p.SortBy: "sortBy",
 		&p.Summary: "summary",
 		&p.Title: "id",
 	}
