@@ -11,7 +11,7 @@ import './Editor.css'
 
 export default function Editor(props) {
   const post = usePostByID(useParams().postID, true)
-  //const updateSummaries = updatePostSummaries()
+  //const updatePost = updatePostSummaries()
 
   const [id, setID] = useState(post.id)
   const [title, setTitle] = useState(post.title)
@@ -24,8 +24,7 @@ export default function Editor(props) {
     setSummary(post.summary)
   }, [post])
 
-
-  const onSave = () => useParams().postID ? 
+  const onSave = useParams().postID ? 
     (data) => updatePost(id, title, summary, data, tags) :
     (data) => createPost(id, title, summary, data, tags)
     
