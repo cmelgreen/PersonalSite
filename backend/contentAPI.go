@@ -112,7 +112,7 @@ func (s *Server) updatePost(richText RichTextHandler) httprouter.Handle {
 		err := json.NewDecoder(r.Body).Decode(&post)
 		if err != nil {
 			s.log.Println(err)
-			writeStatus(w, 505)
+			writeStatus(w, 0)
 			return
 			// ADD ERROR HANDLING
 		}
@@ -120,7 +120,7 @@ func (s *Server) updatePost(richText RichTextHandler) httprouter.Handle {
 		html, err := richText.RichTextToHTML(post.Content)
 		if err != nil {
 			s.log.Println(err)
-			writeStatus(w, 506)
+			writeStatus(w, 0)
 			return
 		}
 
@@ -130,7 +130,7 @@ func (s *Server) updatePost(richText RichTextHandler) httprouter.Handle {
 		err = s.db.UpdatePost(r.Context(), post)
 		if err != nil {
 			s.log.Println(err)
-			writeStatus(w, 507)
+			writeStatus(w, 0)
 			return
 		}
 
