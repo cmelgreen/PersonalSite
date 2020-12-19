@@ -79,7 +79,7 @@ func (s *Server) createPost(richText RichTextHandler) httprouter.Handle {
 		err := json.NewDecoder(r.Body).Decode(&post)
 		if err != nil {
 			s.log.Println(err)
-			writeStatus(w, 0)
+			http.Error(w, err.Error(), http.StatusBadRequest)
 			return
 			// ADD ERROR HANDLING
 		}
@@ -87,7 +87,7 @@ func (s *Server) createPost(richText RichTextHandler) httprouter.Handle {
 		html, err := richText.RichTextToHTML(post.Content)
 		if err != nil {
 			s.log.Println(err)
-			writeStatus(w, 0)
+			http.Error(w, err.Error(), http.StatusBadRequest)
 			return
 		}
 
@@ -97,11 +97,11 @@ func (s *Server) createPost(richText RichTextHandler) httprouter.Handle {
 		err = s.db.InsertPost(r.Context(), post)
 		if err != nil {
 			s.log.Println(err)
-			writeStatus(w, 0)
+			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
 
-		writeStatus(w, 200)
+		w.WriteHeader(http.StatusOK)
 	}
 }
 
@@ -134,7 +134,7 @@ func (s *Server) updatePost(richText RichTextHandler) httprouter.Handle {
 			return
 		}
 
-		writeStatus(w, 200)
+		w.WriteHeader(http.StatusOK)
 	}
 
 }
