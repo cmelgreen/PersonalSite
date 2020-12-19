@@ -5,7 +5,7 @@ import { TextField } from '@material-ui/core'
 import MUIRichTextEditor from 'mui-rte';
 import { useParams } from 'react-router-dom'
 
-import { usePostByID, updatePostSummaries, createPost, updatePost } from '../../../Utils/ContentAPI'
+import { usePostByID, usePostSummaries, createPost, updatePost } from '../../../Utils/ContentAPI'
 
 import './Editor.css'
 
