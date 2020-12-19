@@ -18,6 +18,12 @@ export default function Editor(props) {
 
   const summaries = usePostSummaries(-1, saveState)
 
+  const [id, setID] = useState(post.id)
+  const [title, setTitle] = useState(post.title)
+  const [summary, setSummary] = useState(post.summary)
+  const [tags, setTags] = useState('Tags')
+  const [saveState, setSaveState] = useState(true)
+
   const dispatch = useDispatch() 
 
   useEffect(() =>  {
@@ -26,23 +32,17 @@ export default function Editor(props) {
       .catch(() => dispatch({type: "SET_SUMMARIES", summaries: []}))
     }, [saveState])
 
-  const [id, setID] = useState(post.id)
-  const [title, setTitle] = useState(post.title)
-  const [summary, setSummary] = useState(post.summary)
-  const [tags, setTags] = useState('Tags')
-  const [saveState, setSaveState] = useState(true)
-
   useEffect(() => {
     setID(post.id)
     setTitle(post.title)
     setSummary(post.summary)
   }, [post])
 
-  const updateSummaries = () => {setSaveState(!saveState); console.log(saveState, summaries)}
+  const updateSummaries = (save) => {setSaveState(save); console.log(saveState, summaries)}
 
   const onSave = useParams().postID ? 
-    (data) => { updatePost(id, title, summary, data, tags);  updateSummaries()} :
-    (data) => { createPost(title, summary, data, tags); ; updateSummaries() }
+    (data) => { updatePost(id, title, summary, data, tags);  updateSummaries(!saveState)} :
+    (data) => { createPost(title, summary, data, tags); ; updateSummaries(!saveState) }
     
   return (
     <div className='editor'>
