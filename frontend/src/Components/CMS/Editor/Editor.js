@@ -24,10 +24,10 @@ export default function Editor(props) {
     setSummary(post.summary)
   }, [post])
 
-  const create = (data) => updatePost(id, title, summary, data, tags)
-  const update = (data) => createPost(id, title, summary, data, tags)
 
-  const onSave = () => useParams().postID ? create : update
+  const onSave = () => useParams().postID ? 
+    (data) => updatePost(id, title, summary, data, tags) :
+    (data) => createPost(id, title, summary, data, tags)
     
   
 
