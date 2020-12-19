@@ -26,7 +26,7 @@ export const usePostByID = (id, raw=false) => {
 
 export const createPost = (title, summary, data, tags) => {
   const post = {title: title, summary: summary, content: data}
-  axios.post(apiPost, post)
+  return axios.post(apiPost, post)
     .then(resp => console.log('Created', resp))
     .catch(resp => console.log('Error creating post', resp))
 }
@@ -36,7 +36,7 @@ export const updatePost = (id, title, summary, data, tags) => {
 
   console.log(post)
 
-  axios.put(apiPost, post)
+  return axios.put(apiPost, post)
     .then(resp => console.log('Updated', resp))
     .catch(e => console.log('Error updating post', e))
 }
@@ -53,7 +53,7 @@ export const usePostSummaries = (numPosts) => {
   return useSelector(state => state.summaries)
 }
 
-export const useUpdatePostSummaries = () => {
+export const updatePostSummaries = () => {
   const dispatch = useDispatch()
 
   axios.get(apiPostSummaries)
