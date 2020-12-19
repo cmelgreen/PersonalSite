@@ -87,7 +87,7 @@ func (s *Server) createPost(richText RichTextHandler) httprouter.Handle {
 		html, err := richText.RichTextToHTML(post.Content)
 		if err != nil {
 			s.log.Println(err)
-			writeStatus(w, o)
+			writeStatus(w, 0)
 			return
 		}
 
