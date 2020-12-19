@@ -35,10 +35,10 @@ export const updatePost = (id, title, summary, data, tags) => {
   const post = {id: id, title: title, summary: summary, content: data}
 
   console.log(post)
-  
+
   axios.put(apiPost, post)
     .then(resp => console.log('Updated', resp))
-    .catch(resp => console.log('Error creating post', resp))
+    .catch(e => console.log('Error updating post', e))
 }
 
 export const usePostSummaries = (numPosts) => {
