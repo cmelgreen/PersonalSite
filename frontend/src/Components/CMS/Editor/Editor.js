@@ -38,7 +38,7 @@ export default function Editor(props) {
     setSummary(post.summary)
   }, [post])
 
-  const updateSummaries = () => {setSaveState(!saveState); console.log(saveState, summaries, s)}
+  const updateSummaries = () => {setSaveState(!saveState); console.log(saveState, summaries)}
 
   const onSave = useParams().postID ? 
     (data) => { updatePost(id, title, summary, data, tags);  updateSummaries()} :
