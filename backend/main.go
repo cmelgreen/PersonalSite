@@ -61,6 +61,7 @@ func main() {
 	
 	s.mux.GET(apiRoot+"/post", s.getPostByID())
 	s.mux.POST(apiRoot+"/post", s.createPost(richTextEditor))
+	s.mux.PUT(apiRoot+"/post", s.updatePost(richTextEditor))
 	s.mux.GET(apiRoot+"/post-summaries", s.getPostSummaries())
 
 	s.setPathsToRedirect(utils.ParseRoutesToRedirect(FSMustByte(false, "/routes.json")))

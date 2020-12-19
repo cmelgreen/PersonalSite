@@ -163,6 +163,14 @@ func (db *Database) InsertPost(ctx context.Context, post models.Post) error {
 	return err
 }
 
+// UpdatePost updates single post
+func (db *Database) UpdatePost(ctx context.Context, post models.Post) error {
+	query := "UPDATE post SET (summary, content, raw_content)=(:summary, :content, :raw_content) WHERE title=:title"
+	_, err := db.NamedExecContext(ctx, query, &post)
+
+	return err
+}
+
 // QueryPostSummaries returns N post summaries with title and post id
 func (db *Database) QueryPostSummaries(ctx context.Context, nPosts int) (models.PostSummaryList, error) {
 	var posts []*models.PostSummary

@@ -74,7 +74,7 @@ func (s *Server) getPostByID() httprouter.Handle {
 
 func (s *Server) createPost(richText RichTextHandler) httprouter.Handle {
 	return func(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-		post := models.Post{}
+		var post models.Post
 
 		err := json.NewDecoder(r.Body).Decode(&post)
 		if err != nil {
@@ -103,6 +103,40 @@ func (s *Server) createPost(richText RichTextHandler) httprouter.Handle {
 
 		writeStatus(w, 200)
 	}
+}
+
+func (s *Server) updatePost(richText RichTextHandler) httprouter.Handle {
+	return func(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+		var post models.Post
+
+		err := json.NewDecoder(r.Body).Decode(&post)
+		if err != nil {
+			s.log.Println(err)
+			writeStatus(w, 0)
+			return
+			// ADD ERROR HANDLING
+		}
+
+		html, err := richText.RichTextToHTML(post.Content)
+		if err != nil {
+			s.log.Println(err)
+			writeStatus(w, 0)
+			return
+		}
+
+		post.RawContent = post.Content
+		post.Content = html
+
+		err = s.db.UpdatePost(r.Context(), post)
+		if err != nil {
+			s.log.Println(err)
+			writeStatus(w, 0)
+			return
+		}
+
+		writeStatus(w, 200)
+	}
+
 }
 
 func (s *Server) getPostSummaries() httprouter.Handle {

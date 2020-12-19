@@ -12,8 +12,6 @@ import './Editor.css'
 export default function Editor(props) {
   const post = usePostByID(useParams().postID, true)
 
-  const newPost = Boolean(useParams().postID)
-
   const [title, setTitle] = useState(post.title)
   const [summary, setSummary] = useState(post.summary)
   const [tags, setTags] = useState('Tags')
