@@ -41,14 +41,14 @@ export const updatePost = (id, title, summary, data, tags) => {
     .catch(e => console.log('Error updating post', e))
 }
 
-export const usePostSummaries = (numPosts=-1, dependencies=[]) => {
+export const usePostSummaries = (numPosts=-1, dependsOn) => {
   const dispatch = useDispatch()
 
   useEffect(() => {
     axios.get(apiPostSummaries, {params: {numPosts}})
       .then(resp => {if ( resp.data.posts ) dispatch(setSummaries(resp.data.posts))})
       .catch(() => dispatch(setSummaries([])))
-  }, dependencies)
+  }, [dependsOn])
 
   return useSelector(state => state.summaries)
 }
