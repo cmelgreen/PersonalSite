@@ -8,7 +8,7 @@ import CMSSummaryCard from '../CMSSummaryCard/CMSSummaryCard'
 import './CMSCardList.css'
 
 export default function CMSPostList(props) {
-  const posts = usePostSummaries()
+  const [posts, _] = usePostSummaries()
   
   return (
     <div className="cms-card-list">
