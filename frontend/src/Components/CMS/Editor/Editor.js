@@ -25,8 +25,8 @@ export default function Editor(props) {
   }, [post])
 
   const onSave = useParams().postID ? 
-    (data) => { updatePost(id, title, summary, data, tags); updateSummaries() } :
-    (data) => { createPost(title, summary, data, tags); ; updateSummaries() }
+    (data) => { updatePost(id, title, summary, data, tags); updateSummaries } :
+    (data) => { createPost(title, summary, data, tags); ; updateSummaries }
     
   return (
     <div className='editor'>
