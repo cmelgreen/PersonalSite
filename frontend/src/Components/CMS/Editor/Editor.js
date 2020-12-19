@@ -16,8 +16,6 @@ import './Editor.css'
 export default function Editor(props) {
   const post = usePostByID(useParams().postID, true)
 
-  const summaries = usePostSummaries(-1, saveState)
-
   const [id, setID] = useState(post.id)
   const [title, setTitle] = useState(post.title)
   const [summary, setSummary] = useState(post.summary)
@@ -26,11 +24,11 @@ export default function Editor(props) {
 
   const dispatch = useDispatch() 
 
-  useEffect(() =>  {
-    axios.get("/api/post-summaries")
-      .then(resp => dispatch({type: "SET_SUMMARIES", summaries: resp.data.posts}))
-      .catch(() => dispatch({type: "SET_SUMMARIES", summaries: []}))
-    }, [saveState])
+  // useEffect(() =>  {
+  //   axios.get("/api/post-summaries")
+  //     .then(resp => dispatch({type: "SET_SUMMARIES", summaries: resp.data.posts}))
+  //     .catch(() => dispatch({type: "SET_SUMMARIES", summaries: []}))
+  //   }, [saveState])
 
   useEffect(() => {
     setID(post.id)
@@ -39,6 +37,7 @@ export default function Editor(props) {
   }, [post])
 
   const updateSummaries = (save) => {setSaveState(save); console.log(saveState, summaries)}
+  const summaries = usePostSummaries(-1, saveState)
 
   const onSave = useParams().postID ? 
     (data) => { updatePost(id, title, summary, data, tags);  updateSummaries(!saveState)} :
