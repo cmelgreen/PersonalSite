@@ -1,13 +1,9 @@
 import React from 'react'
 
-import { useSelector , useDispatch} from 'react-redux'
 import { useState, useEffect } from 'react'
 import { TextField } from '@material-ui/core'
 import MUIRichTextEditor from 'mui-rte';
 import { useParams } from 'react-router-dom'
-
-import axios from "axios"
-
 
 import { usePostByID, usePostSummaries, createPost, updatePost } from '../../../Utils/ContentAPI'
 
@@ -20,15 +16,6 @@ export default function Editor(props) {
   const [title, setTitle] = useState(post.title)
   const [summary, setSummary] = useState(post.summary)
   const [tags, setTags] = useState('Tags')
-  const [saveState, setSaveState] = useState(true)
-
-  const dispatch = useDispatch() 
-
-  // useEffect(() =>  {
-  //   axios.get("/api/post-summaries")
-  //     .then(resp => dispatch({type: "SET_SUMMARIES", summaries: resp.data.posts}))
-  //     .catch(() => dispatch({type: "SET_SUMMARIES", summaries: []}))
-  //   }, [saveState])
 
   useEffect(() => {
     setID(post.id)
@@ -36,12 +23,12 @@ export default function Editor(props) {
     setSummary(post.summary)
   }, [post])
 
-  const updateSummaries = (save) => {setSaveState(save); console.log(saveState, summaries)}
-  const summaries = usePostSummaries(-1, saveState)
+  const [saveState, setSaveState] = useState(true)
+  const _ = usePostSummaries(-1, saveState)
 
   const onSave = useParams().postID ? 
-    (data) => { updatePost(id, title, summary, data, tags);  updateSummaries(!saveState)} :
-    (data) => { createPost(title, summary, data, tags); ; updateSummaries(!saveState) }
+    (data) => { updatePost(id, title, summary, data, tags); setSaveState(!saveState) } :
+    (data) => { createPost(title, summary, data, tags) ; setStateSave(!saveState) }
     
   return (
     <div className='editor'>
