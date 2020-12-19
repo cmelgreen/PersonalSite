@@ -20,10 +20,11 @@ export default function Editor(props) {
 
   const dispatch = useDispatch() 
 
-  useEffect(() =>  axios.get("/api/post-summaries")
-    .then(resp => dispatch({type: "SET_SUMMARIES", summaries: resp.data.posts})))
-    .catch(() => dispatch({type: "SET_SUMMARIES", summaries: []})
-    , [saveState])
+  useEffect(() =>  {
+    axios.get("/api/post-summaries")
+      .then(resp => dispatch({type: "SET_SUMMARIES", summaries: resp.data.posts}))
+      .catch(() => dispatch({type: "SET_SUMMARIES", summaries: []}))
+    }, [saveState])
 
   const [id, setID] = useState(post.id)
   const [title, setTitle] = useState(post.title)
