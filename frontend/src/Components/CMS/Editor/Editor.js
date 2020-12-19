@@ -24,15 +24,12 @@ export default function Editor(props) {
     setSummary(post.summary)
   }, [post])
 
-  const create = (data) => {
-    updatePost(id, title, summary, data, tags)
-  }
+  const create = (data) => updatePost(id, title, summary, data, tags)
   const update = (data) => createPost(id, title, summary, data, tags)
 
-  const onSave = async () => {
-    useParams().postID ? create : update
-    //updateSummaries()
-  }
+  const onSave = () => useParams().postID ? create : update
+    
+  
 
   return (
     <div className='editor'>
