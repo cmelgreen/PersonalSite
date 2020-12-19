@@ -12,13 +12,13 @@ import './Editor.css'
 export default function Editor(props) {
   const post = usePostByID(useParams().postID, true)
 
-  const _ = usePostSummaries(save)
+  const _ = usePostSummaries(dependencies = saveState)
 
   const [id, setID] = useState(post.id)
   const [title, setTitle] = useState(post.title)
   const [summary, setSummary] = useState(post.summary)
   const [tags, setTags] = useState('Tags')
-  const [save, setSave] = useState()
+  const [saveState, setSaveState] = useState()
 
   useEffect(() => {
     setID(post.id)
@@ -27,8 +27,8 @@ export default function Editor(props) {
   }, [post])
 
   const onSave = useParams().postID ? 
-    (data) => { updatePost(id, title, summary, data, tags); setSave() } :
-    (data) => { createPost(title, summary, data, tags); ; setSave() }
+    (data) => { updatePost(id, title, summary, data, tags); setSaveState() } :
+    (data) => { createPost(title, summary, data, tags); ; setSaveState() }
     
   return (
     <div className='editor'>

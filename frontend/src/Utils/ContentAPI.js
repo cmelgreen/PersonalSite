@@ -44,7 +44,7 @@ export const updatePost = (id, title, summary, data, tags) => {
 export const usePostSummaries = (numPosts, dependencies = []) => {
   const dispatch = useDispatch()
 
-  updatePostSummaries = () => useEffect(() => {
+  useEffect(() => {
     axios.get(apiPostSummaries, {params: {numPosts}})
       .then(resp => {if ( resp.data.posts ) dispatch(setSummaries(resp.data.posts))})
       .catch(() => dispatch(setSummaries([])))
