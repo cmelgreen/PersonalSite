@@ -41,7 +41,6 @@ export default function Editor(props) {
     history.push("/cms/"+title) 
   }
 
-    
   return (
     <div className='editor'>
       <div className='title-editor'>
@@ -78,7 +77,7 @@ export default function Editor(props) {
         <MUIRichTextEditor 
         defaultValue={post.content} 
         onSave={onSave} 
-        controls={["title", "bold", "italic", "underline", "strikethrough", "highlight", "undo", "redo", "link", "media", "numberList", "bulletList", "quote", "code", "clear", "save", "my-callback"]}
+        controls={["title", "bold", "italic", "underline", "strikethrough", "highlight", "undo", "redo", "link", "media", "numberList", "bulletList", "quote", "code", "clear", "save", "deletePost"]}
         customControls={[
           {
               name: "deletePost",
