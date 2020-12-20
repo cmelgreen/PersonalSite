@@ -37,7 +37,7 @@ export default function Editor(props) {
   const onSave = (data) => {
     saveType(data)
     setSaveState(!saveState)
-    return <Redirect to={"/cms/" + post.title} /> 
+    return <Redirect to={"/cms/" + title} /> 
   }
     
   return (
