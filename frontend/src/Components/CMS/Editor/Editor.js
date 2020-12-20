@@ -14,6 +14,8 @@ export default function Editor(props) {
   const postTitle = useParams().postID
   const post = postTitle ? usePostByID(postTitle, true) : NewPost()
 
+  console.log(post)
+
   const [id, setID] = useState(post.id)
   const [title, setTitle] = useState(post.title)
   const [summary, setSummary] = useState(post.summary)
