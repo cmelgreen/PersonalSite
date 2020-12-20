@@ -38,7 +38,7 @@ export default function Editor(props) {
   const onSave = (data) => {
     saveType(data)
     setSaveState(!saveState)
-    return <Redirect to={"/cms/" + title} /> 
+    history.push("/cms/"+title) 
   }
 
     
