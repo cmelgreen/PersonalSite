@@ -41,7 +41,7 @@ export const updatePost = (id, title, summary, data, tags) => {
 
 export const deletePost = (id) => {
   console.log('deleting: ', id)
-  axios.delete(apiPost, {params: id})
+  axios.delete(apiPost, {params: {id}})
     .then(resp => console.log(resp))
     .catch(resp => console.log(resp))
 }
