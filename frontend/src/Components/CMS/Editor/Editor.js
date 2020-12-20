@@ -12,7 +12,7 @@ import './Editor.css'
 
 export default function Editor(props) {
   const postTitle = useParams().postID
-  const post = id ? usePostByID(postTitle, true) : NewPost()
+  const post = postTitle ? usePostByID(postTitle, true) : NewPost()
 
   const [id, setID] = useState(post.id)
   const [title, setTitle] = useState(post.title)
