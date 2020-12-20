@@ -11,8 +11,8 @@ import { newPost } from '../../../Models/Posts'
 import './Editor.css'
 
 export default function Editor(props) {
-  const id = useParams().postID
-  const post = id ? usePostByID(id, true) : newPost()
+  const postTitle = useParams().postID
+  const post = id ? usePostByID(postTitle, true) : newPost()
 
   const [id, setID] = useState(post.id)
   const [title, setTitle] = useState(post.title)

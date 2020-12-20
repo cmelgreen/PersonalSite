@@ -171,6 +171,14 @@ func (db *Database) UpdatePost(ctx context.Context, post models.Post) error {
 	return err
 }
 
+// DeletePost deletes a single post
+func (db *Database) DeletePost(ctx context.Context, id int) error {
+	query := "DELETE post WHERE id=$1;"
+	_, err := db.ExecContext(ctx, query, id)
+
+	return err
+}
+
 // QueryPostSummaries returns N post summaries with title and post id
 func (db *Database) QueryPostSummaries(ctx context.Context, nPosts int) (models.PostSummaryList, error) {
 	var posts []*models.PostSummary

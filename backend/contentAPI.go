@@ -136,7 +136,24 @@ func (s *Server) updatePost(richText RichTextHandler) httprouter.Handle {
 
 		w.WriteHeader(http.StatusOK)
 	}
+}
 
+func (s *Server) deletePost()  httprouter.Handle {
+	return func(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+		var request PostRequest 
+		utils.UnmarshalRequest(r, &request)
+
+		s.db.DeletePost()
+
+		if err != nil {
+			s.log.Println(err)
+			writeStatus(w, 0)
+			return
+			// IMPLEMENT ERROR HANDLING
+		}
+
+		writeJSON(w, post)
+	}
 }
 
 func (s *Server) getPostSummaries() httprouter.Handle {
