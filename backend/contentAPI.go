@@ -144,7 +144,7 @@ func (s *Server) deletePost()  httprouter.Handle {
 		err := s.db.DeletePost(r.Context(), request.Title)
 		if err != nil {
 			s.log.Println(err)
-			writeStatus(w, 0)
+			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 			// IMPLEMENT ERROR HANDLING
 		}

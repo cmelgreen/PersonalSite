@@ -96,8 +96,8 @@ func (db *Database) CreateTable(ctx context.Context) error {
 	);
 	
 	CREATE TABLE post_tag(
-		post_id int REFERENCES post (id),
-		tag_id int REFERENCES tag (id)
+		post_id int REFERENCES post (id) ON DELETE CASCADE,
+		tag_id int REFERENCES tag (id) ON DELETE CASCADE
 	);`
 
 	db.ExecContext(ctx, schema)
@@ -173,7 +173,7 @@ func (db *Database) UpdatePost(ctx context.Context, post models.Post) error {
 
 // DeletePost deletes a single post
 func (db *Database) DeletePost(ctx context.Context, title string) error {
-	query := "DELETE post WHERE title=$1;"
+	query := "DELETE FROM post WHERE title=$1;"
 	_, err := db.ExecContext(ctx, query, title)
 
 	return err
