@@ -116,13 +116,13 @@ func (db *Database) CreateTable(ctx context.Context) error {
 	// VALUES 
 	// 	('letter a'),
 	// 	('letter b/c');
-		
+
 	// INSERT INTO post_tag
 	// SELECT post.id, tag.id
 	// FROM post CROSS JOIN tag
 	// WHERE post.title in ('BBB', 'CCC')
 	// 	AND tag.value = 'letter b/c';
-		
+
 	// INSERT INTO post_tag
 	// SELECT post.id, tag.id
 	// FROM post CROSS JOIN tag

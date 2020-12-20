@@ -149,6 +149,8 @@ func (s *Server) deletePost()  httprouter.Handle {
 			// IMPLEMENT ERROR HANDLING
 		}
 
+		w.Write([]byte(err.Error()))
+		w.Write([]byte(request.Title))
 		w.WriteHeader(http.StatusOK)
 	}
 }
