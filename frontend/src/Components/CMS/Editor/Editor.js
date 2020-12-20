@@ -3,14 +3,16 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import { TextField } from '@material-ui/core'
 import MUIRichTextEditor from 'mui-rte';
-import { useParams } from 'react-router-dom'
+import { useParams, Redirect } from 'react-router-dom'
 
 import { usePostByID, usePostSummaries, createPost, updatePost } from '../../../Utils/ContentAPI'
+import { newPost } from '../../../Models/Posts'
 
 import './Editor.css'
 
 export default function Editor(props) {
-  const post = usePostByID(useParams().postID, true)
+  const id = useParams().postID
+  const post = id ? usePostByID(id, true) : newPost()
 
   const [id, setID] = useState(post.id)
   const [title, setTitle] = useState(post.title)
@@ -26,9 +28,15 @@ export default function Editor(props) {
   const [saveState, setSaveState] = useState(true)
   usePostSummaries(-1, saveState)
 
-  const onSave = useParams().postID ? 
-    (data) => { updatePost(id, title, summary, data, tags); setSaveState(!saveState) } :
-    (data) => { createPost(title, summary, data, tags) ; setSaveState(!saveState) }
+  const saveType = useParams().postID ? 
+    (data) => updatePost(id, title, summary, data, tags) :
+    (data) => createPost(title, summary, data, tags)
+
+  const onSave = (data) => {
+    saveType(data)
+    setSaveState(!saveState)
+    return <Redirect to={"/cms/" + post.title} /> 
+  }
     
   return (
     <div className='editor'>

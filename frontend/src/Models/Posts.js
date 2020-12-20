@@ -1,8 +1,9 @@
-export const NewPost = (id = "", title = "", summary = "", content = "") => ({
+export const NewPost = (id = "", title = "", summary = "", content = "", tags="") => ({
     id,
     title,
     summary,
-    content
+    content,
+    tags
 })
 
 export const NewPostSummary = (id = "", title = "", summary = "") => ({
