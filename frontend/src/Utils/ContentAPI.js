@@ -36,11 +36,14 @@ export const updatePost = (id, title, summary, data, tags) => {
 
   axios.put(apiPost, post)
     .then(resp => console.log('Updated', resp))
-    .catch(e => console.log('Error updating post', e))
+    .catch(resp => console.log('Error updating post', resp))
 }
 
 export const deletePost = (id) => {
+  console.log('deleting: ', id)
   axios.delete(apiPost, {params: id})
+    .then(resp => console.log(resp))
+    .catch(resp => console.log(resp))
 }
 
 export const usePostSummaries = (numPosts=-1, dependsOn) => {
