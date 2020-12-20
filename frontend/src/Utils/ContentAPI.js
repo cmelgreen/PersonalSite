@@ -34,11 +34,13 @@ export const createPost = (title, summary, data, tags) => {
 export const updatePost = (id, title, summary, data, tags) => {
   const post = {id: id, title: title, summary: summary, content: data}
 
-  console.log(post)
-
   axios.put(apiPost, post)
     .then(resp => console.log('Updated', resp))
     .catch(e => console.log('Error updating post', e))
+}
+
+export const deletePost = (id) => {
+  axios.delete(apiPost, {params: id})
 }
 
 export const usePostSummaries = (numPosts=-1, dependsOn) => {

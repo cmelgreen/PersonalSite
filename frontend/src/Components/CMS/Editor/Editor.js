@@ -3,18 +3,17 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import { TextField } from '@material-ui/core'
 import MUIRichTextEditor from 'mui-rte';
-import { useParams, Redirect } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 
-import { usePostByID, usePostSummaries, createPost, updatePost } from '../../../Utils/ContentAPI'
+import { usePostByID, usePostSummaries, createPost, updatePost, deletePost } from '../../../Utils/ContentAPI'
 import { NewPost } from '../../../Models/Posts'
 
 import './Editor.css'
 
 export default function Editor(props) {
-  const postTitle = useParams().postID
-  const post = postTitle ? usePostByID(postTitle, true) : NewPost()
+  const history = useHistory()
 
-  console.log(post)
+  const post = postTitle ? usePostByID(useParams().postID, true) : NewPost()
 
   const [id, setID] = useState(post.id)
   const [title, setTitle] = useState(post.title)
@@ -39,6 +38,7 @@ export default function Editor(props) {
     setSaveState(!saveState)
     return <Redirect to={"/cms/" + title} /> 
   }
+
     
   return (
     <div className='editor'>
@@ -73,7 +73,18 @@ export default function Editor(props) {
         />
       </div>
       <div className='content-editor'>
-        <MUIRichTextEditor defaultValue={post.content} onSave={onSave} />
+        <MUIRichTextEditor 
+        defaultValue={post.content} 
+        onSave={onSave} 
+        controls={["title", "bold", "italic", "underline", "strikethrough", "highlight", "undo", "redo", "link", "media", "numberList", "bulletList", "quote", "code", "clear", "save", "my-callback"]}
+        customControls={[
+          {
+              name: "deletePost",
+              icon: <ClearIcon />,
+              type: "callback",
+              onClick: () => {deletePost(post.title); history.push("/cms/")}
+          }
+      ]}/>
       </div>
     </div>
   );
