@@ -13,9 +13,14 @@ CREATE TABLE tag(
 );
 
 CREATE TABLE post_tag(
-    post_id int REFERENCES post (id),
-    tag_id int REFERENCES tag (id)
+    post_id int REFERENCES post (id) ON DELETE CASCADE,
+    tag_id int REFERENCES tag (id) ON DELETE CASCADE
 );
+
+CREATE VIEW post_to_tag AS
+    SELECT post.title, post.id as post_id, tag.id as tag_id, tag.value
+    FROM post, post_tag, tag
+    WHERE post.id = post_tag.post_id AND tag.id = post_tag.tag_id;
 
 INSERT INTO post (title, summary, content)
 VALUES 

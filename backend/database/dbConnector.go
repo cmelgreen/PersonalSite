@@ -22,6 +22,8 @@ type Database struct {
 }
 
 // DBConfig abstracts generation of a database configuration string
+// Configuration can rely on networks and passing secrets so a method 
+// is required instead of string primitive to allow retries in case of failures
 type DBConfig interface {
 	ConfigString(context.Context) (string, error)
 }
@@ -98,7 +100,13 @@ func (db *Database) CreateTable(ctx context.Context) error {
 	CREATE TABLE post_tag(
 		post_id int REFERENCES post (id) ON DELETE CASCADE,
 		tag_id int REFERENCES tag (id) ON DELETE CASCADE
-	);`
+	);
+	
+	CREATE VIEW post_to_tag AS
+		SELECT post.title, post.id as post_id, tag.id as tag_id, tag.value
+		FROM post, post_tag, tag
+		WHERE post.id = post_tag.post_id AND tag.id = post_tag.tag_id;
+`
 
 	db.ExecContext(ctx, schema)
 

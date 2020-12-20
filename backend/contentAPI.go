@@ -28,10 +28,6 @@ type RichTextHandler interface{
 	RichTextToHTML(string) (string, error)
 }
 
-func writeStatus(w http.ResponseWriter, statusCode int) {
-	w.WriteHeader(statusCode)
-}
-
 func writeJSON(w http.ResponseWriter, message interface{}) {
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(message)
@@ -48,10 +44,14 @@ func unwrapBool(s string) bool {
 func (s *Server) getPostByID() httprouter.Handle {
 	return func(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 		var request PostRequest 
-		utils.UnmarshalRequest(r, &request)
+		err := utils.UnmarshalRequest(r, &request)
+		if err != nil {
+			w.WriteHeader(http.StatusBadRequest)
+			return
+		}
 
 		var post models.Post 
-		var err error
+
 
 		if request.Raw {
 			post, err = s.db.QueryPostRaw(r.Context(), request.Title)
@@ -61,7 +61,7 @@ func (s *Server) getPostByID() httprouter.Handle {
 
 		if err != nil {
 			s.log.Println(err)
-			writeStatus(w, 0)
+			w.WriteHeader(http.StatusInternalServerError)
 			return
 			// IMPLEMENT ERROR HANDLING
 		}
@@ -110,7 +110,7 @@ func (s *Server) updatePost(richText RichTextHandler) httprouter.Handle {
 		err := json.NewDecoder(r.Body).Decode(&post)
 		if err != nil {
 			s.log.Println(err)
-			writeStatus(w, 0)
+			w.WriteHeader(http.StatusBadRequest)
 			return
 			// ADD ERROR HANDLING
 		}
@@ -118,7 +118,7 @@ func (s *Server) updatePost(richText RichTextHandler) httprouter.Handle {
 		html, err := richText.RichTextToHTML(post.Content)
 		if err != nil {
 			s.log.Println(err)
-			writeStatus(w, 0)
+			w.WriteHeader(http.StatusBadRequest)
 			return
 		}
 
@@ -128,7 +128,7 @@ func (s *Server) updatePost(richText RichTextHandler) httprouter.Handle {
 		err = s.db.UpdatePost(r.Context(), post)
 		if err != nil {
 			s.log.Println(err)
-			writeStatus(w, 0)
+			w.WriteHeader(http.StatusInternalServerError)
 			return
 		}
 
@@ -139,19 +139,20 @@ func (s *Server) updatePost(richText RichTextHandler) httprouter.Handle {
 func (s *Server) deletePost()  httprouter.Handle {
 	return func(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 		var request PostRequest 
-		utils.UnmarshalRequest(r, &request)
+		err := utils.UnmarshalRequest(r, &request)
+		if err != nil {
+			w.WriteHeader(http.StatusBadRequest)
+			return
+		}
 
-		err := s.db.DeletePost(r.Context(), request.Title)
+		err = s.db.DeletePost(r.Context(), request.Title)
 		if err != nil {
 			s.log.Println(err)
-			w.Write([]byte(err.Error()))
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 			// IMPLEMENT ERROR HANDLING
 		}
 
-		w.Write([]byte(err.Error()))
-		w.Write([]byte(request.Title))
 		w.WriteHeader(http.StatusOK)
 	}
 }
@@ -159,7 +160,11 @@ func (s *Server) deletePost()  httprouter.Handle {
 func (s *Server) getPostSummaries() httprouter.Handle {
 	return func(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 		var request PostRequest
-		utils.UnmarshalRequest(r, &request)
+		err := utils.UnmarshalRequest(r, &request)
+		if err != nil {
+			w.WriteHeader(http.StatusBadRequest)
+			return
+		}
 		
 		postSummaries, err := s.db.QueryPostSummaries(r.Context(), request.Num)
 		if err != nil {
