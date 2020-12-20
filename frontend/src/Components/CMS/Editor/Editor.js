@@ -8,12 +8,14 @@ import { useParams, useHistory } from 'react-router-dom'
 import { usePostByID, usePostSummaries, createPost, updatePost, deletePost } from '../../../Utils/ContentAPI'
 import { NewPost } from '../../../Models/Posts'
 
+import ClearIcon from '@material-ui/icons/Clear';
+
 import './Editor.css'
 
 export default function Editor(props) {
   const history = useHistory()
 
-  const post = postTitle ? usePostByID(useParams().postID, true) : NewPost()
+  const post = usePostByID(useParams().postID, true)
 
   const [id, setID] = useState(post.id)
   const [title, setTitle] = useState(post.title)
