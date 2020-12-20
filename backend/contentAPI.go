@@ -39,11 +39,9 @@ func writeJSON(w http.ResponseWriter, message interface{}) {
 
 func unwrapBool(s string) bool {
 	value, err := strconv.ParseBool(s)
-
 	if err != nil {
 		return false
 	}
-
 	return value
 }
 
@@ -143,8 +141,7 @@ func (s *Server) deletePost()  httprouter.Handle {
 		var request PostRequest 
 		utils.UnmarshalRequest(r, &request)
 
-		s.db.DeletePost()
-
+		err := s.db.DeletePost(r.Context(), request.Title)
 		if err != nil {
 			s.log.Println(err)
 			writeStatus(w, 0)
@@ -152,7 +149,7 @@ func (s *Server) deletePost()  httprouter.Handle {
 			// IMPLEMENT ERROR HANDLING
 		}
 
-		writeJSON(w, post)
+		w.WriteHeader(http.StatusOK)
 	}
 }
 

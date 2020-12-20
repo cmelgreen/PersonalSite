@@ -172,9 +172,9 @@ func (db *Database) UpdatePost(ctx context.Context, post models.Post) error {
 }
 
 // DeletePost deletes a single post
-func (db *Database) DeletePost(ctx context.Context, id int) error {
-	query := "DELETE post WHERE id=$1;"
-	_, err := db.ExecContext(ctx, query, id)
+func (db *Database) DeletePost(ctx context.Context, title string) error {
+	query := "DELETE post WHERE title=$1;"
+	_, err := db.ExecContext(ctx, query, title)
 
 	return err
 }

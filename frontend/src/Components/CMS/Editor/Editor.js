@@ -6,13 +6,13 @@ import MUIRichTextEditor from 'mui-rte';
 import { useParams, Redirect } from 'react-router-dom'
 
 import { usePostByID, usePostSummaries, createPost, updatePost } from '../../../Utils/ContentAPI'
-import { newPost } from '../../../Models/Posts'
+import { NewPost } from '../../../Models/Posts'
 
 import './Editor.css'
 
 export default function Editor(props) {
   const postTitle = useParams().postID
-  const post = id ? usePostByID(postTitle, true) : newPost()
+  const post = id ? usePostByID(postTitle, true) : NewPost()
 
   const [id, setID] = useState(post.id)
   const [title, setTitle] = useState(post.title)
