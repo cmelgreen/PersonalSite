@@ -34,11 +34,23 @@ const (
 
 // Create router and environment then serve
 func main() {
+	// Setup Server
 	ctx, cancelFn := context.WithTimeout(context.Background(), timeout*time.Second)
 	defer cancelFn()
 
 	s := newServer(ctx)
 
+	// Setup Frontend
+	fileSystem := FS(false)
+	indexHTMLString := FSMustString(false, "/index.html")
+	indexTemplate := template.Must(template.New("index").Parse(indexHTMLString))
+
+	s.ServeStaticSite(indexTemplate, fileSystem)
+	s.setPathsToRedirect(utils.ParseRoutesToRedirect(FSMustByte(false, "/routes.json")))
+
+	s.mux.GET("/health", s.healthCheck())
+
+	// Setup DB for API
 	dbConfig := database.DBConfigFromAWS{
 		BaseAWSRegion:  baseAWSRegion,
 		BaseAWSRoot:    baseAWSRoot,
@@ -49,14 +61,7 @@ func main() {
 
 	s.newDBConnection(ctx, dbConfig)
 
-	fileSystem := FS(false)
-	indexHTMLString := FSMustString(false, "/index.html")
-	tpl := template.Must(template.New("index").Parse(indexHTMLString))
-
-	s.ServeStaticSite(tpl, fileSystem)
-
-	s.mux.GET("/health", s.healthCheck())
-
+	// Add Backend API routes and utils
 	richTextEditor := &utils.DraftJS{}
 	
 	s.mux.GET(apiRoot+"/post", s.getPostByID())
@@ -65,12 +70,12 @@ func main() {
 	s.mux.DELETE(apiRoot+"/post", s.deletePost())
 	s.mux.GET(apiRoot+"/post-summaries", s.getPostSummaries())
 
-	s.setPathsToRedirect(utils.ParseRoutesToRedirect(FSMustByte(false, "/routes.json")))
-
+	// Get port and serve
 	port := os.Getenv(portEnvVar)
 	if port == "" {
 		port = defaultPort
 	}
 
+	// TODO - SERVE HTTPS
 	s.log.Fatal(http.ListenAndServe(port, s.mux))
 }
